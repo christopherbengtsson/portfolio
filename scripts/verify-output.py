@@ -91,7 +91,7 @@ for route, page in pages.items():
     assert robots == (['noindex, follow'] if is_privacy else [])
     assert len(page.tag('h1')) == 1, f'{route}: expected one h1'
     assert len(page.tag('main')) == 1 and page.tag('main')[0].get('id') == 'main'
-    assert len(page.tag('nav')) == 2
+    assert len(page.tag('nav')) == 3
     assert any(a.get('href') == '#main' for a in page.tag('a'))
     assert page.title
     descriptions = [a['content'] for a in page.tag('meta') if a.get('name') == 'description']

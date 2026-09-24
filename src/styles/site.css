@@ -145,7 +145,9 @@ dd {
 .landing-body .landing-success:target { display: block; }
 .landing-body .landing-footer { margin: 0; padding: 0; border-top: 1px solid var(--land-line); color: var(--land-muted); font-size: .75rem; letter-spacing: .1em; }
 .landing-body .landing-footer .landing-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; padding-block: 2rem; }
-.landing-body .landing-footer a { display: inline-flex; align-items: center; min-height: 2.75rem; margin-left: auto; text-decoration: underline; text-underline-offset: .2em; }
+.landing-body .landing-footer nav { margin-left: auto; }
+.landing-body .landing-footer ul { flex-wrap: wrap; gap: .5rem 1.5rem; }
+.landing-body .landing-footer a { display: inline-flex; align-items: center; min-height: 2.75rem; text-decoration: underline; text-underline-offset: .2em; }
 .landing-body .landing-footer p { margin: 0; }
 @media (max-width: 1199px) {
   .landing-body .landing-availability { display: none; }

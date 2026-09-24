@@ -1,12 +1,12 @@
 {
   "skip": "Skip to content",
-  "title": "Christopher Bengtsson — Fullstack software engineer",
-  "description": "Fullstack software engineering for new features, existing systems, maintenance and automation.",
+  "title": "Christopher Bengtsson — Software developer & consultant",
+  "description": "Software development consultant based in Sweden, available for remote, part-time projects. I build features, improve systems and automate tasks.",
   "availability": "Available for part-time projects",
   "themeToggleLabel": "Dark mode",
-  "eyebrow": "Senior fullstack software engineer",
-  "headline": "I build software, automate tasks and optimise existing systems.",
-  "introduction": "I'm Christopher, a fullstack engineer with over nine years of experience across interfaces, backend services, databases, cloud and integrations. I take time to understand business goals and make technical decisions with future development and maintenance in mind.",
+  "eyebrow": "Senior full-stack developer & consultant",
+  "headline": "I build software, automate tasks and improve existing systems.",
+  "introduction": "I'm Christopher, a full-stack developer with over nine years of experience building interfaces, backend services, databases, cloud solutions and integrations. I take time to understand your business goals and build solutions with future development and maintenance in mind.",
   "projectCta": "Tell me about your project",
   "servicesCta": "See what I do",
   "facts": [
@@ -19,54 +19,54 @@
       "Frontend · Backend · Data"
     ],
     [
-      "Based",
+      "Location",
       "Sweden · Remote"
     ],
     [
       "Approach",
-      "Business goals · Technical tradeoffs"
+      "Business goals · Practical solutions"
     ]
   ],
   "services": {
     "eyebrow": "Capabilities",
     "title": "What I do",
-    "intro": "I can take responsibility from the initial need through delivery or work as part of your existing team. These are common ways I can help.",
+    "intro": "I can take a project from idea to delivery or work as part of your existing team. Here's how I can help.",
     "contactCta": "Discuss your project"
   },
   "capabilities": [
     {
       "number": "01",
       "title": "Build and extend",
-      "description": "Build and ship features, internal tools and integrations, including the interface, service and data changes needed to make them work."
+      "description": "I build features, internal tools and integrations, connecting interfaces, backend services and data into a working whole."
     },
     {
       "number": "02",
       "title": "Improve and maintain",
-      "description": "Make existing systems and AI-built apps safer to change through targeted fixes, tests and automated dependency updates."
+      "description": "I make existing systems and apps built with AI easier to maintain and extend through focused fixes, tests and automated dependency updates."
     },
     {
       "number": "03",
       "title": "Reduce manual work",
-      "description": "Build automation that connects tools and services, replaces repetitive steps and handles failures. Use AI where it adds value."
+      "description": "I connect tools and services to automate repetitive tasks, with error handling built in. I use AI where it adds value."
     },
     {
       "number": "04",
       "title": "Review and advise",
-      "description": "Review a codebase, architecture or technical decision and provide prioritized recommendations with the tradeoffs behind them."
+      "description": "I review code, architecture and technical plans, then recommend what to focus on and explain why."
     }
   ],
   "experience": {
     "eyebrow": "Experience",
     "title": "Selected work",
     "intro": "A few projects from employment and consulting assignments, spanning architecture, implementation and long-term ownership.",
-    "note": "The organisations named here do not endorse my independent work."
+    "note": "Mentioning these organizations does not imply that they endorse my independent services."
   },
   "jobs": [
     {
       "period": "2024 – present",
       "project": "Clinical trial platform",
       "company": "Visionite · assignment for Evinova/AstraZeneca",
-      "description": "On Evinova's clinical trial platform for patients, study sites and sponsors, I work across React apps and Hapi/NestJS services in an international team. Some services connect the frontend to Spring Boot backends owned by other teams; others handle notification emails through Kafka events or job queues. I also help troubleshoot issues across environments with QA colleagues, and have worked on a backward-compatible login flow and Playwright/Cucumber tests.",
+      "description": "I work in an international team on Evinova's clinical trial platform for patients, study sites and sponsors. My work spans React apps and Hapi/NestJS services that connect to other teams' Spring Boot backends or send email notifications through Kafka events or job queues. I also troubleshoot issues with QA colleagues and have worked on a backward-compatible login flow and tests in Playwright and Cucumber.",
       "tags": [
         "React",
         "TypeScript",
@@ -77,9 +77,9 @@
     },
     {
       "period": "2020 – 2024",
-      "project": "KYC and Salesforce integration",
+      "project": "Customer verification and Salesforce integration",
       "company": "Trustly · employment",
-      "description": "With another fullstack developer, I built a KYC flow from React forms through an Express API and Postgres to Salesforce. My work covered validation, data storage and integration between the systems.",
+      "description": "Together with another full-stack developer, I built a know-your-customer (KYC) workflow connecting React forms, an Express API, Postgres and Salesforce. My work covered validation, data storage and integration between the systems.",
       "tags": [
         "React",
         "Express",
@@ -92,7 +92,7 @@
       "period": "2020 – 2024",
       "project": "Frontend platform and payment flows",
       "company": "Trustly · employment",
-      "description": "My team was responsible for Trustly's microfrontend architecture, developer tooling and UI library. I helped build the Azura checkout and carried out a complete UI and UX refactor of the PayPal top-up site. I worked mainly in React, but also with Spring Boot and Postgres. My work included real-time data and Playwright tests with accessibility checks.",
+      "description": "My team was responsible for Trustly's microfrontend architecture, developer tooling and UI library. I helped build the Azura checkout and reworked the PayPal top-up site's interface and user experience. I worked mainly in React, alongside Spring Boot and Postgres, with real-time data and Playwright tests that included accessibility checks.",
       "tags": [
         "React",
         "TypeScript",
@@ -106,7 +106,7 @@
       "period": "2017 – 2020",
       "project": "Change-request portal",
       "company": "Headlight / Relight · consulting for the Swedish Transport Administration",
-      "description": "I worked mainly across several projects for the Swedish Transport Administration. The change-request portal was an ongoing responsibility: I built it from scratch as its sole developer and later focused mainly on maintenance. The work involved a SOAP/XML integration, SQL Server stored procedures and regular contact with business stakeholders.",
+      "description": "I worked on several projects for the Swedish Transport Administration. As the sole developer of its change-request portal, I built it from scratch and continued to maintain it. The work involved a SOAP/XML integration, SQL Server stored procedures and regular contact with business stakeholders.",
       "tags": [
         "JavaScript",
         "SCSS",
@@ -127,7 +127,7 @@
     "placeholder": "What are you trying to achieve? What exists today, and where do you need help?",
     "send": "Send inquiry",
     "success": "Thank you! Your inquiry has been sent.",
-    "privacyPrompt": "Before you send, please read how I handle your inquiry in the"
+    "privacyPrompt": "Read how I handle your personal data:"
   },
   "privacy": {
     "eyebrow": "Your data",
@@ -140,5 +140,5 @@
     "rights": "You may ask to access, correct or erase your data, restrict processing, or object to it. Contact me at",
     "complaint": "You can also complain to the"
   },
-  "footer": "Fullstack software engineering"
+  "footer": "Software development consulting"
 }

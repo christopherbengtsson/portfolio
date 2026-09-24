@@ -3,19 +3,19 @@ import { MAX_CONTACT_BYTES, MAX_MESSAGE_LENGTH } from '../../src/lib/contact-lim
 const messages = {
   en: {
     invalid: 'Please check your name, email, and message. The message must contain 10 to 5,000 characters.',
-    invalidName: 'Please enter your name on one line without control characters.',
+    invalidName: 'Please enter your name on one line. If you pasted it, try typing it instead.',
     oversize: 'The form submission is too large. Please shorten it and try again.',
     delivery: 'Your message could not be delivered right now. Please email hello@christopherbengtsson.dev directly.',
-    heading: 'Inquiry could not be sent', back: 'Return to the homepage',
-    name: 'Name', email: 'Email', message: 'Your message', send: 'Try sending again',
+    heading: 'Your inquiry could not be sent', back: 'Back to the contact form',
+    name: 'Name', email: 'Email', message: 'About the project', send: 'Try sending again',
   },
   sv: {
     invalid: 'Kontrollera namn, e-post och meddelande. Meddelandet måste innehålla 10 till 5 000 tecken.',
-    invalidName: 'Skriv namnet på en rad utan kontrolltecken.',
+    invalidName: 'Skriv ditt namn på en rad. Om du klistrade in det, prova att skriva det för hand.',
     oversize: 'Formuläret är för stort. Korta ner innehållet och försök igen.',
     delivery: 'Ditt meddelande kunde inte levereras just nu. Mejla hello@christopherbengtsson.dev direkt.',
-    heading: 'Förfrågan kunde inte skickas', back: 'Tillbaka till startsidan',
-    name: 'Namn', email: 'E-post', message: 'Ditt meddelande', send: 'Försök skicka igen',
+    heading: 'Din förfrågan kunde inte skickas', back: 'Tillbaka till kontaktformuläret',
+    name: 'Namn', email: 'E-post', message: 'Om projektet', send: 'Försök skicka igen',
   },
 };
 

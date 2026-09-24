@@ -3,3 +3,5 @@ dist/
 .astro/
 .wrangler/
 .dev.vars
+.seo-cache/
+NOTES.md
