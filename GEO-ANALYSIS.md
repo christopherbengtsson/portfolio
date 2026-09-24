@@ -80,7 +80,22 @@ This is not presently broken privacy navigation: the production links target its
 | Unknown routes | A deliberately nonexistent route returns HTTP 404, avoiding a homepage fallback. |
 | Local output | `pnpm build` and `python3 scripts/verify-output.py` pass. |
 
-The empty data-URL favicon in `src/layouts/SiteLayout.astro:48` is a small brand-presentation opportunity, not an indexing problem. An `x-default` language annotation is optional; its absence is not a defect here.
+## Missing icon and sharing basics — confirmed follow-up
+
+The initial summary understated this gap. `src/layouts/SiteLayout.astro` explicitly uses `<link rel="icon" href="data:," />`, and `public/` contains no favicon asset. This should be an early, inexpensive fix for browser and search-result presentation. Google can display a site's favicon beside its search result; the empty placeholder supplies no usable branded icon. Add a recognizable square PNG (for example 96 × 96) at a stable crawlable URL, link it from the layout, and optionally provide an ICO for browser compatibility. Appearance in Google remains discretionary. [Google favicon requirements](https://developers.google.com/search/docs/appearance/favicon-in-search).
+
+Additional source checks:
+
+| Item | Status | Action |
+|---|---|---|
+| Favicon | Empty data URL; no asset | Replace with a real branded icon. |
+| Apple touch icon | No asset or link | Add an icon for saved home-screen presentation. |
+| X/Twitter card metadata | No `twitter:*` tags | Add explicit card metadata if sharing on X matters; the actual preview was not tested. |
+| Open Graph images | Localized images and metadata present | Retain; these do not replace a favicon. |
+| Web app manifest | Absent | Optional for this consultancy site; not a core SEO defect. |
+| Theme color | Absent | Optional browser presentation enhancement. |
+
+The existing output validator checks Open Graph metadata and assets but has no favicon assertion, so its passing result did not establish complete icon/share readiness. When implementing icons, verify that the linked files exist and are decodable images rather than merely checking for a `rel="icon"` tag. An `x-default` language annotation is optional; its absence is not a defect here.
 
 ## GEO readiness
 
@@ -121,6 +136,7 @@ The review did not access Search Console, Bing Webmaster Tools, analytics, Cloud
 ## Recommended order
 
 1. Verify real crawler access and reconcile the production version with the intended release.
+   Include the missing favicon and touch icon among the first release-polish fixes.
 2. Add verified identity links and clarify the consulting offer in both languages.
 3. Publish one evidence-rich case study and link it from the homepage.
 4. Redirect www to the apex and align visible education with schema.

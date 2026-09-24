@@ -3,10 +3,62 @@ from pathlib import Path
 from urllib.parse import urlparse
 import json
 import re
+import struct
 import xml.etree.ElementTree as ET
+import zlib
 
 ROOT = Path(__file__).resolve().parents[1] / 'dist'
 ORIGIN = 'https://christopherbengtsson.dev'
+SOCIAL_ALT = {
+    'en': 'Dark CB monogram on a pale square, a thin gray line, and the text Christopher Bengtsson – Software engineering consultancy on a white background.',
+    'sv': 'Mörkt CB-monogram på en ljus kvadrat, en tunn grå linje och texten Christopher Bengtsson – Konsult inom systemutveckling på vit bakgrund.',
+}
+
+
+def verify_png(data, expected_size, label):
+    """Check real PNG dimensions and integrity, without an imaging dependency."""
+    assert data[:8] == b'\x89PNG\r\n\x1a\n', f'{label}: invalid PNG signature'
+    offset = 8
+    chunks = []
+    while offset < len(data):
+        length, kind = struct.unpack_from('>I4s', data, offset)
+        payload = data[offset + 8:offset + 8 + length]
+        crc = struct.unpack_from('>I', data, offset + 8 + length)[0]
+        assert zlib.crc32(kind + payload) == crc, f'{label}: corrupt {kind!r} chunk'
+        chunks.append((kind, payload))
+        offset += length + 12
+    assert offset == len(data) and chunks[0][0] == b'IHDR' and chunks[-1] == (b'IEND', b''), f'{label}: incomplete PNG'
+    width, height, depth, color, compression, filtering, interlace = struct.unpack('>IIBBBBB', chunks[0][1])
+    assert (width, height) == expected_size, f'{label}: expected {expected_size}, got {(width, height)}'
+    assert depth == 8 and color in (2, 6) and (compression, filtering, interlace) == (0, 0, 0), f'{label}: expected non-interlaced RGB/RGBA PNG'
+    pixels = zlib.decompress(b''.join(payload for kind, payload in chunks if kind == b'IDAT'))
+    stride = width * (3 if color == 2 else 4) + 1
+    assert len(pixels) == stride * height, f'{label}: incomplete pixel data'
+    assert all(pixels[row * stride] <= 4 for row in range(height)), f'{label}: invalid PNG filter'
+
+
+for name, size in {
+    'favicon.png': (96, 96), 'apple-touch-icon.png': (180, 180),
+    'og-en.png': (1200, 630), 'og-sv.png': (1200, 630),
+}.items():
+    asset = ROOT / name
+    assert asset.is_file(), f'Missing {name}'
+    verify_png(asset.read_bytes(), size, name)
+
+ico_path = ROOT / 'favicon.ico'
+assert ico_path.is_file(), 'Missing favicon.ico'
+ico = ico_path.read_bytes()
+assert struct.unpack_from('<HHH', ico) == (0, 1, 3), 'favicon.ico: expected three icon frames'
+offset = 6 + 3 * 16
+sizes = []
+for index in range(3):
+    width, height, colors, reserved, planes, depth, length, start = struct.unpack_from('<BBBBHHII', ico, 6 + index * 16)
+    assert width == height and (colors, reserved, planes, depth) == (0, 0, 1, 32), 'favicon.ico: invalid frame metadata'
+    assert start == offset and length > 0 and start + length <= len(ico), 'favicon.ico: invalid frame offset'
+    verify_png(ico[start:start + length], (width, height), f'favicon.ico {width}px')
+    sizes.append(width)
+    offset += length
+assert sorted(sizes) == [16, 32, 48] and offset == len(ico), 'favicon.ico: expected 16, 32, 48px frames and no trailing data'
 
 
 class Page(HTMLParser):
@@ -104,8 +156,25 @@ for route, page in pages.items():
     og = {a.get('property'): a.get('content') for a in page.tag('meta') if a.get('property', '').startswith('og:')}
     assert set(og) >= {'og:title', 'og:type', 'og:description', 'og:url', 'og:image', 'og:image:alt'}
     assert og['og:url'] == canonical[0] and og['og:image'] == f'{ORIGIN}/og-{locale}.png'
-    assert og['og:image:alt'] and (ROOT / f'og-{locale}.png').exists()
+    assert og['og:title'] == page.title and og['og:description'] == descriptions[0]
+    assert og['og:locale'] == ('sv_SE' if locale == 'sv' else 'en_US')
+    assert og['og:image:alt'] == SOCIAL_ALT[locale], f'{route}: incorrect localized artwork description'
+    assert og['og:image:type'] == 'image/png'
     assert og['og:image:width'] == '1200' and og['og:image:height'] == '630'
+    assert len(og) == len([a for a in page.tag('meta') if a.get('property', '').startswith('og:')]), f'{route}: duplicate Open Graph metadata'
+    twitter_tags = [a for a in page.tag('meta') if a.get('name', '').startswith('twitter:')]
+    twitter = {a['name']: a.get('content') for a in twitter_tags}
+    assert len(twitter_tags) == 5 and twitter == {
+        'twitter:card': 'summary_large_image', 'twitter:title': page.title,
+        'twitter:description': descriptions[0], 'twitter:image': f'{ORIGIN}/og-{locale}.png',
+        'twitter:image:alt': SOCIAL_ALT[locale],
+    }, f'{route}: missing, duplicate, or incorrect localized Twitter metadata'
+    icons = [a for a in page.tag('link') if a.get('rel') in ('icon', 'apple-touch-icon')]
+    assert len(icons) == 3 and {a.get('href'): (a.get('rel'), a.get('type'), a.get('sizes')) for a in icons} == {
+        '/favicon.ico': ('icon', 'image/x-icon', '16x16 32x32 48x48'),
+        '/favicon.png': ('icon', 'image/png', '96x96'),
+        '/apple-touch-icon.png': ('apple-touch-icon', None, '180x180'),
+    }, f'{route}: missing or incorrect icon links'
     assert {schema['@type'] for schema in page.schemas} == {'Person', 'WebSite'}
     scripts = page.tag('script')
     if not is_privacy:
@@ -160,4 +229,4 @@ assert f'{ORIGIN}/' in llms and f'{ORIGIN}/sv/' in llms
 assert not any(old in llms for old in ('/services/', '/stories/', '/about/', '/contact/', '/sv/tjanster/', '/sv/berattelser/', '/sv/om/', '/sv/kontakt/'))
 assert (ROOT / '404.html').exists()
 
-print('Validated two landing pages and two noindex privacy pages, section links, forms, sitemap, and metadata.')
+print('Validated two landing pages and two noindex privacy pages, section links, forms, sitemap, icon dimensions and ICO frames, and localized Open Graph/Twitter metadata.')

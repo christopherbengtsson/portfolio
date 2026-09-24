@@ -27,7 +27,21 @@ The former Stories pages, content collection, and RSS feeds have been removed. T
 
 Career descriptions summarize the existing personal site and the supplied résumé facts: Visionite, Trustly, Relight/Headlight, relevant technical work, and the Informatics bachelor’s degree at Örebro University. They are labeled as employment or client work, separate from independent service inquiries. Review the copy against the final résumé before publication.
 
-The original brief specified text-only Open Graph metadata. The subsequent review request updated that requirement: each page now uses a localized, 1200 × 630 PNG preview at an absolute URL, with descriptive `og:image:alt` text. Page titles and descriptions remain localized.
+Each page uses a localized, 1200 × 630 PNG preview at an absolute URL, descriptive image alt text, and a Twitter large-image card. Both social metadata sets use the page's localized title and description. Favicons and the Apple touch icon share the social images' CB monogram.
+
+### Visual identity artwork
+
+`artwork/monogram.svg` is the editable source for the CB mark. `scripts/generate-identity.mjs` generates all five public assets with Playwright and Chrome, using the site's monochrome palette, system-ui typography, 650 heading weight, tight tracking, square edges, and fine dividers. The SVG uses filled geometry for crisp letters; all other text is typeset by the browser. The favicon's opaque pale tile works against both light and dark browser interfaces. Both OG cards share one template with 96px side margins; only the subtitle changes.
+
+```sh
+pnpm generate:identity
+pnpm build
+python3 scripts/verify-output.py
+```
+
+The generator defaults to Chrome's standard macOS location. On other systems, set `CHROME_BIN` to your Chrome/Chromium executable. System fonts can differ by OS; regenerate on the same OS and browser version for matching typography. Generation is a separate authoring step, so deployment needs neither Chrome nor font installation. The committed PNGs and ICO are served directly.
+
+`artwork/previews/index.html` and `identity.png` provide a local review sheet: real 16/32/48px favicon frames on light and dark backgrounds, an enlarged 16px sample, the touch icon, and both OG thumbnails. Review files are outside `public/` and are not deployed. The generator checks text bounds; the output validator checks PNG dimensions and integrity, every ICO frame, icon links, and localized Open Graph and Twitter metadata on all four pages.
 
 ## Cloudflare Pages and email setup
 
