@@ -1,0 +1,8 @@
+---
+import LandingPage from '../container/astro/LandingPage.astro';
+import { getEntry } from 'astro:content';
+
+const home = await getEntry('web', 'en/home');
+if (!home) throw new Error('Missing English landing-page content');
+---
+<LandingPage locale="en" content={home.data} />

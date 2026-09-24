@@ -1,0 +1,162 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+const glowId = `lamp-glow-${crypto.randomUUID()}`;
+const scenes = [
+  { name: 'desktop', width: 128, height: 72, centre: 98, cordEnd: 48 },
+  { name: 'mobile', width: 54, height: 60, centre: 24, cordEnd: 45 },
+];
+---
+
+<button
+  class="lamp-theme-toggle"
+  data-lamp-toggle
+  type="button"
+  aria-label={label}
+  aria-pressed="false"
+  hidden
+>
+  {scenes.map(({ name, width, height, centre, cordEnd }) => (
+    <svg
+      class={`lamp-scene lamp-scene-${name}`}
+      data-lamp-scene={name}
+      viewBox={`0 0 ${width} ${height}`}
+      width={width}
+      height={height}
+      aria-hidden="true"
+      focusable="false"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.6"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <defs>
+        <radialGradient id={`${glowId}-${name}`}>
+          <stop offset="0" stop-color="#a0a0a0" stop-opacity=".29" />
+          <stop offset=".38" stop-color="#a0a0a0" stop-opacity=".1" />
+          <stop offset="1" stop-color="#a0a0a0" stop-opacity="0" />
+        </radialGradient>
+        <radialGradient id={`${glowId}-${name}-shadow`}>
+          <stop offset="0" stop-color="#181818" stop-opacity=".1" />
+          <stop offset=".65" stop-color="#181818" stop-opacity=".035" />
+          <stop offset="1" stop-color="#181818" stop-opacity="0" />
+        </radialGradient>
+      </defs>
+      <g class="lamp-light" data-lamp-glow stroke="none">
+        <circle cx={centre} cy="27" r="29" fill={`url(#${glowId}-${name})`} />
+        <ellipse data-lamp-rim-shadow cx={centre} cy="29.5" rx="12" ry="2" fill={`url(#${glowId}-${name}-shadow)`} />
+      </g>
+      <path class="lamp-shade-interior" data-lamp-interior stroke="none" d={`M ${centre - 15} 26 C ${centre - 10} 19 ${centre - 9} 12 ${centre - 6} 12 C ${centre - 2} 11 ${centre + 4} 11 ${centre + 7} 12 L ${centre + 15} 26 C ${centre + 8} 29 ${centre - 7} 29 ${centre - 15} 26`} />
+      <g data-lamp-bracket>
+        <path d={`M ${width - .8} 19 V 32`} />
+        <path d={`M ${width} 27 C ${width - 10} 28 ${centre + 8} 27 ${centre + 5} 20 C ${centre + 2} 15 ${centre + 1} 12 ${centre + 1} 10`} />
+      </g>
+      <g data-lamp-shade>
+        <path d={`M ${centre - 15} 26 C ${centre - 10} 19 ${centre - 9} 12 ${centre - 6} 12 C ${centre - 2} 11 ${centre + 4} 11 ${centre + 7} 12 L ${centre + 15} 26 C ${centre + 8} 29 ${centre - 7} 29 ${centre - 15} 26`} />
+        <path
+          class="lamp-light lamp-rim"
+          d={`M ${centre - 10} 27 C ${centre - 4} 29 ${centre + 5} 29 ${centre + 10} 27`}
+          stroke="#999"
+          stroke-width="2.2"
+        />
+      </g>
+      <g data-lamp-cord>
+        <path
+          data-lamp-string
+          d={`M ${centre - 8} 29 C ${centre - 8.5} 36 ${centre - 7.6} ${cordEnd - 5} ${centre - 8} ${cordEnd}`}
+        />
+        <ellipse data-lamp-knob cx={centre - 8} cy={cordEnd + 1.5} rx="1.2" ry="2" />
+      </g>
+      {name === 'desktop' && (
+        <g data-lamp-character>
+          <g data-lamp-head>
+            <ellipse cx="48" cy="35" rx="9.4" ry="9.8" transform="rotate(-3.43774677 48 35)" />
+            <circle cx="52.2" cy="34" r=".75" fill="currentColor" stroke="none" />
+          </g>
+          <path d="M 48 45 C 48.5 54 47 66 47 76" />
+          <path d="M 47 48 C 40 51 32 61 25 70" />
+          <path data-lamp-arm d="M 49 48 C 60 52 53 69 65 69" />
+        </g>
+      )}
+    </svg>
+  ))}
+</button>
+
+<style>
+  .lamp-theme-toggle {
+    --lamp-light: 1;
+    display: block;
+    flex: none;
+    width: 54px;
+    height: 60px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: inherit;
+    appearance: none;
+    touch-action: manipulation;
+    cursor: pointer;
+  }
+
+  .lamp-theme-toggle[hidden] {
+    display: none;
+  }
+
+  :global(:root[data-theme='dark']) .lamp-theme-toggle {
+    --lamp-light: 0;
+  }
+
+  .lamp-theme-toggle[data-lamp-toggle]:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: -3px;
+  }
+
+  .lamp-scene {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .lamp-scene-desktop {
+    display: none;
+  }
+
+  .lamp-light {
+    opacity: var(--lamp-light);
+  }
+
+  .lamp-shade-interior {
+    fill: none;
+  }
+
+  .lamp-theme-toggle[data-lamp-on='true'] .lamp-shade-interior {
+    fill: #e9e9e9;
+  }
+
+  .lamp-rim {
+    opacity: calc(var(--lamp-light) * .5);
+  }
+
+  @media (min-width: 1024px) {
+    .lamp-theme-toggle {
+      width: 128px;
+      height: 72px;
+    }
+
+    .lamp-scene-desktop {
+      display: block;
+    }
+
+    .lamp-scene-mobile {
+      display: none;
+    }
+  }
+</style>

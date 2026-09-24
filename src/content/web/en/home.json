@@ -1,0 +1,144 @@
+{
+  "skip": "Skip to content",
+  "title": "Christopher Bengtsson — Fullstack software engineer",
+  "description": "Fullstack software engineering for new features, existing systems, maintenance and automation.",
+  "availability": "Available for part-time projects",
+  "themeToggleLabel": "Dark mode",
+  "eyebrow": "Senior fullstack software engineer",
+  "headline": "I build software, automate tasks and optimise existing systems.",
+  "introduction": "I'm Christopher, a fullstack engineer with over nine years of experience across interfaces, backend services, databases, cloud and integrations. I take time to understand business goals and make technical decisions with future development and maintenance in mind.",
+  "projectCta": "Tell me about your project",
+  "servicesCta": "See what I do",
+  "facts": [
+    [
+      "Experience",
+      "9+ years"
+    ],
+    [
+      "Across the stack",
+      "Frontend · Backend · Data"
+    ],
+    [
+      "Based",
+      "Sweden · Remote"
+    ],
+    [
+      "Approach",
+      "Business goals · Technical tradeoffs"
+    ]
+  ],
+  "services": {
+    "eyebrow": "Capabilities",
+    "title": "What I do",
+    "intro": "I can take responsibility from the initial need through delivery or work as part of your existing team. These are common ways I can help.",
+    "contactCta": "Discuss your project"
+  },
+  "capabilities": [
+    {
+      "number": "01",
+      "title": "Build and extend",
+      "description": "Build and ship features, internal tools and integrations, including the interface, service and data changes needed to make them work."
+    },
+    {
+      "number": "02",
+      "title": "Improve and maintain",
+      "description": "Make existing systems and AI-built apps safer to change through targeted fixes, tests and automated dependency updates."
+    },
+    {
+      "number": "03",
+      "title": "Reduce manual work",
+      "description": "Build automation that connects tools and services, replaces repetitive steps and handles failures. Use AI where it adds value."
+    },
+    {
+      "number": "04",
+      "title": "Review and advise",
+      "description": "Review a codebase, architecture or technical decision and provide prioritized recommendations with the tradeoffs behind them."
+    }
+  ],
+  "experience": {
+    "eyebrow": "Experience",
+    "title": "Selected work",
+    "intro": "A few projects from employment and consulting assignments, spanning architecture, implementation and long-term ownership.",
+    "note": "The organisations named here do not endorse my independent work."
+  },
+  "jobs": [
+    {
+      "period": "2024 – present",
+      "project": "Clinical trial platform",
+      "company": "Visionite · assignment for Evinova/AstraZeneca",
+      "description": "On Evinova's clinical trial platform for patients, study sites and sponsors, I work across React apps and Hapi/NestJS services in an international team. Some services connect the frontend to Spring Boot backends owned by other teams; others handle notification emails through Kafka events or job queues. I also help troubleshoot issues across environments with QA colleagues, and have worked on a backward-compatible login flow and Playwright/Cucumber tests.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "Hapi / NestJS",
+        "Kafka / MongoDB",
+        "Playwright / Cucumber"
+      ]
+    },
+    {
+      "period": "2020 – 2024",
+      "project": "KYC and Salesforce integration",
+      "company": "Trustly · employment",
+      "description": "With another fullstack developer, I built a KYC flow from React forms through an Express API and Postgres to Salesforce. My work covered validation, data storage and integration between the systems.",
+      "tags": [
+        "React",
+        "Express",
+        "Postgres",
+        "Prisma",
+        "Salesforce"
+      ]
+    },
+    {
+      "period": "2020 – 2024",
+      "project": "Frontend platform and payment flows",
+      "company": "Trustly · employment",
+      "description": "My team was responsible for Trustly's microfrontend architecture, developer tooling and UI library. I helped build the Azura checkout and carried out a complete UI and UX refactor of the PayPal top-up site. I worked mainly in React, but also with Spring Boot and Postgres. My work included real-time data and Playwright tests with accessibility checks.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "Spring Boot",
+        "Postgres",
+        "Storybook",
+        "Playwright"
+      ]
+    },
+    {
+      "period": "2017 – 2020",
+      "project": "Change-request portal",
+      "company": "Headlight / Relight · consulting for the Swedish Transport Administration",
+      "description": "I worked mainly across several projects for the Swedish Transport Administration. The change-request portal was an ongoing responsibility: I built it from scratch as its sole developer and later focused mainly on maintenance. The work involved a SOAP/XML integration, SQL Server stored procedures and regular contact with business stakeholders.",
+      "tags": [
+        "JavaScript",
+        "SCSS",
+        "K2",
+        "MS SQL Server",
+        "SOAP",
+        "C#/.NET"
+      ]
+    }
+  ],
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Tell me about your project",
+    "intro": "Tell me what you want to build, improve or automate. A short description is enough to start.",
+    "name": "Name",
+    "email": "Email",
+    "message": "About the project",
+    "placeholder": "What are you trying to achieve? What exists today, and where do you need help?",
+    "send": "Send inquiry",
+    "success": "Thank you! Your inquiry has been sent.",
+    "privacyPrompt": "Before you send, please read how I handle your inquiry in the"
+  },
+  "privacy": {
+    "eyebrow": "Your data",
+    "title": "Privacy information",
+    "controller": "Christopher Bengtsson is responsible for personal data sent through this site. You can contact me at the email address below.",
+    "purpose": "When you send an inquiry, I use your name, email address and message to read it, respond and discuss a possible project. Please do not include sensitive personal information in the message.",
+    "basis": "I rely on my legitimate interest in responding to relevant inquiries and considering potential work. You can object to this processing at any time.",
+    "providers": "Cloudflare hosts the site and handles the form and email forwarding. Resend sends the inquiry email, and Microsoft handles my destination mailbox. These providers process the data needed to deliver the message. Their services may process data outside the EU/EEA under their applicable data-transfer safeguards.",
+    "retention": "I delete unanswered inquiries after 12 months. If we begin working together, I may keep relevant correspondence for the relationship and any applicable legal obligations.",
+    "rights": "You may ask to access, correct or erase your data, restrict processing, or object to it. Contact me at",
+    "complaint": "You can also complain to the"
+  },
+  "footer": "Fullstack software engineering"
+}

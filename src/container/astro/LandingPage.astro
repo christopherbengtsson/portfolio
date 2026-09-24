@@ -1,0 +1,108 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import type { WebHome } from '../../content.config';
+import { email, type Locale } from '../../lib/site';
+import { MAX_MESSAGE_LENGTH } from '../../lib/contact-limits.js';
+
+const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome };
+---
+<SiteLayout locale={locale} title={t.title} description={t.description} content={t}>
+  <section id="top" class="landing-hero" aria-labelledby="hero-title">
+    <div class="landing-wrap">
+      <p class="landing-kicker">{t.eyebrow}</p>
+      <h1 id="hero-title">{t.headline}</h1>
+      <p class="landing-intro">{t.introduction}</p>
+      <p class="landing-mobile-availability">{t.availability}</p>
+      <div class="landing-actions">
+        <a class="landing-button" href="#contact">{t.projectCta} <span aria-hidden="true">→</span></a>
+        <a class="landing-button landing-button-secondary" href="#services">{t.servicesCta}</a>
+      </div>
+      <dl class="landing-facts">
+        {t.facts.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
+      </dl>
+    </div>
+  </section>
+
+  <section id="services" class="landing-section" aria-labelledby="services-title">
+    <div class="landing-wrap">
+      <div class="landing-section-head">
+        <p class="landing-kicker">{t.services.eyebrow}</p>
+        <h2 id="services-title">{t.services.title}</h2>
+        <p>{t.services.intro}</p>
+      </div>
+      <ol class="landing-capabilities">
+        {t.capabilities.map((capability) => <li>
+          <span class="landing-capability-number" aria-hidden="true">{capability.number}</span>
+          <h3>{capability.title}</h3>
+          <p>{capability.description}</p>
+        </li>)}
+      </ol>
+      <a class="landing-button landing-capabilities-cta" href="#contact">{t.services.contactCta} <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <section id="experience" class="landing-section" aria-labelledby="experience-title">
+    <div class="landing-wrap">
+      <div class="landing-section-head">
+        <p class="landing-kicker">{t.experience.eyebrow}</p>
+        <h2 id="experience-title">{t.experience.title}</h2>
+        <p>{t.experience.intro}</p>
+      </div>
+      <ol class="landing-jobs">
+        {t.jobs.map((job) => <li>
+          <p class="landing-job-period">{job.period}</p>
+          <article>
+            <h3>{job.project}</h3>
+            <p class="landing-job-role">{job.company}</p>
+            <p class="landing-job-description">{job.description}</p>
+            <ul class="landing-tags" aria-label={locale === 'sv' ? 'Tekniker' : 'Technologies'}>{job.tags.map((tag) => <li>{tag}</li>)}</ul>
+          </article>
+        </li>)}
+      </ol>
+      <p class="landing-experience-note">{t.experience.note}</p>
+    </div>
+  </section>
+
+  <section id="contact" class="landing-section" aria-labelledby="contact-title">
+    <div class="landing-wrap landing-contact-layout">
+      <div class="landing-contact-intro">
+        <div class="landing-section-head">
+          <p class="landing-kicker">{t.contact.eyebrow}</p>
+          <h2 id="contact-title">{t.contact.title}</h2>
+          <p>{t.contact.intro}</p>
+        </div>
+        <a class="landing-email" href={`mailto:${email}`}>{email}</a>
+        <p id="contact-success" class="landing-success" role="status" tabindex="-1">{t.contact.success}</p>
+      </div>
+      <form class="landing-form" method="post" action={`/api/contact?locale=${locale}`} accept-charset="UTF-8">
+        <input type="hidden" name="locale" value={locale} />
+        <div class="landing-form-row">
+          <div><label for={`landing-name-${locale}`}>{t.contact.name}</label><input id={`landing-name-${locale}`} name="name" autocomplete="name" maxlength="120" required /></div>
+          <div><label for={`landing-email-${locale}`}>{t.contact.email}</label><input id={`landing-email-${locale}`} name="email" type="email" autocomplete="email" maxlength="254" required /></div>
+        </div>
+        <div><label for={`landing-message-${locale}`}>{t.contact.message}</label><textarea id={`landing-message-${locale}`} name="message" rows="5" placeholder={t.contact.placeholder} minlength="10" maxlength={MAX_MESSAGE_LENGTH} required></textarea></div>
+        <div class="honeypot" aria-hidden="true"><label for={`landing-company-${locale}`}>Company website</label><input id={`landing-company-${locale}`} name="company_site" tabindex="-1" autocomplete="off" /></div>
+        <button class="landing-button" type="submit">{t.contact.send} <span aria-hidden="true">→</span></button>
+        <p class="landing-form-privacy">{t.contact.privacyPrompt} <a href="#privacy">{t.privacy.title}</a>.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="privacy" class="landing-section landing-privacy" aria-labelledby="privacy-title">
+    <div class="landing-wrap">
+      <p class="landing-kicker">{t.privacy.eyebrow}</p>
+      <h2 id="privacy-title">{t.privacy.title}</h2>
+      <p>{t.privacy.controller}</p>
+      <p>{t.privacy.purpose}</p>
+      <p>{t.privacy.basis}</p>
+      <p>{t.privacy.providers}</p>
+      <p>{t.privacy.retention}</p>
+      <p>{t.privacy.rights} <a href={`mailto:${email}`}>{email}</a>.</p>
+      <p>{t.privacy.complaint} <a href="https://www.imy.se/">{locale === 'sv' ? 'Integritetsskyddsmyndigheten (IMY)' : 'Swedish Authority for Privacy Protection (IMY)'}</a>.</p>
+    </div>
+  </section>
+
+  <script>
+    if (location.hash === '#contact-success') document.getElementById('contact-success')?.focus();
+  </script>
+</SiteLayout>

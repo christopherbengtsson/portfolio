@@ -1,0 +1,22 @@
+{
+  "name": "christopher-bengtsson-site",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.12.4",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "check": "astro check",
+    "test": "node --test tests/*.test.js",
+    "check:rate-limit": "node scripts/check-contact-rate-limit.mjs",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^7.3.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "playwright-core": "^1.63.0",
+    "typescript": "^6.0.3"
+  }
+}

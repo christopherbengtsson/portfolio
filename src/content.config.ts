@@ -1,0 +1,78 @@
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+
+const pair = z.tuple([z.string(), z.string()]);
+const capability = z.object({
+  number: z.string(),
+  title: z.string(),
+  description: z.string(),
+});
+const job = z.object({
+  period: z.string(),
+  project: z.string(),
+  company: z.string(),
+  description: z.string(),
+  tags: z.array(z.string()),
+});
+
+const webSchema = z.object({
+  skip: z.string(),
+  title: z.string(),
+  description: z.string(),
+  availability: z.string(),
+  themeToggleLabel: z.string(),
+  eyebrow: z.string(),
+  headline: z.string(),
+  introduction: z.string(),
+  projectCta: z.string(),
+  servicesCta: z.string(),
+  facts: z.array(pair),
+  services: z.object({
+    eyebrow: z.string(),
+    title: z.string(),
+    intro: z.string(),
+    contactCta: z.string(),
+  }),
+  capabilities: z.array(capability),
+  experience: z.object({
+    eyebrow: z.string(),
+    title: z.string(),
+    intro: z.string(),
+    note: z.string(),
+  }),
+  jobs: z.array(job),
+  contact: z.object({
+    eyebrow: z.string(),
+    title: z.string(),
+    intro: z.string(),
+    name: z.string(),
+    email: z.string(),
+    message: z.string(),
+    placeholder: z.string(),
+    send: z.string(),
+    success: z.string(),
+    privacyPrompt: z.string(),
+  }),
+  privacy: z.object({
+    eyebrow: z.string(),
+    title: z.string(),
+    controller: z.string(),
+    purpose: z.string(),
+    basis: z.string(),
+    providers: z.string(),
+    retention: z.string(),
+    rights: z.string(),
+    complaint: z.string(),
+  }),
+  footer: z.string(),
+});
+
+export type WebHome = z.infer<typeof webSchema>;
+
+const web = defineCollection({
+  loader: glob({ pattern: '**/home.json', base: './src/content/web' }),
+  schema: webSchema,
+});
+
+export const collections = { web };

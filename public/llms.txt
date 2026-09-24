@@ -1,0 +1,12 @@
+# Christopher Bengtsson
+
+> Fullstack software engineer working across new features, existing systems, software maintenance and workflow automation. English and Swedish landing pages are available.
+
+- [English homepage](https://christopherbengtsson.dev/)
+- [Svensk startsida](https://christopherbengtsson.dev/sv/)
+- [What I do](https://christopherbengtsson.dev/#services)
+- [Så kan jag hjälpa till](https://christopherbengtsson.dev/sv/#services)
+- [Contact](https://christopherbengtsson.dev/#contact)
+- [Kontakt](https://christopherbengtsson.dev/sv/#contact)
+
+Employment and client work described on this site are background experience, not endorsements of independent services.

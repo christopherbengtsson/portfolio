@@ -1,0 +1,112 @@
+{
+  "skip": "Hoppa till innehållet",
+  "title": "Christopher Bengtsson — Fullstack-utvecklare",
+  "description": "Fullstack-utveckling för nya funktioner, befintliga system, underhåll och automatisering.",
+  "availability": "Öppen för avgränsade uppdrag",
+  "themeToggleLabel": "Mörkt läge",
+  "eyebrow": "Senior fullstack-utvecklare",
+  "headline": "Jag utvecklar programvara, automatiserar uppgifter och optimerar befintliga system.",
+  "introduction": "Jag heter Christopher och är fullstack-utvecklare med över nio års erfarenhet av gränssnitt, backendtjänster, databaser, molntjänster och integrationer. Jag sätter mig in i verksamhetens mål och gör tekniska val med vidareutveckling och underhåll i åtanke.",
+  "projectCta": "Berätta om ditt projekt",
+  "servicesCta": "Se vad jag gör",
+  "facts": [
+    ["Erfarenhet", "9+ år"],
+    ["Hela stacken", "Frontend · Backend · Data"],
+    ["Bas", "Sverige · Remote"],
+    ["Arbetssätt", "Verksamhetsmål · Tekniska avvägningar"]
+  ],
+  "services": {
+    "eyebrow": "Kompetensområden",
+    "title": "Vad jag gör",
+    "intro": "Jag kan ta ansvar från behov till leverans eller arbeta som en del av ert befintliga team. Här är några vanliga sätt jag kan bidra.",
+    "contactCta": "Diskutera ditt projekt"
+  },
+  "capabilities": [
+    {
+      "number": "01",
+      "title": "Bygga och vidareutveckla",
+      "description": "Bygga och leverera funktioner, interna verktyg och integrationer, med de ändringar i gränssnitt, tjänster och data som behövs för att helheten ska fungera."
+    },
+    {
+      "number": "02",
+      "title": "Förbättra och underhålla",
+      "description": "Göra befintliga system och AI-byggda appar enklare att vidareutveckla med riktade rättningar, tester och automatiserade beroendeuppdateringar."
+    },
+    {
+      "number": "03",
+      "title": "Minska manuellt arbete",
+      "description": "Bygga automatiseringar som kopplar ihop verktyg och tjänster, ersätter återkommande manuella steg och hanterar fel. Använda AI där det tillför värde."
+    },
+    {
+      "number": "04",
+      "title": "Granska och ge råd",
+      "description": "Granska en kodbas, arkitektur eller ett tekniskt vägval och ge prioriterade rekommendationer med tydliga tekniska avvägningar."
+    }
+  ],
+  "experience": {
+    "eyebrow": "Erfarenhet",
+    "title": "Utvalda projekt",
+    "intro": "Några projekt från mina anställningar och konsultuppdrag som visar hur jag arbetar med arkitektur, genomförande och långsiktigt ansvar.",
+    "note": "Organisationerna som nämns här står inte bakom mina fristående uppdrag."
+  },
+  "jobs": [
+    {
+      "period": "2024 – nu",
+      "project": "Plattform för kliniska studier",
+      "company": "Visionite · uppdrag för Evinova/AstraZeneca",
+      "description": "På Evinovas plattform för kliniska studier, som vänder sig till patienter, prövningscenter och studiesponsorer, arbetar jag i ett internationellt team med React-appar och tjänster i Hapi och NestJS. Vissa tjänster kopplar gränssnittet till Spring Boot-tjänster som andra team ansvarar för; andra hanterar e-postaviseringar via Kafka-händelser eller jobbköer. Jag hjälper också till att felsöka problem i olika miljöer med QA-kollegor och har arbetat med ett bakåtkompatibelt inloggningsflöde och tester i Playwright/Cucumber.",
+      "tags": [
+        "React",
+        "TypeScript",
+        "Hapi / NestJS",
+        "Kafka / MongoDB",
+        "Playwright / Cucumber"
+      ]
+    },
+    {
+      "period": "2020 – 2024",
+      "project": "Kundkännedom och Salesforce-integration",
+      "company": "Trustly · anställning",
+      "description": "Tillsammans med en annan fullstack-utvecklare byggde jag ett flöde för kundkännedom, från formulär i React via ett Express-API och Postgres till Salesforce. Jag arbetade med validering, datalagring och integrationen mellan systemen.",
+      "tags": ["React", "Express", "Postgres", "Prisma", "Salesforce"]
+    },
+    {
+      "period": "2020 – 2024",
+      "project": "Frontendplattform och betalflöden",
+      "company": "Trustly · anställning",
+      "description": "Mitt team ansvarade för Trustlys mikrofrontendarkitektur, utvecklingsverktyg och UI-bibliotek. Jag var med och byggde Azura checkout och gjorde en fullständig omarbetning av PayPal top-up-sajtens gränssnitt och användarupplevelse. Jag arbetade främst i React, men även med Spring Boot och Postgres. Arbetet omfattade realtidsdata och Playwright-tester med tillgänglighetskontroller.",
+      "tags": ["React", "TypeScript", "Spring Boot", "Postgres", "Storybook", "Playwright"]
+    },
+    {
+      "period": "2017 – 2020",
+      "project": "Portal för ändringsärenden",
+      "company": "Headlight / Relight · konsult hos Trafikverket",
+      "description": "Jag arbetade huvudsakligen i olika projekt för Trafikverket. Portalen för ändringsärenden var ett genomgående ansvar: jag byggde den från grunden som ensam utvecklare och arbetade senare främst med förvaltning och underhåll. Arbetet omfattade SOAP/XML-integration, lagrade procedurer i SQL Server och löpande kontakt med verksamheten.",
+      "tags": ["JavaScript", "SCSS", "K2", "MS SQL Server", "SOAP", "C#/.NET"]
+    }
+  ],
+  "contact": {
+    "eyebrow": "Kontakt",
+    "title": "Berätta om ditt projekt",
+    "intro": "Berätta vad du vill bygga, förbättra eller automatisera. En kort beskrivning räcker för att börja.",
+    "name": "Namn",
+    "email": "E-post",
+    "message": "Om projektet",
+    "placeholder": "Vad vill du uppnå? Vad finns i dag, och var behöver du hjälp?",
+    "send": "Skicka förfrågan",
+    "success": "Tack! Din förfrågan har skickats.",
+    "privacyPrompt": "Läs hur jag hanterar din förfrågan i min"
+  },
+  "privacy": {
+    "eyebrow": "Dina uppgifter",
+    "title": "Integritetsinformation",
+    "controller": "Christopher Bengtsson är personuppgiftsansvarig för uppgifter som skickas via webbplatsen. Du kan kontakta mig på e-postadressen nedan.",
+    "purpose": "När du skickar en förfrågan använder jag ditt namn, din e-postadress och ditt meddelande för att läsa och besvara förfrågan och diskutera ett möjligt uppdrag. Skriv inte känsliga personuppgifter i meddelandet.",
+    "basis": "Jag stödjer behandlingen på mitt berättigade intresse av att besvara relevanta förfrågningar och överväga möjliga uppdrag. Du kan invända mot behandlingen när som helst.",
+    "providers": "Cloudflare är värd för webbplatsen och hanterar formuläret och vidarebefordran av e-post. Resend skickar förfrågans e-postmeddelande och Microsoft hanterar min mottagande brevlåda. Leverantörerna behandlar de uppgifter som behövs för att leverera meddelandet. Deras tjänster kan behandla uppgifter utanför EU/EES enligt tillämpliga skyddsåtgärder för överföring.",
+    "retention": "Jag raderar obesvarade förfrågningar efter 12 månader. Om vi börjar arbeta tillsammans kan jag spara relevant korrespondens under samarbetet och så länge lagliga skyldigheter kräver det.",
+    "rights": "Du kan begära tillgång till, rättelse eller radering av dina uppgifter, begränsa behandlingen eller invända mot den. Kontakta mig på",
+    "complaint": "Du kan också klaga hos"
+  },
+  "footer": "Fullstack-utveckling"
+}

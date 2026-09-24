@@ -1,0 +1,7 @@
+User-agent: Googlebot
+User-agent: Bingbot
+User-agent: OAI-SearchBot
+User-agent: PerplexityBot
+User-agent: *
+Allow: /
+Sitemap: https://christopherbengtsson.dev/sitemap.xml

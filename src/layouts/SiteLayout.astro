@@ -1,0 +1,139 @@
+---
+import '../styles/site.css';
+import LampThemeToggle from '../components/astro/LampThemeToggle.astro';
+import type { WebHome } from '../content.config';
+import { absolute, email, homePath, otherLocale, origin, type Locale } from '../lib/site';
+
+interface Props {
+  locale: Locale;
+  title: string;
+  description: string;
+  content: WebHome;
+}
+
+const { locale, title, description, content: t } = Astro.props;
+const canonical = absolute(homePath(locale));
+const person = {
+  '@context': 'https://schema.org', '@type': 'Person', '@id': `${origin}/#person`,
+  name: 'Christopher Bengtsson', url: origin, email,
+  jobTitle: locale === 'sv' ? 'Systemutvecklare' : 'Software engineer',
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Örebro University' },
+  knowsAbout: ['Fullstack software engineering', 'System integrations', 'Software maintenance', 'Workflow automation', 'Technical review'],
+};
+const website = {
+  '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${origin}/#website`,
+  name: 'Christopher Bengtsson', url: origin, inLanguage: ['en', 'sv'],
+  publisher: { '@id': `${origin}/#person` },
+};
+const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
+---
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <script is:inline>
+      (() => {
+        let saved;
+        try { saved = localStorage.getItem('theme'); } catch { /* Storage can be unavailable. */ }
+        const systemDark = matchMedia('(prefers-color-scheme: dark)').matches;
+        const theme = saved === 'dark' || saved === 'light' ? saved : systemDark ? 'dark' : 'light';
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <link rel="icon" href="data:," />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={locale} href={canonical} />
+    <link rel="alternate" hreflang={otherLocale(locale)} href={absolute(homePath(otherLocale(locale)))} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Christopher Bengtsson" />
+    <meta property="og:locale" content={locale === 'sv' ? 'sv_SE' : 'en_US'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={absolute(`/og-${locale}.png`)} />
+    <meta property="og:image:alt" content={locale === 'sv' ? 'Christopher Bengtsson och texten Konsult inom systemutveckling mot ljus bakgrund.' : 'Christopher Bengtsson and the words Software engineering consultancy on a light background.'} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <script type="application/ld+json" set:html={json(person)} />
+    <script type="application/ld+json" set:html={json(website)} />
+  </head>
+  <body class="landing-body">
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <header class="landing-header">
+      <div class="landing-header-inner">
+        <a class="landing-brand" href="#top">Christopher Bengtsson</a>
+        <p class="landing-availability">{t.availability}</p>
+        <nav class="landing-section-nav" aria-label={locale === 'sv' ? 'Sektioner' : 'Sections'}>
+          <ul>
+            <li><a href="#services">{locale === 'sv' ? 'Kompetens' : 'What I do'}</a></li>
+            <li><a href="#experience">{locale === 'sv' ? 'Erfarenhet' : 'Experience'}</a></li>
+            <li><a href="#contact">{locale === 'sv' ? 'Kontakt' : 'Contact'}</a></li>
+          </ul>
+        </nav>
+        <nav aria-label={locale === 'sv' ? 'Språk' : 'Language'} class="landing-language">
+          <details>
+            <summary aria-label={locale === 'sv' ? 'Välj språk, nuvarande svenska' : 'Choose language, current English'}>{locale.toUpperCase()}<svg aria-hidden="true" viewBox="0 0 12 12" fill="none"><path d="m2.5 4.5 3.5 3 3.5-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
+            <ul>
+              <li><a href="/sv/" lang="sv" hreflang="sv" aria-current={locale === 'sv' ? 'page' : undefined}>Svenska</a></li>
+              <li><a href="/" lang="en" hreflang="en" aria-current={locale === 'en' ? 'page' : undefined}>English</a></li>
+            </ul>
+          </details>
+        </nav>
+      </div>
+      <div class="landing-scene"><LampThemeToggle label={t.themeToggleLabel} /></div>
+    </header>
+    <main id="main" class="landing-main"><slot /></main>
+    <footer class="landing-footer"><div class="landing-wrap"><p>Christopher Bengtsson · {t.footer}</p></div></footer>
+    <script>
+      import { initLampMotion } from '../components/astro/lamp-motion';
+      import { createThemePalette, type Theme } from '../lib/theme-palette';
+
+      const root = document.documentElement;
+      const button = document.querySelector<HTMLButtonElement>('button[data-lamp-toggle]');
+
+      if (button) {
+        const media = matchMedia('(prefers-color-scheme: dark)');
+        let explicit: Theme | null = null;
+        try {
+          const saved = localStorage.getItem('theme');
+          if (saved === 'light' || saved === 'dark') explicit = saved;
+        } catch { /* A choice still works for this page when storage is blocked. */ }
+
+        let theme: Theme = root.dataset.theme === 'dark' ? 'dark' : 'light';
+        const palette = createThemePalette(root);
+        const render = (next: Theme, animate = false) => {
+          theme = next;
+          palette.apply(next, animate);
+          button.setAttribute('aria-pressed', String(next === 'dark'));
+        };
+
+        const motion = initLampMotion(button, () => theme, (next: Theme) => {
+          explicit = next;
+          try { localStorage.setItem('theme', next); } catch { /* Keep the in-page choice. */ }
+          render(next, true);
+        });
+
+        render(explicit ?? (media.matches ? 'dark' : 'light'));
+        motion.sync();
+        button.hidden = false;
+
+        media.addEventListener('change', () => {
+          if (explicit) return;
+          render(media.matches ? 'dark' : 'light', true);
+          motion.sync();
+        });
+        window.addEventListener('storage', (event) => {
+          if (event.key !== 'theme' && event.key !== null) return;
+          explicit = event.newValue === 'dark' || event.newValue === 'light' ? event.newValue : null;
+          render(explicit ?? (media.matches ? 'dark' : 'light'), true);
+          motion.sync();
+        });
+      }
+    </script>
+  </body>
+</html>
