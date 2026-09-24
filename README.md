@@ -1,6 +1,6 @@
 # Christopher Bengtsson consultancy site
 
-Static Astro site in English and Swedish, intended for Cloudflare Pages.
+Static Astro site in English and Swedish, deployed from `christopherbengtsson/portfolio` to [Cloudflare Pages](https://portfolio-33y.pages.dev/). The custom domain cutover is in progress.
 
 ## Local work
 
@@ -44,4 +44,4 @@ Create the one Cloudflare WAF rate limiting rule available on the Free plan for 
 
 ## Local verification result
 
-On 23 September 2026, `pnpm check`, `pnpm test` (14 passing), `pnpm build`, and `python3 scripts/verify-output.py` passed. The output validator checked exactly two landing pages, their section links and forms, canonical and reciprocal language links, localized Open Graph images and alt text, Person and WebSite JSON-LD, the two-URL sitemap, and absence of old pages and RSS feeds. Browser checks passed at 375, 768, and 1440 pixels, including horizontal overflow, headings, keyboard access, the four capability cards, and the landing-page confirmation message. The confirmation is also visible without JavaScript. The generated landing pages use a small inline confirmation script and one CSS bundle before compression. A hosted Pages preview and real contact delivery have not been checked for this revision.
+On 24 September 2026, `pnpm check`, `pnpm test` (14 passing), `pnpm build`, and `python3 scripts/verify-output.py` passed. The output validator checked exactly two landing pages, their section links and forms, canonical and reciprocal language links, localized Open Graph images and alt text, Person and WebSite JSON-LD, the two-URL sitemap, and absence of old pages and RSS feeds. Browser checks passed at 375, 768, and 1440 pixels, including horizontal overflow, headings, keyboard access, the four capability cards, and the landing-page confirmation message. The confirmation is also visible without JavaScript. The generated landing pages use a small inline confirmation script and one CSS bundle before compression. The Pages deployment serves both languages, a real 404, and a localized 400 from the hosted contact Function. Real email delivery awaits Cloudflare Email Routing activation after nameserver propagation.
