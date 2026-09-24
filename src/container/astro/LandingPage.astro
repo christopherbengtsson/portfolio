@@ -25,12 +25,12 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
 
   <section id="services" class="landing-section" aria-labelledby="services-title">
     <div class="landing-wrap">
-      <div class="landing-section-head">
+      <div class="landing-section-head" data-reveal>
         <p class="landing-kicker">{t.services.eyebrow}</p>
         <h2 id="services-title">{t.services.title}</h2>
         <p>{t.services.intro}</p>
       </div>
-      <ol class="landing-capabilities">
+      <ol class="landing-capabilities" data-reveal>
         {t.capabilities.map((capability) => <li>
           <span class="landing-capability-number" aria-hidden="true">{capability.number}</span>
           <h3>{capability.title}</h3>
@@ -43,13 +43,13 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
 
   <section id="experience" class="landing-section" aria-labelledby="experience-title">
     <div class="landing-wrap">
-      <div class="landing-section-head">
+      <div class="landing-section-head" data-reveal>
         <p class="landing-kicker">{t.experience.eyebrow}</p>
         <h2 id="experience-title">{t.experience.title}</h2>
         <p>{t.experience.intro}</p>
       </div>
       <ol class="landing-jobs">
-        {t.jobs.map((job) => <li>
+        {t.jobs.map((job) => <li data-reveal>
           <p class="landing-job-period">{job.period}</p>
           <article>
             <h3>{job.project}</h3>
@@ -65,16 +65,22 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
 
   <section id="contact" class="landing-section" aria-labelledby="contact-title">
     <div class="landing-wrap landing-contact-layout">
-      <div class="landing-contact-intro">
+      <div class="landing-contact-intro" data-reveal>
         <div class="landing-section-head">
           <p class="landing-kicker">{t.contact.eyebrow}</p>
           <h2 id="contact-title">{t.contact.title}</h2>
           <p>{t.contact.intro}</p>
         </div>
         <a class="landing-email" href={`mailto:${email}`}>{email}</a>
-        <p id="contact-success" class="landing-success" role="status" tabindex="-1">{t.contact.success}</p>
+        <p id="contact-success" class="landing-success" role="status" tabindex="-1">
+          <svg class="landing-success-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+            <path d="m7.5 12 3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" />
+          </svg>
+          <span>{t.contact.success}</span>
+        </p>
       </div>
-      <form class="landing-form" method="post" action={`/api/contact?locale=${locale}`} accept-charset="UTF-8">
+      <form class="landing-form" data-reveal method="post" action={`/api/contact?locale=${locale}`} accept-charset="UTF-8">
         <input type="hidden" name="locale" value={locale} />
         <div class="landing-form-row">
           <div><label for={`landing-name-${locale}`}>{t.contact.name}</label><input id={`landing-name-${locale}`} name="name" autocomplete="name" maxlength="120" required /></div>

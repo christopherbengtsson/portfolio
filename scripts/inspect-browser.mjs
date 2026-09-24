@@ -235,7 +235,8 @@ try {
     return count;
   });
   assert.equal(idleMutations, 0, 'idle scene continues mutating');
-  await motionPage.evaluate(() => scrollTo(0, document.body.scrollHeight));
+  // Isolate header positioning from the site's smooth anchor scrolling.
+  await motionPage.evaluate(() => scrollTo({ top: document.body.scrollHeight, behavior: 'instant' }));
   assert.ok(await motionPage.locator('.landing-header').evaluate((node) => node.getBoundingClientRect().bottom < 0), 'header remained sticky');
   await motionContext.close();
 

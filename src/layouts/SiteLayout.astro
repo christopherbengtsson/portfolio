@@ -118,6 +118,9 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
     <script>
       import { initLampMotion } from '../components/astro/lamp-motion';
       import { createThemePalette, type Theme } from '../lib/theme-palette';
+      import { initSiteInteractions } from '../components/astro/site-interactions';
+
+      initSiteInteractions();
 
       const root = document.documentElement;
       const button = document.querySelector<HTMLButtonElement>('button[data-lamp-toggle]');

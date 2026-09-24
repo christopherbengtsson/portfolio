@@ -141,14 +141,121 @@ dd {
 .landing-body .landing-form-privacy a, .landing-body .landing-privacy a { text-decoration: underline; text-underline-offset: .2em; }
 .landing-body .landing-privacy h1 { margin: 1rem 0 2rem; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; }
 .landing-body .landing-privacy p:not(.landing-kicker) { max-width: 52rem; margin: 0 0 1rem; color: var(--land-muted); line-height: 1.7; }
-.landing-body .landing-success { display: none; margin: 1.5rem 0 0; padding: 1rem; border: 1px solid var(--land-line); font-size: 1rem; scroll-margin-top: 1rem; }
-.landing-body .landing-success:target { display: block; }
+.landing-body .landing-success { display: none; align-items: flex-start; gap: .75rem; margin: 1.5rem 0 0; padding: 1rem; border: 1px solid var(--land-line); border-left: 2px solid var(--land-accent); background: var(--land-card); color: var(--land-field-ink); font-size: 1rem; scroll-margin-top: 1rem; }
+.landing-body .landing-success:target { display: flex; }
+.landing-body .landing-success-icon { flex: none; width: 1.5rem; height: 1.5rem; }
 .landing-body .landing-footer { margin: 0; padding: 0; border-top: 1px solid var(--land-line); color: var(--land-muted); font-size: .75rem; letter-spacing: .1em; }
 .landing-body .landing-footer .landing-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; padding-block: 2rem; }
 .landing-body .landing-footer nav { margin-left: auto; }
 .landing-body .landing-footer ul { flex-wrap: wrap; gap: .5rem 1.5rem; }
 .landing-body .landing-footer a { display: inline-flex; align-items: center; min-height: 2.75rem; text-decoration: underline; text-underline-offset: .2em; }
 .landing-body .landing-footer p { margin: 0; }
+
+/* Small, deliberate responses that follow the site's existing ruled grid. */
+:root { --land-ease: cubic-bezier(.22, 1, .36, 1); }
+.landing-body .landing-section { scroll-margin-top: 2rem; }
+.landing-body ::selection { background: var(--land-accent); color: var(--land-action-ink); }
+.landing-body .landing-button {
+  transition: transform 220ms var(--land-ease), box-shadow 220ms var(--land-ease);
+}
+.landing-body .landing-button > span {
+  display: inline-block;
+  transition: transform 220ms var(--land-ease);
+}
+.landing-body .landing-button:focus-visible > span { transform: translateX(3px); }
+.landing-body .landing-button:active { transform: translateY(1px); box-shadow: none; }
+.landing-body .landing-section-nav a { position: relative; }
+.landing-body .landing-section-nav a::after {
+  content: '';
+  position: absolute;
+  inset: auto .75rem .35rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 240ms var(--land-ease);
+}
+.landing-body .landing-section-nav a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+.landing-body .landing-email {
+  text-decoration: underline;
+  text-decoration-color: var(--land-line);
+  text-underline-offset: .35em;
+}
+.landing-body .landing-email:focus-visible,
+.landing-body .landing-footer a:focus-visible { text-decoration-color: currentColor; }
+.landing-body .landing-language summary svg { transition: transform 220ms var(--land-ease); }
+.landing-body .landing-language details[open] summary svg { transform: rotate(180deg); }
+.landing-body .landing-capabilities li { position: relative; isolation: isolate; }
+.landing-body .landing-capabilities li::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 280ms ease;
+}
+.landing-body .landing-form label { transition: transform 200ms var(--land-ease); }
+.landing-body .landing-form div:has(> input:focus-visible) > label,
+.landing-body .landing-form div:has(> textarea:focus-visible) > label {
+  color: var(--land-ink);
+  transform: translateX(3px);
+}
+.landing-body .landing-form input:focus-visible,
+.landing-body .landing-form textarea:focus-visible { border-color: var(--land-focus); }
+
+@media (hover: hover) and (pointer: fine) {
+  .landing-body .landing-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 0 color-mix(in srgb, var(--land-ink) 12%, transparent);
+  }
+  .landing-body .landing-button:hover > span { transform: translateX(3px); }
+  .landing-body .landing-button:active { transform: translateY(1px); box-shadow: none; }
+  .landing-body .landing-section-nav a:hover { color: var(--land-ink); }
+  .landing-body .landing-section-nav a:hover::after { transform: scaleX(1); transform-origin: left; }
+  .landing-body .landing-capabilities li:hover::before { opacity: .035; }
+  .landing-body .landing-language a:not([aria-current]):hover { background: var(--land-card); color: var(--land-ink); }
+  .landing-body .landing-email:hover,
+  .landing-body .landing-footer a:hover { text-decoration-color: currentColor; text-underline-offset: .35em; }
+}
+
+@keyframes landing-arrive {
+  from { transform: translateY(12px); }
+  to { transform: translateY(0); }
+}
+@keyframes landing-menu-arrive {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes landing-confirm {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  html { scroll-behavior: smooth; }
+  .landing-body .landing-hero .landing-kicker,
+  .landing-body .landing-hero h1 { animation: landing-arrive 700ms var(--land-ease) both; }
+  .landing-body .landing-hero .landing-intro,
+  .landing-body .landing-hero .landing-mobile-availability { animation: landing-arrive 700ms 60ms var(--land-ease) both; }
+  .landing-body .landing-actions { animation: landing-arrive 700ms 120ms var(--land-ease) both; }
+  .landing-body .landing-facts { animation: landing-arrive 800ms 180ms var(--land-ease) both; }
+  .landing-body .landing-language details[open] ul { animation: landing-menu-arrive 180ms var(--land-ease); }
+  .landing-body .landing-success:target .landing-success-icon path { stroke-dasharray: 1; animation: landing-confirm 360ms var(--land-ease); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-body .landing-button,
+  .landing-body .landing-button > span,
+  .landing-body .landing-section-nav a::after,
+  .landing-body .landing-language summary svg,
+  .landing-body .landing-capabilities li::before,
+  .landing-body .landing-form label { transition: none; }
+  .landing-body .landing-button,
+  .landing-body .landing-button > span,
+  .landing-body .landing-form label { transform: none !important; }
+}
 @media (max-width: 1199px) {
   .landing-body .landing-availability { display: none; }
   .landing-body .landing-mobile-availability { display: block; margin: 1.25rem 0 0; color: var(--land-muted); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
