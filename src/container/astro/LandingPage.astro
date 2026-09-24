@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import type { WebHome } from '../../content.config';
-import { email, type Locale } from '../../lib/site';
+import { email, privacyPath, type Locale } from '../../lib/site';
 import { MAX_MESSAGE_LENGTH } from '../../lib/contact-limits.js';
 
 const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome };
@@ -83,22 +83,8 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
         <div><label for={`landing-message-${locale}`}>{t.contact.message}</label><textarea id={`landing-message-${locale}`} name="message" rows="5" placeholder={t.contact.placeholder} minlength="10" maxlength={MAX_MESSAGE_LENGTH} required></textarea></div>
         <div class="honeypot" aria-hidden="true"><label for={`landing-company-${locale}`}>Company website</label><input id={`landing-company-${locale}`} name="company_site" tabindex="-1" autocomplete="off" /></div>
         <button class="landing-button" type="submit">{t.contact.send} <span aria-hidden="true">→</span></button>
-        <p class="landing-form-privacy">{t.contact.privacyPrompt} <a href="#privacy">{t.privacy.title}</a>.</p>
+        <p class="landing-form-privacy">{t.contact.privacyPrompt} <a href={privacyPath(locale)}>{t.privacy.title}</a>.</p>
       </form>
-    </div>
-  </section>
-
-  <section id="privacy" class="landing-section landing-privacy" aria-labelledby="privacy-title">
-    <div class="landing-wrap">
-      <p class="landing-kicker">{t.privacy.eyebrow}</p>
-      <h2 id="privacy-title">{t.privacy.title}</h2>
-      <p>{t.privacy.controller}</p>
-      <p>{t.privacy.purpose}</p>
-      <p>{t.privacy.basis}</p>
-      <p>{t.privacy.providers}</p>
-      <p>{t.privacy.retention}</p>
-      <p>{t.privacy.rights} <a href={`mailto:${email}`}>{email}</a>.</p>
-      <p>{t.privacy.complaint} <a href="https://www.imy.se/">{locale === 'sv' ? 'Integritetsskyddsmyndigheten (IMY)' : 'Swedish Authority for Privacy Protection (IMY)'}</a>.</p>
     </div>
   </section>
 

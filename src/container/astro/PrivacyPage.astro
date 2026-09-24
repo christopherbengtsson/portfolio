@@ -1,0 +1,23 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import type { WebHome } from '../../content.config';
+import { email, type Locale } from '../../lib/site';
+
+const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome };
+---
+<SiteLayout locale={locale} title={`${t.privacy.title} · Christopher Bengtsson`} description={t.privacy.purpose} content={t} page="privacy">
+  <section id="privacy" class="landing-section landing-privacy" aria-labelledby="privacy-title">
+    <div class="landing-wrap">
+      <p class="landing-kicker">{t.privacy.eyebrow}</p>
+      <h1 id="privacy-title">{t.privacy.title}</h1>
+      <p>{t.privacy.controller}</p>
+      <p>{t.privacy.purpose}</p>
+      <p>{t.privacy.basis}</p>
+      <p>{t.privacy.providers}</p>
+      <p>{t.privacy.retention}</p>
+      <p>{t.privacy.rights} <a href={`mailto:${email}`}>{email}</a>.</p>
+      <p>{t.privacy.complaint} <a href="https://www.imy.se/">{locale === 'sv' ? 'Integritetsskyddsmyndigheten (IMY)' : 'Swedish Authority for Privacy Protection (IMY)'}</a>.</p>
+    </div>
+  </section>
+
+</SiteLayout>

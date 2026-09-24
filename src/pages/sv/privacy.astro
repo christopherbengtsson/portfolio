@@ -1,0 +1,8 @@
+---
+import PrivacyPage from '../../container/astro/PrivacyPage.astro';
+import { getEntry } from 'astro:content';
+
+const home = await getEntry('web', 'sv/home');
+if (!home) throw new Error('Missing sv privacy-page content');
+---
+<PrivacyPage locale="sv" content={home.data} />

@@ -139,12 +139,13 @@ dd {
 .landing-body .landing-form .honeypot { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .landing-body .landing-form-privacy { max-width: 33rem; margin: 1rem 0 0; color: var(--land-muted); font-size: .875rem; line-height: 1.6; }
 .landing-body .landing-form-privacy a, .landing-body .landing-privacy a { text-decoration: underline; text-underline-offset: .2em; }
-.landing-body .landing-privacy h2 { margin: 1rem 0 2rem; font-size: 2.25rem; line-height: 1.2; }
+.landing-body .landing-privacy h1 { margin: 1rem 0 2rem; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.2; }
 .landing-body .landing-privacy p:not(.landing-kicker) { max-width: 52rem; margin: 0 0 1rem; color: var(--land-muted); line-height: 1.7; }
 .landing-body .landing-success { display: none; margin: 1.5rem 0 0; padding: 1rem; border: 1px solid var(--land-line); font-size: 1rem; scroll-margin-top: 1rem; }
 .landing-body .landing-success:target { display: block; }
 .landing-body .landing-footer { margin: 0; padding: 0; border-top: 1px solid var(--land-line); color: var(--land-muted); font-size: .75rem; letter-spacing: .1em; }
-.landing-body .landing-footer .landing-wrap { padding-block: 2rem; }
+.landing-body .landing-footer .landing-wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 2rem; padding-block: 2rem; }
+.landing-body .landing-footer a { display: inline-flex; align-items: center; min-height: 2.75rem; margin-left: auto; text-decoration: underline; text-underline-offset: .2em; }
 .landing-body .landing-footer p { margin: 0; }
 @media (max-width: 1199px) {
   .landing-body .landing-availability { display: none; }

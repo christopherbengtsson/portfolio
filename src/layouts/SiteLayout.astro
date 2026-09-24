@@ -2,17 +2,20 @@
 import '../styles/site.css';
 import LampThemeToggle from '../components/astro/LampThemeToggle.astro';
 import type { WebHome } from '../content.config';
-import { absolute, email, homePath, otherLocale, origin, type Locale } from '../lib/site';
+import { absolute, email, homePath, otherLocale, origin, privacyPath, type Locale } from '../lib/site';
 
 interface Props {
   locale: Locale;
   title: string;
   description: string;
   content: WebHome;
+  page?: 'home' | 'privacy';
 }
 
-const { locale, title, description, content: t } = Astro.props;
-const canonical = absolute(homePath(locale));
+const { locale, title, description, content: t, page = 'home' } = Astro.props;
+const pagePath = page === 'privacy' ? privacyPath : homePath;
+const canonical = absolute(pagePath(locale));
+const sectionPrefix = page === 'home' ? '' : homePath(locale);
 const person = {
   '@context': 'https://schema.org', '@type': 'Person', '@id': `${origin}/#person`,
   name: 'Christopher Bengtsson', url: origin, email,
@@ -45,9 +48,10 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
     <link rel="icon" href="data:," />
     <title>{title}</title>
     <meta name="description" content={description} />
+    {page === 'privacy' && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={locale} href={canonical} />
-    <link rel="alternate" hreflang={otherLocale(locale)} href={absolute(homePath(otherLocale(locale)))} />
+    <link rel="alternate" hreflang={otherLocale(locale)} href={absolute(pagePath(otherLocale(locale)))} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Christopher Bengtsson" />
     <meta property="og:locale" content={locale === 'sv' ? 'sv_SE' : 'en_US'} />
@@ -66,21 +70,21 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
     <a class="skip-link" href="#main">{t.skip}</a>
     <header class="landing-header">
       <div class="landing-header-inner">
-        <a class="landing-brand" href="#top">Christopher Bengtsson</a>
+        <a class="landing-brand" href={`${sectionPrefix}#top`}>Christopher Bengtsson</a>
         <p class="landing-availability">{t.availability}</p>
         <nav class="landing-section-nav" aria-label={locale === 'sv' ? 'Sektioner' : 'Sections'}>
           <ul>
-            <li><a href="#services">{locale === 'sv' ? 'Kompetens' : 'What I do'}</a></li>
-            <li><a href="#experience">{locale === 'sv' ? 'Erfarenhet' : 'Experience'}</a></li>
-            <li><a href="#contact">{locale === 'sv' ? 'Kontakt' : 'Contact'}</a></li>
+            <li><a href={`${sectionPrefix}#services`}>{locale === 'sv' ? 'Kompetens' : 'What I do'}</a></li>
+            <li><a href={`${sectionPrefix}#experience`}>{locale === 'sv' ? 'Erfarenhet' : 'Experience'}</a></li>
+            <li><a href={`${sectionPrefix}#contact`}>{locale === 'sv' ? 'Kontakt' : 'Contact'}</a></li>
           </ul>
         </nav>
         <nav aria-label={locale === 'sv' ? 'Språk' : 'Language'} class="landing-language">
           <details>
             <summary aria-label={locale === 'sv' ? 'Välj språk, nuvarande svenska' : 'Choose language, current English'}>{locale.toUpperCase()}<svg aria-hidden="true" viewBox="0 0 12 12" fill="none"><path d="m2.5 4.5 3.5 3 3.5-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg></summary>
             <ul>
-              <li><a href="/sv/" lang="sv" hreflang="sv" aria-current={locale === 'sv' ? 'page' : undefined}>Svenska</a></li>
-              <li><a href="/" lang="en" hreflang="en" aria-current={locale === 'en' ? 'page' : undefined}>English</a></li>
+              <li><a href={pagePath('sv')} lang="sv" hreflang="sv" aria-current={locale === 'sv' ? 'page' : undefined}>Svenska</a></li>
+              <li><a href={pagePath('en')} lang="en" hreflang="en" aria-current={locale === 'en' ? 'page' : undefined}>English</a></li>
             </ul>
           </details>
         </nav>
@@ -88,7 +92,7 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
       <div class="landing-scene"><LampThemeToggle label={t.themeToggleLabel} /></div>
     </header>
     <main id="main" class="landing-main"><slot /></main>
-    <footer class="landing-footer"><div class="landing-wrap"><p>Christopher Bengtsson · {t.footer}</p></div></footer>
+    <footer class="landing-footer"><div class="landing-wrap"><p>Christopher Bengtsson · {t.footer}</p><a href={privacyPath(locale)}>{t.privacy.title}</a></div></footer>
     <script>
       import { initLampMotion } from '../components/astro/lamp-motion';
       import { createThemePalette, type Theme } from '../lib/theme-palette';

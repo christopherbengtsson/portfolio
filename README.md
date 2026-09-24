@@ -17,9 +17,11 @@ pnpm preview --host 127.0.0.1
 
 The static build writes to `dist/`. The landing pages have a small inline script to focus the contact confirmation after redirect. `scripts/inspect-browser.mjs` checks both languages in Chrome at 375, 768, and 1440 pixels; run it while the development or preview server is listening on `127.0.0.1:4321`. The project-local Astro Docs MCP configuration is in `.codex/config.toml` for future Codex sessions, following [Astro’s Build with AI guide](https://docs.astro.build/en/guides/build-with-ai/#astro-docs-mcp-server).
 
+If development reports missing content fields that are present in the JSON files, run `pnpm run dev --force` to clear Astro’s content cache and restart the development server. Development uses `.astro/data-store.json`, separately from the build cache, so a passing build does not rule out stale development content. Stop any preview server with `pnpm exec astro preview stop` before checking the development URL to avoid testing a different server on the same port through IPv4 versus IPv6.
+
 ## Routes and content
 
-The English landing page is `/`; the Swedish version is `/sv/`. These are the only generated HTML pages. Capabilities, experience, and contact are sections within each landing page. The contact form accepts open project inquiries without a required service category. A successful submission redirects to the same page's `#contact-success` confirmation.
+The English landing page is `/`; the Swedish version is `/sv/`. Privacy information lives at `/privacy/` and `/sv/privacy/`, with `noindex, follow` metadata and no sitemap entries. Both the footer and contact form link to the matching language’s privacy page. Capabilities, experience, and contact are sections within each landing page. The contact form accepts open project inquiries without a required service category. A successful submission redirects to the same page's `#contact-success` confirmation.
 
 The former Stories pages, content collection, and RSS feeds have been removed. Two unpublished Markdown notes remain under `src/content/stories/` as placeholders; they are not part of the build.
 
