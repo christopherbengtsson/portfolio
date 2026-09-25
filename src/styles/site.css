@@ -30,6 +30,7 @@ dd {
   --land-field-ink: #181818;
   --land-placeholder: #626262;
   --land-focus: #181818;
+  --land-status: #facc15;
   color-scheme: light;
 }
 @media (prefers-color-scheme: dark) {
@@ -81,7 +82,8 @@ dd {
 .landing-body .landing-scene { position: absolute; bottom: 0; right: env(safe-area-inset-right, 0px); width: 128px; height: 72px; }
 .landing-body .landing-brand { display: inline-flex; align-items: center; min-height: 2.75rem; font-size: 1rem; font-weight: 650; letter-spacing: -.025em; white-space: nowrap; }
 .landing-body .landing-availability { margin: 0; padding-left: 1rem; border-left: 1px solid var(--land-line); color: var(--land-muted); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; }
-.landing-body .landing-availability::before { content: '•'; margin-right: .5rem; color: var(--land-accent); }
+.landing-body .landing-availability::before,
+.landing-body .landing-mobile-availability::before { content: ''; display: inline-block; width: .5rem; height: .5rem; margin-right: .5rem; border-radius: 50%; background: var(--land-status); box-shadow: 0 0 .25rem var(--land-status), 0 0 .75rem rgb(250 204 21 / .65); vertical-align: .0625rem; }
 .landing-body .landing-mobile-availability { display: none; }
 .landing-body .landing-section-nav { margin-left: auto; }
 .landing-body .landing-section-nav ul { flex-wrap: wrap; gap: .25rem; }
@@ -234,8 +236,14 @@ dd {
   from { stroke-dashoffset: 1; }
   to { stroke-dashoffset: 0; }
 }
+@keyframes landing-status-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 .25rem var(--land-status), 0 0 .75rem rgb(250 204 21 / .65); }
+  50% { transform: scale(1.25); box-shadow: 0 0 .4rem var(--land-status), 0 0 1rem rgb(250 204 21 / .85); }
+}
 @media (prefers-reduced-motion: no-preference) {
   html { scroll-behavior: smooth; }
+  .landing-body .landing-availability::before,
+  .landing-body .landing-mobile-availability::before { animation: landing-status-pulse 2.4s ease-in-out infinite; }
   .landing-body .landing-hero .landing-kicker,
   .landing-body .landing-hero h1 { animation: landing-arrive 700ms var(--land-ease) both; }
   .landing-body .landing-hero .landing-intro,
@@ -259,7 +267,6 @@ dd {
 @media (max-width: 1199px) {
   .landing-body .landing-availability { display: none; }
   .landing-body .landing-mobile-availability { display: block; margin: 1.25rem 0 0; color: var(--land-muted); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
-  .landing-body .landing-mobile-availability::before { content: '•'; margin-right: .5rem; color: var(--land-accent); }
 }
 @media (max-width: 1023px) {
   .landing-body .landing-header-inner { padding-right: calc(2rem + 66px + env(safe-area-inset-right, 0px)); }
