@@ -52,7 +52,7 @@ try {
         heading: '.landing-hero h1', intro: '.landing-intro',
         action: '.landing-actions .landing-button:not(.landing-button-secondary)',
         secondaryAction: '.landing-button-secondary', facts: '.landing-facts dt',
-        services: '.landing-capabilities p', jobs: '.landing-job-description',
+        services: '.landing-capability-description', jobs: '.landing-job-description',
         tags: '.landing-tags li', email: '.landing-email', formLabel: '.landing-form label',
         field: '.landing-form input[name="name"]', formButton: '.landing-form button',
         success: '.landing-success',

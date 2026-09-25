@@ -32,9 +32,19 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
       </div>
       <ol class="landing-capabilities" data-reveal>
         {t.capabilities.map((capability) => <li>
-          <span class="landing-capability-number" aria-hidden="true">{capability.number}</span>
-          <h3>{capability.title}</h3>
-          <p>{capability.description}</p>
+          <details class="landing-capability" name="capabilities">
+            <summary aria-labelledby={`capability-${capability.number}`} aria-describedby={`capability-description-${capability.number}`}>
+              <span class="landing-capability-number" aria-hidden="true">{capability.number}</span>
+              <span class="landing-capability-indicator" aria-hidden="true"></span>
+              <h3 id={`capability-${capability.number}`}>{capability.title}</h3>
+              <span class="landing-capability-description" id={`capability-description-${capability.number}`}>{capability.description}</span>
+            </summary>
+            <div class="landing-capability-content">
+              <div class="landing-capability-copy">
+                {capability.details.map((paragraph) => <p>{paragraph}</p>)}
+              </div>
+            </div>
+          </details>
         </li>)}
       </ol>
       <a class="landing-button landing-capabilities-cta" href="#contact">{t.services.contactCta} <span aria-hidden="true">→</span></a>

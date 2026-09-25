@@ -7,6 +7,7 @@ const capability = z.object({
   number: z.string(),
   title: z.string(),
   description: z.string(),
+  details: z.array(z.string()).min(1),
 });
 const job = z.object({
   period: z.string(),

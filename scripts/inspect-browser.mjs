@@ -44,13 +44,13 @@ async function assertLayout(page, description, width) {
   assert.ok(state.button.width >= 44 && state.button.height >= 44, description + ': lamp target ' + JSON.stringify(state));
   assert.ok(state.header.height >= (width < 640 ? 60 : 72), description + ': header height ' + JSON.stringify(state));
   const usability = await page.evaluate(() => {
-    const touchSelectors = '.landing-brand, .landing-section-nav a, .landing-language summary, .landing-language a, .landing-button, .landing-email, .landing-form input[name="name"], .landing-form input[name="email"], .landing-form textarea';
+    const touchSelectors = '.landing-brand, .landing-section-nav a, .landing-language summary, .landing-language a, .landing-capability summary, .landing-button, .landing-email, .landing-form input[name="name"], .landing-form input[name="email"], .landing-form textarea';
     const smallTargets = [...document.querySelectorAll(touchSelectors)].filter((element) => {
       if (element.getClientRects().length === 0) return false;
       const rect = element.getBoundingClientRect();
       return rect.width < 44 || rect.height < 44;
     }).map((element) => element.tagName.toLowerCase() + ': ' + Math.round(element.getBoundingClientRect().width) + '×' + Math.round(element.getBoundingClientRect().height));
-    const textSelectors = '.landing-intro, .landing-section-head > p:last-child, .landing-capabilities p, .landing-job-description, .landing-facts dd, .landing-success, .landing-button, .landing-email, .landing-form input[name="name"], .landing-form input[name="email"], .landing-form textarea';
+    const textSelectors = '.landing-intro, .landing-section-head > p:last-child, .landing-capabilities p, .landing-capability-description, .landing-job-description, .landing-facts dd, .landing-success, .landing-button, .landing-email, .landing-form input[name="name"], .landing-form input[name="email"], .landing-form textarea';
     const smallText = [...document.querySelectorAll(textSelectors)].filter((element) => parseFloat(getComputedStyle(element).fontSize) < 16).map((element) => element.tagName.toLowerCase() + ': ' + getComputedStyle(element).fontSize);
     return { smallTargets, smallText };
   });

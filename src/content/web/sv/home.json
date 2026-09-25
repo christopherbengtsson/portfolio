@@ -18,29 +18,45 @@
   "services": {
     "eyebrow": "Kompetensområden",
     "title": "Vad jag gör",
-    "intro": "Jag kan ta ett projekt från idé till leverans eller arbeta som en del av ditt befintliga team. Här är några sätt jag kan hjälpa till.",
+    "intro": "Oavsett om du bygger din första lilla app, utvecklar ett växande företag eller förbättrar ett etablerat system kan jag hjälpa till med ett avgränsat uppdrag eller arbeta löpande med ditt team. Här är några sätt.",
     "contactCta": "Diskutera ditt projekt"
   },
   "capabilities": [
     {
       "number": "01",
       "title": "Bygga och vidareutveckla",
-      "description": "Jag bygger funktioner, interna verktyg och integrationer och kopplar ihop gränssnitt, backendtjänster och data till en fungerande helhet."
+      "description": "Jag bygger funktioner, interna verktyg och integrationer och kopplar ihop gränssnitt, backendtjänster och data till en fungerande helhet.",
+      "details": [
+        "En ny funktion kräver ofta ändringar i både gränssnitt, backendtjänster och datahantering. Jag kan ta ansvar för det arbetet inom ett etablerat teams arkitektur och arbetssätt, eller hjälpa ett växande startupbolag att bygga de funktioner och integrationer som behövs för nästa steg. Tillsammans med dem som kan produkten tar jag reda på vad som behöver förändras och hur delarna hänger ihop.",
+        "Om du börjar med en idé eller en första app byggd med AI kan jag hjälpa dig att avgränsa en första version och bygga det som saknas. Målet är programvara som hjälper verksamheten, med kod och praktisk dokumentation som gör det möjligt för dig eller ditt team att fortsätta utvecklingen."
+      ]
     },
     {
       "number": "02",
       "title": "Förbättra och underhålla",
-      "description": "Jag gör befintliga system och appar byggda med AI enklare att underhålla och vidareutveckla med riktade rättningar, tester och automatiska uppdateringar av beroenden."
+      "description": "Jag åtgärdar problem i befintliga appar och system, lägger till tester och ordnar en rutin för att granska uppdateringar av kodens beroenden.",
+      "details": [
+        "När en app känns skör eller vanliga ändringar blir svåra åtgärdar jag problemen och lägger till tester för viktiga användarflöden. Det kan handla om att förbereda en första AI-byggd app för lansering, hålla koden hanterbar i ett växande startupbolag eller uppdatera ett etablerat system utan att ändra beteenden som andra team är beroende av.",
+        "Beroende på projektet kan jag förbättra prestanda, granska behörigheter och se över hanteringen av API-nycklar och andra känsliga åtkomstuppgifter. Jag kan också konfigurera Dependabot så att uppdateringar av beroenden föreslås automatiskt och sedan granska och testa ändringarna innan de införs. Det ger en tydligare underhållsrutin och kod som är enklare att ändra."
+      ]
     },
     {
       "number": "03",
       "title": "Minska manuellt arbete",
-      "description": "Jag kopplar ihop verktyg och tjänster för att automatisera återkommande uppgifter, med inbyggd felhantering. Jag använder AI där det tillför värde."
+      "description": "Jag kopplar ihop verktyg och tjänster för att automatisera återkommande uppgifter, med inbyggd felhantering. Jag använder AI där det tillför värde.",
+      "details": [
+        "Att kopiera information mellan verktyg, sammanställa återkommande rapporter och följa upp överlämningar tar tid från annat arbete. Jag kan koppla ihop stegen så att informationen hamnar rätt utan upprepad manuell inmatning. Även en första app byggd med AI kan ha nytta av en enkel koppling till de verktyg du redan använder.",
+        "För ett växande startupbolag kan det handla om kundregistrering eller rapportering som hänger med när verksamheten växer. I en större organisation kan det vara ett flöde som går genom flera team och system. Jag kontrollerar inkommande data, gör fel synliga och lägger in manuellt godkännande där det behövs. Teamet kan se vad som hänt och avgöra hur undantag ska hanteras."
+      ]
     },
     {
       "number": "04",
       "title": "Granska och ge råd",
-      "description": "Jag granskar kod, arkitektur och tekniska planer och ger tydliga rekommendationer om vad du bör prioritera och varför."
+      "description": "Jag granskar kod, arkitektur och tekniska planer och ger dig prioriterade slutsatser och tydliga nästa steg.",
+      "details": [
+        "Inför en lansering, en integration eller en större teknisk förändring behöver du förstå riskerna och alternativen. Jag kan granska ett etablerat teams föreslagna arkitektur utifrån systemen som redan finns, eller hjälpa ett startupbolag att väga tekniska förbättringar mot produktplanen. Granskningen utgår från de beslut du behöver fatta.",
+        "För en första app byggd med AI kan jag förklara vad som behöver åtgärdas innan riktiga användare börjar förlita sig på den, även om du saknar teknisk bakgrund. Du får slutsatser på ett begripligt språk: vad jag skulle åtgärda nu, vad som kan vänta och varför. Det ger dig eller ditt team ett konkret underlag för att planera arbetet."
+      ]
     }
   ],
   "experience": {

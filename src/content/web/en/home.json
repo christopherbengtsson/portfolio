@@ -30,29 +30,45 @@
   "services": {
     "eyebrow": "Capabilities",
     "title": "What I do",
-    "intro": "I can take a project from idea to delivery or work as part of your existing team. Here's how I can help.",
+    "intro": "Whether you're building your first small app, growing a startup or improving an established system, I can help with a focused assignment or work alongside your team over time. Here's how.",
     "contactCta": "Discuss your project"
   },
   "capabilities": [
     {
       "number": "01",
       "title": "Build and extend",
-      "description": "I build features, internal tools and integrations, connecting interfaces, backend services and data into a working whole."
+      "description": "I build features, internal tools and integrations, connecting interfaces, backend services and data into a working whole.",
+      "details": [
+        "A new feature often needs changes across the interface, backend services and data. I can take responsibility for that work within an established team's architecture and development practices, or help a growing startup add the features and integrations its next stage requires. I work with the people who know the product to understand what needs to change and how it fits together.",
+        "If you're starting with an idea or a first app built with AI, I can help define a manageable first version and build the missing pieces. The aim is working software that serves your business, with code and practical handover notes that you or your team can continue to develop."
+      ]
     },
     {
       "number": "02",
       "title": "Improve and maintain",
-      "description": "I make existing systems and apps built with AI easier to maintain and extend through focused fixes, tests and automated dependency updates."
+      "description": "I fix problems in existing apps and systems, add useful tests and set up a review process for dependency updates.",
+      "details": [
+        "When an app feels fragile or routine changes become difficult, I fix the underlying problems and add tests around important user flows. That can mean preparing a first AI-built app for launch, keeping a growing startup's codebase manageable or updating an established system while preserving the behavior other teams depend on.",
+        "Depending on the project, I can improve performance, check access controls and address how API keys and other credentials are handled. I can also set up Dependabot to propose dependency updates, then review and test those changes before they are applied. The result is a clearer maintenance routine and a codebase that is easier to change."
+      ]
     },
     {
       "number": "03",
       "title": "Reduce manual work",
-      "description": "I connect tools and services to automate repetitive tasks, with error handling built in. I use AI where it adds value."
+      "description": "I connect tools and services to automate repetitive tasks, with error handling built in. I use AI where it adds value.",
+      "details": [
+        "Copying information between tools, preparing recurring reports and chasing handovers can take time away from useful work. I can connect the steps so data reaches the right place without repeated manual entry. Even a first app built with AI can benefit from a straightforward connection to the tools you already use.",
+        "For a growing startup, this might mean customer onboarding or reporting that keeps up with demand. In a larger organization, it might be a workflow spanning several teams and systems. I check incoming data, make failures visible and include human approval where needed. Your team can see what happened and decide how to handle exceptions."
+      ]
     },
     {
       "number": "04",
       "title": "Review and advise",
-      "description": "I review code, architecture and technical plans, then recommend what to focus on and explain why."
+      "description": "I review code, architecture and technical plans, then give you prioritized findings and clear next steps.",
+      "details": [
+        "Before committing to a launch, an integration or a larger technical change, it helps to understand the risks and options. I can review an established team's proposed architecture against the systems already in place, or help a startup weigh technical improvements against its product roadmap. The review focuses on the decisions you need to make.",
+        "For a first app built with AI, I can explain what needs attention before real users start relying on it, even if you don't have a technical background. You receive findings in plain language: what I would address now, what can wait and why. That gives you or your team a practical basis for planning the work."
+      ]
     }
   ],
   "experience": {
