@@ -116,11 +116,11 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
       </div>
     </footer>
     <script>
-      import { initLampMotion } from '../components/astro/lamp-motion';
+      import { LampMotionUtil } from '../util/LampMotionUtil';
       import { createThemePalette, type Theme } from '../lib/theme-palette';
-      import { initSiteInteractions } from '../components/astro/site-interactions';
+      import { SiteAnimationUtil } from '../util/SiteAnimationUtil';
 
-      initSiteInteractions();
+      SiteAnimationUtil.initSiteInteractions();
 
       const root = document.documentElement;
       const button = document.querySelector<HTMLButtonElement>('button[data-lamp-toggle]');
@@ -141,7 +141,7 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
           button.setAttribute('aria-pressed', String(next === 'dark'));
         };
 
-        const motion = initLampMotion(button, () => theme, (next: Theme) => {
+        const motion = LampMotionUtil.initLampMotion(button, () => theme, (next: Theme) => {
           explicit = next;
           try { localStorage.setItem('theme', next); } catch { /* Keep the in-page choice. */ }
           render(next, true);
