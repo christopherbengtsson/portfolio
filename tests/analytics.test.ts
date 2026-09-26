@@ -1,18 +1,19 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { onRequest } from '../functions/api/analytics.js';
-import { onRequestPost } from '../functions/api/contact.js';
+import { onRequest as handleAnalytics } from '../functions/api/analytics.ts';
+import { onRequestPost as handleContact } from '../functions/api/contact.ts';
 import { parseOptions, buildQuery, renderReport, queryAnalytics } from '../scripts/analytics-report.mjs';
 
+import { inPages, analyticsCollector } from './helpers.ts';
+
+const onRequest = inPages(handleAnalytics);
+const onRequestPost = inPages(handleContact);
 const origin = 'https://christopherbengtsson.dev';
 const event = { event: 'capability_expand', target: 'build-extend', locale: 'en', path: '/' };
-const makeRequest = (body = event, headers = {}, url = `${origin}/api/analytics`) => new Request(url, {
+const makeRequest = (body: unknown = event, headers: Record<string, string> = {}, url = `${origin}/api/analytics`) => new Request(url, {
   method: 'POST', headers: { Origin: origin, 'Content-Type': 'application/json', ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body),
 });
-const collector = () => {
-  const points = [];
-  return { points, env: { ANALYTICS_ENABLED: 'true', SITE_ANALYTICS: { writeDataPoint: (point) => points.push(point) } } };
-};
+const collector = analyticsCollector;
 
 test('records only fixed analytics dimensions and never request metadata', async () => {
   const { points, env } = collector();
@@ -39,7 +40,7 @@ test('bounds streamed body size even without a Content-Length header', async () 
 
 test('rejects other origins, non-JSON, and unsupported methods', async () => {
   const { points, env } = collector();
-  for (const headers of [{ Origin: 'https://elsewhere.example' }, { Origin: '' }, { 'Sec-Fetch-Site': 'cross-site' }]) {
+  for (const headers of [{ Origin: 'https://elsewhere.example' }, { Origin: '' }, { 'Sec-Fetch-Site': 'cross-site' }] as Record<string, string>[]) {
     assert.equal((await onRequest({ request: makeRequest(event, headers), env })).status, 403);
   }
   assert.equal((await onRequest({ request: makeRequest(event, { 'Content-Type': 'text/plain' }), env })).status, 415);
@@ -62,7 +63,7 @@ test('contact records only Resend-accepted requests, including no-JS forms', asy
   const { points, env } = collector();
   Object.assign(env, { RESEND_API_KEY: 'test', RESEND_FROM_EMAIL: 'test@example.com' });
   const values = { name: 'Test', email: 'test@example.com', message: 'A test inquiry for analytics.', locale: 'sv' };
-  const request = (fields = values, host = origin) => new Request(`${host}/api/contact?locale=sv`, { method: 'POST', body: new URLSearchParams(fields) });
+  const request = (fields: Record<string, string> = values, host = origin) => new Request(`${host}/api/contact?locale=sv`, { method: 'POST', body: new URLSearchParams(fields) });
   const original = globalThis.fetch;
   try {
     globalThis.fetch = async () => new Response('{}', { status: 200 });
@@ -112,7 +113,7 @@ test('analytics accepts published localized pages and rejects arbitrary or misma
   for (const [locale, path] of [['en', '/services/api-integrations/'], ['sv', '/sv/tjanster/kodgranskning/']]) {
     const body = { event: 'contact_click', target: 'hero', locale, path };
     assert.equal((await onRequest({ request: makeRequest(body), env })).status, 204);
-    assert.deepEqual(points.at(-1).blobs, ['1', 'contact_click', locale, path, 'hero']);
+    assert.deepEqual(points.at(-1)?.blobs, ['1', 'contact_click', locale, path, 'hero']);
   }
   for (const path of ['/unknown/', '/privacy/', '/work/change-request-portal/', '/services/api-integrations/?query=secret', '/sv/tjanster/kodgranskning/']) {
     assert.equal((await onRequest({ request: makeRequest({ ...event, path }), env })).status, 400);

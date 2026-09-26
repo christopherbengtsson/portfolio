@@ -1,5 +1,10 @@
 {
   "extends": "astro/tsconfigs/strict",
-  "include": ["src/**/*", "astro.config.mjs"],
-  "exclude": ["dist", "functions"]
+  "compilerOptions": {
+    "strict": true,
+    "types": ["node"],
+    "erasableSyntaxOnly": true
+  },
+  "include": [".astro/types.d.ts", "src/**/*", "astro.config.mjs"],
+  "exclude": ["dist", "functions", "tests"]
 }

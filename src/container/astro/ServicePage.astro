@@ -2,7 +2,7 @@
 import type { WebHome, ServiceContent } from '../../content.config';
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import ContactSection from '../../components/astro/ContactSection.astro';
-import { pagePath } from '../../lib/page-registry.js';
+import { pagePath } from '../../lib/page-registry.ts';
 import { homePath } from '../../lib/site';
 interface Props { content: WebHome; service: ServiceContent; }
 const { content: t, service: s } = Astro.props;

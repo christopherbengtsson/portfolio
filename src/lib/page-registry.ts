@@ -1,28 +1,24 @@
 import registry from './page-registry.json' with { type: 'json' };
 
 export const PAGES = registry;
-export const LOCALES = /** @type {const} */ (['en', 'sv']);
+export const LOCALES = ['en', 'sv'] as const;
+export type Locale = (typeof LOCALES)[number];
 
-/** @param {string} id */
-export function getPage(id) {
+export function getPage(id: string) {
   const page = PAGES.find((page) => page.id === id && page.published);
   if (!page) throw new Error(`Unknown published page: ${id}`);
   return page;
 }
 
-/** @param {string} id @param {'en' | 'sv'} locale */
-export function pagePath(id, locale) { return getPage(id).paths[locale]; }
+export function pagePath(id: string, locale: Locale): string { return getPage(id).paths[locale]; }
 
-/** @param {unknown} path @param {unknown} locale */
-export function isAnalyticsPath(path, locale) {
+export function isAnalyticsPath(path: unknown, locale: unknown): boolean {
   return (locale === 'en' || locale === 'sv') && PAGES.some((page) =>
     page.published && page.indexable && page.paths[locale] === path);
 }
 
-/** Accept only exact, localized form pages. Never use arbitrary redirect URLs.
- * @param {unknown} path @param {'en' | 'sv'} locale
- */
-export function contactPath(path, locale) {
+/** Accept only exact, localized form pages. Never use arbitrary redirect URLs. */
+export function contactPath(path: unknown, locale: Locale): string {
   return PAGES.find((page) => page.published &&
     ['home', 'service'].includes(page.type) && page.paths[locale] === path)?.paths[locale]
     ?? pagePath('home', locale);

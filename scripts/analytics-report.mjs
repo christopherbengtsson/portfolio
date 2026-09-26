@@ -1,8 +1,15 @@
-import { isAnalyticsPath, pagePath } from '../src/lib/page-registry.js';
+import { isAnalyticsPath, pagePath } from '../src/lib/page-registry.ts';
 import { pathToFileURL } from 'node:url';
-import { CAPABILITY_IDS, EVENT_TARGETS } from '../src/lib/analytics-events.js';
+import { CAPABILITY_IDS, EVENT_TARGETS } from '../src/lib/analytics-events.ts';
 
+/**
+ * @typedef {{ days: number, locale: string | null }} ReportOptions
+ * @typedef {{ day: string, event: string, target: string, locale: string, count: string | number, path?: string }} ReportRow
+ */
+
+/** @param {string[]} args @returns {ReportOptions} */
 export function parseOptions(args) {
+  /** @type {ReportOptions} */
   const options = { days: 30, locale: null };
   for (let i = 0; i < args.length; i++) {
     const flag = args[i];
@@ -14,6 +21,7 @@ export function parseOptions(args) {
   return options;
 }
 
+/** @param {ReportOptions} options */
 export function buildQuery({ days, locale }) {
   // Validate even when called outside the CLI; only allowlisted values enter SQL.
   parseOptions(['--days', String(days), ...(locale === null ? [] : ['--locale', locale])]);
@@ -27,6 +35,12 @@ ORDER BY day ASC
 FORMAT JSON`;
 }
 
+/**
+ * @param {ReportOptions} options
+ * @param {Record<string, string | undefined>} env
+ * @param {typeof fetch} fetcher
+ * @returns {Promise<ReportRow[]>}
+ */
 export async function queryAnalytics(options, env = process.env, fetcher = fetch) {
   const account = env.CLOUDFLARE_ACCOUNT_ID;
   const token = env.CLOUDFLARE_ANALYTICS_READ_TOKEN;
@@ -41,6 +55,7 @@ export async function queryAnalytics(options, env = process.env, fetcher = fetch
   return result.data;
 }
 
+/** @param {ReportRow[]} rows @param {ReportOptions} options */
 export function renderReport(rows, { days, locale }) {
   const totals = new Map();
   const daily = new Map();

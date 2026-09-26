@@ -2,7 +2,7 @@
 
 Source for [christopherbengtsson.dev](https://christopherbengtsson.dev/), a bilingual Astro site hosted on Cloudflare Pages.
 
-Use Node.js 22.16+ and pnpm 10.12.4.
+Use Node.js 24.21.0 LTS (Node 24.21+ within the 24.x line) and pnpm 10.12.4.
 
 ```sh
 pnpm install --frozen-lockfile

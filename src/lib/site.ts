@@ -1,5 +1,6 @@
-import { pagePath } from './page-registry.js';
-export type Locale = 'en' | 'sv';
+import { pagePath } from './page-registry.ts';
+import type { Locale } from './page-registry.ts';
+export type { Locale } from './page-registry.ts';
 
 export const origin = 'https://christopherbengtsson.dev';
 export const email = 'hello@christopherbengtsson.dev';

@@ -2,10 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import vm from "node:vm";
+import { URL } from "node:url";
 import ts from "typescript";
-import * as events from "../src/lib/analytics-events.js";
+import * as events from "../src/lib/analytics-events.ts";
 
-function loadModule(path, globals, imports) {
+function loadModule<T>(path: string, globals: Record<string, unknown>, imports: Record<string, unknown>): T {
   const code = ts.transpileModule(
     readFileSync(new URL(path, import.meta.url), "utf8"),
     {
@@ -18,26 +19,59 @@ function loadModule(path, globals, imports) {
   const exports = {};
   vm.runInNewContext(code, {
     exports,
-    require: (id) => {
+    require: (id: string) => {
       if (!imports[id]) throw new Error(`Unexpected import ${id}`);
       return imports[id];
     },
     ...globals,
   });
-  return exports;
+  // The VM boundary cannot infer exports from the transpiled source.
+  return exports as T;
+}
+
+interface AnimationStub {
+  cancel(): void;
+  onfinish: (() => void) | null;
 }
 
 class Element extends EventTarget {
-  constructor() {
-    super();
-    this.dataset = {};
-  }
+  dataset: Record<string, string> = {};
+  animate?: () => AnimationStub;
+  querySelector?: (selector: string) => Element;
   closest() {
     return this;
   }
 }
-class Input extends Element {}
-class Textarea extends Element {}
+class Input extends Element {
+  name = "";
+  value = "";
+}
+class Textarea extends Input {}
+
+// Only the browser surface supplied by this VM harness is modeled here.
+interface AnalyticsModule {
+  AnalyticsUtil: {
+    initAnalytics(): void;
+    trackInteraction(event: string, target: string): void;
+    trackCapabilityExpansion(card: { dataset: Record<string, string> }): void;
+  };
+}
+interface MotionModule {
+  CapabilityMotionUtil: {
+    initCapabilityMotion(media: EventTarget & { matches: boolean }): void;
+  };
+}
+interface BrowserFetchOptions {
+  method?: string;
+  body?: Blob;
+  keepalive?: boolean;
+  credentials?: string;
+}
+interface ObserverEntry {
+  target: Element & { id: string };
+  isIntersecting: boolean;
+  intersectionRatio: number;
+}
 
 function client({
   origin = events.ANALYTICS_ORIGIN,
@@ -46,38 +80,40 @@ function client({
   beaconResult = true,
   beaconThrows = false,
 } = {}) {
-  const document = new EventTarget();
   const form = new Element();
   const headings = ["services", "experience", "contact"].map((id) =>
     Object.assign(new Element(), { id }),
   );
-  document.documentElement = { lang: locale };
-  document.querySelector = () => form;
-  document.querySelectorAll = () => headings;
-  const bodies = [],
-    fallback = [],
-    observers = [];
+  const document = Object.assign(new EventTarget(), {
+    documentElement: { lang: locale },
+    querySelector: () => form,
+    querySelectorAll: () => headings,
+  });
+  const bodies: Blob[] = [],
+    fallback: BrowserFetchOptions[] = [],
+    observers: Observer[] = [];
   class Observer {
-    constructor(callback) {
+    callback: (entries: ObserverEntry[]) => void;
+    constructor(callback: (entries: ObserverEntry[]) => void) {
       this.callback = callback;
       observers.push(this);
     }
     observe() {}
     unobserve() {}
   }
-  const api = loadModule(
+  const api = loadModule<AnalyticsModule>(
     "../src/util/AnalyticsUtil.ts",
     {
       document,
       location: { origin, pathname: path },
       navigator: {
-        sendBeacon: (_url, body) => {
+        sendBeacon: (_url: string, body: Blob) => {
           if (beaconThrows) throw new Error("blocked");
           if (beaconResult) bodies.push(body);
           return beaconResult;
         },
       },
-      fetch: (_url, options) => {
+      fetch: (_url: string, options: BrowserFetchOptions) => {
         fallback.push(options);
         return Promise.reject(new Error("offline"));
       },
@@ -88,7 +124,7 @@ function client({
       window: { IntersectionObserver: Observer },
       IntersectionObserver: Observer,
     },
-    { "../lib/analytics-events.js": events },
+    { "../lib/analytics-events.ts": events },
   );
   return { api, form, document, headings, observers, bodies, fallback };
 }
@@ -159,7 +195,7 @@ test("section threshold, click placements, form starts and initialization are de
   observers[0].callback([
     { target: headings[0], isIntersecting: true, intersectionRatio: 0.5 },
   ]);
-  const dispatch = (owner, type, target) => {
+  const dispatch = (owner: EventTarget, type: string, target: Element) => {
     const event = new Event(type);
     Object.defineProperty(event, "target", { value: target });
     owner.dispatchEvent(event);
@@ -212,12 +248,12 @@ test("middle-button profile activation counts once and right-click does not coun
 });
 
 function motion({ reduced = false, native = false } = {}) {
-  const expansions = [],
-    timers = [];
+  const expansions: string[] = [],
+    timers: (() => void)[] = [];
   const cards = events.CAPABILITY_IDS.map((id) => {
     const card = Object.assign(new Element(), {
       open: false,
-      dataset: { capabilityId: id },
+      dataset: { capabilityId: id } as Record<string, string>,
       style: { removeProperty() {} },
       getBoundingClientRect: () => ({ height: 100 }),
       removeAttribute() {},
@@ -242,12 +278,12 @@ function motion({ reduced = false, native = false } = {}) {
     querySelectorAll: () => cards.map(({ card }) => card),
   });
   const media = Object.assign(new EventTarget(), { matches: reduced });
-  const api = loadModule(
+  const api = loadModule<MotionModule>(
     "../src/util/CapabilityMotionUtil.ts",
     {
       document,
       window: new EventTarget(),
-      setTimeout: (fn) => timers.push(fn),
+      setTimeout: (fn: () => void) => timers.push(fn),
       getComputedStyle: () => ({
         getPropertyValue: () => "ease",
         opacity: "1",
@@ -257,7 +293,7 @@ function motion({ reduced = false, native = false } = {}) {
     {
       "./AnalyticsUtil": {
         AnalyticsUtil: {
-          trackCapabilityExpansion: (card) =>
+          trackCapabilityExpansion: (card: Element) =>
             expansions.push(card.dataset.capabilityId),
         },
       },
@@ -270,7 +306,7 @@ function motion({ reduced = false, native = false } = {}) {
 test("card motion reports user openings, never closing animations or automatic sibling collapse", () => {
   for (const reduced of [false, true]) {
     const { cards, expansions } = motion({ reduced });
-    const activate = (index) =>
+    const activate = (index: number) =>
       cards[index].summary.dispatchEvent(
         new Event("click", { cancelable: true }),
       );
@@ -297,12 +333,12 @@ test("native disclosure fallback counts only an activation that actually opens",
   const { card, summary } = cards[0];
   summary.dispatchEvent(new Event("click"));
   card.open = true;
-  timers.shift()();
+  timers.shift()!();
   summary.dispatchEvent(new Event("click"));
   card.open = false;
-  timers.shift()();
+  timers.shift()!();
   summary.dispatchEvent(new Event("click"));
-  timers.shift()(); // canceled default action
+  timers.shift()!(); // canceled default action
   assert.deepEqual(expansions, ["build-extend"]);
 });
 

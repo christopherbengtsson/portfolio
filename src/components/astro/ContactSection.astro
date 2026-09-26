@@ -1,7 +1,7 @@
 ---
 import type { WebHome } from '../../content.config';
 import { email, privacyPath, type Locale } from '../../lib/site';
-import { MAX_MESSAGE_LENGTH } from '../../lib/contact-limits.js';
+import { MAX_MESSAGE_LENGTH } from '../../lib/contact-limits.ts';
 interface Props { locale: Locale; content: WebHome; sourcePath: string; intro?: string; placeholder?: string; }
 const { locale, content: t, sourcePath, intro, placeholder } = Astro.props;
 ---

@@ -1,24 +1,28 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { onRequestPost } from '../functions/api/contact.js';
+import { onRequestPost as handleContact } from '../functions/api/contact.ts';
 
+import { inPages, analyticsCollector, emailPayload, idempotencyKey, type EmailPayload } from './helpers.ts';
+
+const onRequestPost = inPages(handleContact);
 const valid = { locale: 'en', name: 'Alex Example', email: 'alex@example.com', message: 'I would like to discuss a software project.' };
-const requestFor = (values) => new Request(`https://christopherbengtsson.dev/api/contact?locale=${values.locale}`, {
+const requestFor = (values: Record<string, string>) => new Request(`https://christopherbengtsson.dev/api/contact?locale=${values.locale}`, {
   method: 'POST', body: new URLSearchParams(values),
 });
 const env = { RESEND_API_KEY: 'test-key', RESEND_FROM_EMAIL: 'Christopher <inquiries@example.com>' };
 
 test('valid inquiry sends to the public mailbox and redirects', async () => {
   const originalFetch = globalThis.fetch;
-  let payload;
+  let payload: EmailPayload | undefined;
   globalThis.fetch = async (_url, options) => {
-    payload = JSON.parse(options.body);
+    payload = emailPayload(options);
     return new Response('{"id":"test"}', { status: 200 });
   };
   try {
     const result = await onRequestPost({ request: requestFor(valid), env });
     assert.equal(result.status, 303);
     assert.equal(result.headers.get('location'), '/#contact-success');
+    assert.ok(payload);
     assert.deepEqual(payload.to, ['hello@christopherbengtsson.dev']);
     assert.equal(payload.reply_to, valid.email);
     assert.match(payload.text, /I would like to discuss/);
@@ -27,14 +31,15 @@ test('valid inquiry sends to the public mailbox and redirects', async () => {
 
 test('a project inquiry needs no predefined service category', async () => {
   const originalFetch = globalThis.fetch;
-  let payload;
+  let payload: EmailPayload | undefined;
   globalThis.fetch = async (_url, options) => {
-    payload = JSON.parse(options.body);
+    payload = emailPayload(options);
     return new Response('{"id":"test"}', { status: 200 });
   };
   try {
     const result = await onRequestPost({ request: requestFor({ ...valid, locale: 'sv' }), env });
     assert.equal(result.status, 303);
+    assert.ok(payload);
     assert.equal(payload.subject, 'Project inquiry');
     assert.doesNotMatch(payload.text, /Service:/);
   } finally { globalThis.fetch = originalFetch; }
@@ -42,9 +47,9 @@ test('a project inquiry needs no predefined service category', async () => {
 
 test('separate submissions with identical details get distinct Resend keys', async () => {
   const originalFetch = globalThis.fetch;
-  const keys = [];
+  const keys: string[] = [];
   globalThis.fetch = async (_url, options) => {
-    const key = options.headers['Idempotency-Key'];
+    const key = idempotencyKey(options);
     assert.match(key, /^contact\/[0-9a-f-]{36}\/[0-9a-f]{64}$/);
     keys.push(key);
     return new Response('{"id":"test"}', { status: 200 });
@@ -61,10 +66,10 @@ test('separate submissions with identical details get distinct Resend keys', asy
 
 test('a retry from the error form keeps its key until the inquiry changes', async () => {
   const originalFetch = globalThis.fetch;
-  const keys = [];
+  const keys: string[] = [];
   let fail = true;
   globalThis.fetch = async (_url, options) => {
-    keys.push(options.headers['Idempotency-Key']);
+    keys.push(idempotencyKey(options));
     return new Response(fail ? 'failed' : '{"id":"test"}', { status: fail ? 500 : 200 });
   };
   try {
@@ -72,6 +77,7 @@ test('a retry from the error form keeps its key until the inquiry changes', asyn
     assert.equal(failed.status, 503);
     const html = await failed.text();
     const submissionId = html.match(/name="submission_id" value="([^"]+)"/)?.[1];
+    assert.ok(submissionId);
     assert.match(submissionId, /^[0-9a-f-]{36}$/);
     fail = false;
     const retry = await onRequestPost({ request: requestFor({ ...valid, submission_id: submissionId }), env });
@@ -199,20 +205,22 @@ test('localized service inquiries preserve page context through delivery, retry 
   const originalFetch = globalThis.fetch;
   try {
     for (const [locale, source_path] of [['en', '/services/app-improvements/'], ['sv', '/sv/tjanster/api-integrationer/']]) {
-      const payloads = [], keys = [], points = [];
+      const payloads: EmailPayload[] = [], keys: string[] = [];
+      const { points, env: analyticsEnv } = analyticsCollector();
       let status = 503;
       globalThis.fetch = async (_url, options) => {
-        payloads.push(JSON.parse(options.body));
-        keys.push(options.headers['Idempotency-Key']);
+        payloads.push(emailPayload(options));
+        keys.push(idempotencyKey(options));
         return new Response('{}', { status });
       };
-      const config = { ...env, ANALYTICS_ENABLED: 'true', SITE_ANALYTICS: { writeDataPoint: (value) => points.push(value) } };
+      const config = { ...env, ...analyticsEnv };
       const fields = { ...valid, locale, source_path };
       const failure = await onRequestPost({ request: requestFor(fields), env: config });
       assert.equal(failure.status, 503);
       const html = await failure.text();
       assert.ok(html.includes(`name="source_path" value="${source_path}"`));
-      const submission_id = html.match(/name="submission_id" value="([^"]+)"/)[1];
+      const submission_id = html.match(/name="submission_id" value="([^"]+)"/)?.[1];
+      assert.ok(submission_id);
       assert.equal(points.length, 0);
       status = 200;
       const success = await onRequestPost({ request: requestFor({ ...fields, submission_id }), env: config });
@@ -233,12 +241,13 @@ test('localized service inquiries preserve page context through delivery, retry 
 
 test('contact source rejects unknown, cross-language, non-form and arbitrary URL destinations', async () => {
   const originalFetch = globalThis.fetch;
-  let payload;
-  globalThis.fetch = async (_url, options) => { payload = JSON.parse(options.body); return new Response('{}'); };
+  let payload: EmailPayload | undefined;
+  globalThis.fetch = async (_url, options) => { payload = emailPayload(options); return new Response('{}'); };
   try {
     for (const source_path of ['https://example.org/', '//example.org/', '/sv/tjanster/kodgranskning/', '/privacy/', '/work/change-request-portal/', '/unknown/', '/services/code-review/?secret=yes', '/services/code-review/#contact', ' /services/code-review/']) {
       const result = await onRequestPost({ request: requestFor({ ...valid, source_path }), env });
       assert.equal(result.headers.get('location'), '/#contact-success');
+      assert.ok(payload);
       assert.ok(payload.text.includes('Page: /\n'));
       assert.ok(!payload.text.includes(source_path + '\n') || source_path === '/');
     }

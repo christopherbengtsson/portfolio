@@ -12,7 +12,7 @@ The static output is written to `dist/`. The contact endpoint is a Cloudflare Pa
 | `src/pages/` | Home, privacy, service, and sitemap routes |
 | `src/layouts/` and `src/container/` | Shared layout and page templates |
 | `src/styles/site.css` | Site styles |
-| `functions/api/contact.js` | Contact form submission and email delivery |
+| `functions/api/contact.ts` | Contact form submission and email delivery |
 | `public/` | Static assets, crawler files, and Pages configuration |
 | `artwork/` and `scripts/generate-identity.mjs` | Editable monogram and generated brand assets |
 | `tests/` and `scripts/verify-output.py` | Function tests and build checks |
@@ -23,9 +23,17 @@ To add a service, add its stable ID and both paths to `src/lib/page-registry.jso
 
 The shared contact form appears on home and service pages. Its allowlisted `source_path` preserves the originating form page through validation, retries and success redirects, and adds page context to the inquiry email. Service experience sections link to the selected work on the localized homepage.
 
+## TypeScript and checks
+
+Application code, shared logic, Pages Functions, and tests use TypeScript. Small configuration and utility scripts remain `.mjs`. Node 24.21.0 runs tests and shared TypeScript imports directly, so modules executed by Node use explicit `.ts` import extensions, `import type`, and erasable TypeScript syntax.
+
+`pnpm check` runs Astro diagnostics plus strict, no-emit TypeScript checks for Functions and tests. Each runtime has a separate configuration: the root config covers Astro and browser code, `functions/tsconfig.json` supplies Cloudflare runtime types, and `tests/tsconfig.json` adds Node types for the test harness. The root exclusion of Functions prevents browser/worker global conflicts; Functions are checked explicitly by the same command. The shared modules are checked in each consuming runtime.
+
+`pnpm test` runs the TypeScript tests with Node's built-in runner. Function tests supply a typed Pages context and mock email and analytics services; browser tests retain their isolated VM harness. No credentials are needed for checks or tests.
+
 ## Deployment
 
-Cloudflare Pages builds the `main` branch with `pnpm build` and serves `dist/`. The project uses Node 24.12.0 and pnpm 10.12.4 in Pages. `public/_routes.json` sends `/api/contact` and `/api/analytics` to Pages Functions; the remaining routes are static.
+Cloudflare Pages builds the `main` branch with `pnpm build` and serves `dist/`. The project targets Node 24.21.0 LTS and pnpm 10.12.4 in Pages. The repository pins Node through `.node-version`; set any Pages `NODE_VERSION` override to `24.21.0` as well. Dashboard settings must be updated separately. `public/_routes.json` sends `/api/contact` and `/api/analytics` to Pages Functions; the remaining routes are static.
 
 The contact Function requires these Pages environment variables:
 

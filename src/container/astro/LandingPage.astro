@@ -2,7 +2,7 @@
 import SiteLayout from '../../layouts/SiteLayout.astro';
 import type { WebHome } from '../../content.config';
 import type { Locale } from '../../lib/site';
-import { pagePath } from '../../lib/page-registry.js';
+import { pagePath } from '../../lib/page-registry.ts';
 import ContactSection from '../../components/astro/ContactSection.astro';
 
 const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome };

@@ -1,11 +1,11 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-import { CAPABILITY_IDS } from './lib/analytics-events.js';
+import { CAPABILITY_IDS } from './lib/analytics-events.ts';
 
 const pair = z.tuple([z.string(), z.string()]);
 const capability = z.object({
-  id: z.string().refine((id) => CAPABILITY_IDS.includes(id)),
+  id: z.string().refine((id) => CAPABILITY_IDS.some((capability) => capability === id)),
   number: z.string(),
   title: z.string(),
   description: z.string(),

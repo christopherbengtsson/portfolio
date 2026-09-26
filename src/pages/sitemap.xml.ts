@@ -1,5 +1,5 @@
 import { absolute } from '../lib/site';
-import { PAGES, LOCALES } from '../lib/page-registry.js';
+import { PAGES, LOCALES } from '../lib/page-registry.ts';
 
 export function GET() {
   const urls = PAGES.filter((page) => page.published && page.indexable).flatMap((page) => LOCALES.map((locale) => {

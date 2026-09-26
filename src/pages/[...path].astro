@@ -2,7 +2,7 @@
 import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 import ServicePage from '../container/astro/ServicePage.astro';
-import { PAGES, LOCALES } from '../lib/page-registry.js';
+import { PAGES, LOCALES } from '../lib/page-registry.ts';
 
 interface Props { entry: CollectionEntry<'services'>; }
 

@@ -2,7 +2,7 @@ import {
   ANALYTICS_ORIGIN,
   validBrowserEvent,
   isAnalyticsPath,
-} from "../lib/analytics-events.js";
+} from "../lib/analytics-events.ts";
 
 const seen = new Set<string>();
 let initialized = false;

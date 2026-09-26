@@ -1,6 +1,21 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { PAGES, LOCALES, pagePath, getPage, isAnalyticsPath, contactPath } from '../src/lib/page-registry.js';
+import { PAGES, LOCALES, pagePath, getPage, isAnalyticsPath, contactPath } from '../src/lib/page-registry.ts';
+
+test('rejecting an analytics path preserves its possible string type', () => {
+  function rejectedPath(path: string | undefined) {
+    if (!isAnalyticsPath(path, 'en')) return path;
+    return undefined;
+  }
+
+  // A false result may still be a string. An incorrect type predicate would
+  // infer only undefined here and make this assignment fail type checking.
+  const rejected: ReturnType<typeof rejectedPath> = '/unknown/';
+  assert.equal(rejectedPath(rejected), rejected);
+  assert.equal(rejectedPath('/sv/'), '/sv/');
+  assert.equal(rejectedPath(undefined), undefined);
+  assert.equal(rejectedPath('/'), undefined);
+});
 
 test('published routes have unique localized paths and stable page identities', () => {
   assert.equal(new Set(PAGES.map((p) => p.id)).size, PAGES.length);
@@ -35,7 +50,7 @@ test('removed work routes have no published page, analytics path or contact dest
     ['en', '/work/change-request-portal/'],
     ['sv', '/sv/projekt/kyc-salesforce-integration/'],
     ['sv', '/sv/projekt/portal-for-andringsarenden/'],
-  ]) {
+  ] as const) {
     assert.equal(isAnalyticsPath(path, locale), false);
     assert.equal(contactPath(path, locale), pagePath('home', locale));
   }

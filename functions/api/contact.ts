@@ -1,6 +1,8 @@
-import { contactPath } from '../../src/lib/page-registry.js';
-import { writeAnalytics } from '../lib/analytics.js';
-import { MAX_CONTACT_BYTES, MAX_MESSAGE_LENGTH } from '../../src/lib/contact-limits.js';
+import type { Env } from '../env.ts';
+import type { Locale } from '../../src/lib/page-registry.ts';
+import { contactPath } from '../../src/lib/page-registry.ts';
+import { writeAnalytics } from '../lib/analytics.ts';
+import { MAX_CONTACT_BYTES, MAX_MESSAGE_LENGTH } from '../../src/lib/contact-limits.ts';
 
 const messages = {
   en: {
@@ -21,13 +23,21 @@ const messages = {
   },
 };
 
+interface FormValues {
+  name: string;
+  replyTo: string;
+  message: string;
+  submissionId: string;
+  sourcePath: string;
+}
+
 class BodyTooLargeError extends Error {}
 
 const controlCharacters = /[\u0000-\u001f\u007f-\u009f\u2028\u2029]/u;
 const submissionIdPattern = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[character]);
+const escapeHtml = (value: string) => String(value).replace(/[&<>"']/g, (character) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' } as Record<string, string>)[character]);
 
-function errorPage(locale, status, message, values) {
+function errorPage(locale: Locale, status: number, message: string, values?: FormValues) {
   const t = messages[locale];
   const sourcePath = contactPath(values?.sourcePath, locale);
   const contact = `${sourcePath}#contact`;
@@ -46,12 +56,12 @@ function errorPage(locale, status, message, values) {
   });
 }
 
-function field(form, name) {
+function field(form: FormData, name: string) {
   const value = form.get(name);
   return typeof value === 'string' ? value.trim() : '';
 }
 
-async function limitedFormData(request, type) {
+async function limitedFormData(request: Request, type: string): Promise<FormData | null> {
   const reader = request.body?.getReader();
   if (!reader) return null;
   const chunks = [];
@@ -69,7 +79,7 @@ async function limitedFormData(request, type) {
   return new Response(new Blob(chunks), { headers: { 'Content-Type': type } }).formData();
 }
 
-export async function onRequestPost({ request, env }) {
+export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
   const localeHint = new URL(request.url).searchParams.get('locale');
   const errorLocale = localeHint === 'sv' ? 'sv' : 'en';
   const type = request.headers.get('content-type') || '';
@@ -136,4 +146,4 @@ export async function onRequestPost({ request, env }) {
   if (!response.ok) return errorPage(locale, 503, messages[locale].delivery, values);
   writeAnalytics(env, request, { event: 'form_success', locale, path: sourcePath, target: 'contact' });
   return new Response(null, { status: 303, headers: { Location: success, 'Cache-Control': 'no-store' } });
-}
+};
