@@ -11,7 +11,8 @@
     "test": "node --test tests/*.test.ts",
     "analytics:report": "node --env-file-if-exists=.dev.vars scripts/analytics-report.mjs",
     "check:rate-limit": "node scripts/check-contact-rate-limit.mjs",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "check:pages": "pnpm dlx wrangler@3.114.17 pages functions build functions --outdir .wrangler/pages-check"
   },
   "dependencies": {
     "astro": "^7.3.4"

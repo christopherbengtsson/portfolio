@@ -4,12 +4,18 @@ from urllib.parse import urlparse
 import json
 import re
 import struct
+import subprocess
 import xml.etree.ElementTree as ET
 import zlib
 
 ROOT = Path(__file__).resolve().parents[1] / 'dist'
 ORIGIN = 'https://christopherbengtsson.dev'
-REGISTRY = json.loads((ROOT.parent / 'src/lib/page-registry.json').read_text())
+# Read the same typed registry used by Astro, browser code, and Pages Functions.
+REGISTRY = json.loads(subprocess.check_output(
+    ['node', '--input-type=module', '-e',
+     "import { PAGES } from './src/lib/page-registry.ts'; process.stdout.write(JSON.stringify(PAGES));"],
+    cwd=ROOT.parent, text=True,
+))
 ROUTES = {path: page for page in REGISTRY if page['published'] for path in page['paths'].values()}
 SOCIAL_ALT = {
     'en': 'Dark CB monogram on a pale square, a thin gray line, and the text Christopher Bengtsson – Software engineering consultancy on a white background.',

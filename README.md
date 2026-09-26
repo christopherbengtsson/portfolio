@@ -16,6 +16,7 @@ Local site: <http://localhost:4321>.
 ```sh
 pnpm check
 pnpm test
+pnpm check:pages
 pnpm build
 python3 scripts/verify-output.py
 ```

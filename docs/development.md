@@ -8,7 +8,7 @@ The static output is written to `dist/`. The contact endpoint is a Cloudflare Pa
 | --- | --- |
 | `src/content/web/{en,sv}/home.json` | English and Swedish page copy |
 | `src/content/services/{en,sv}/` | Localized service copy |
-| `src/lib/page-registry.json` | Stable page IDs, localized paths, publication and indexability |
+| `src/lib/page-registry.ts` | Stable page IDs, localized paths, publication and indexability |
 | `src/pages/` | Home, privacy, service, and sitemap routes |
 | `src/layouts/` and `src/container/` | Shared layout and page templates |
 | `src/styles/site.css` | Site styles |
@@ -19,7 +19,7 @@ The static output is written to `dist/`. The contact endpoint is a Cloudflare Pa
 
 The homepages are `/` and `/sv/`. Privacy pages are `/privacy/` and `/sv/privacy/`; they use `noindex, follow` and are omitted from the sitemap. The three services each have English and Swedish routes, for 10 HTML pages in total. Selected work remains on the homepages. Site identity, the contact address, and professional profile links are defined in `src/lib/site.ts`.
 
-To add a service, add its stable ID and both paths to `src/lib/page-registry.json`, then add one content entry per language with the same `translationKey`. The build requires exactly one non-draft translation for each published route. The registry drives language switching, self-canonicals, hreflang, sitemap coverage and the analytics/contact path allowlists. Privacy stays outside the sitemap. Files in the older `src/content/stories/` directory remain unpublished.
+To add a service, add its stable ID and both paths to `src/lib/page-registry.ts`, then add one content entry per language with the same `translationKey`. The build requires exactly one non-draft translation for each published route. The registry drives language switching, self-canonicals, hreflang, sitemap coverage and the analytics/contact path allowlists. Privacy stays outside the sitemap. Files in the older `src/content/stories/` directory remain unpublished.
 
 The shared contact form appears on home and service pages. Its allowlisted `source_path` preserves the originating form page through validation, retries and success redirects, and adds page context to the inquiry email. Service experience sections link to the selected work on the localized homepage.
 
@@ -30,6 +30,8 @@ Application code, shared logic, Pages Functions, and tests use TypeScript. Small
 `pnpm check` runs Astro diagnostics plus strict, no-emit TypeScript checks for Functions and tests. Each runtime has a separate configuration: the root config covers Astro and browser code, `functions/tsconfig.json` supplies Cloudflare runtime types, and `tests/tsconfig.json` adds Node types for the test harness. The root exclusion of Functions prevents browser/worker global conflicts; Functions are checked explicitly by the same command. The shared modules are checked in each consuming runtime.
 
 `pnpm test` runs the TypeScript tests with Node's built-in runner. Function tests supply a typed Pages context and mock email and analytics services; browser tests retain their isolated VM harness. No credentials are needed for checks or tests.
+
+`pnpm check:pages` bundles Functions with Wrangler 3.114.17, matching the hosted Pages pipeline that rejected JSON import attributes. The bundle stays in ignored `.wrangler/pages-check/`; nothing is deployed. Update this compatibility check when the hosted bundler changes. The registry is typed data in `src/lib/page-registry.ts`, and `scripts/verify-output.py` reads it through Node, so the verifier also requires the project's Node runtime.
 
 ## Deployment
 
