@@ -1,0 +1,73 @@
+{
+  "locale": "sv",
+  "translationKey": "api-integrations",
+  "title": "API-integrationer och systemintegration | Christopher Bengtsson",
+  "description": "Koppla ihop applikationer och verksamhetsdata. Senior systemutvecklare i Sverige för avgränsade API-integrationer, automatisering och felsökning på distans.",
+  "headline": "Koppla ihop systemen som arbetet bygger på.",
+  "introduction": "När information ska flyttas mellan en applikation, en databas och en annan tjänst behöver kopplingen passa arbetsflödet. Jag hjälper till att bygga eller förbättra en avgränsad integration, från insamling och validering till att data når rätt plats.",
+  "examples": [
+    {
+      "title": "Koppla ett formulär till ett verksamhetssystem",
+      "description": "För över information från en applikation till ett CRM eller en annan tjänst, med överenskommen fältmappning och validering."
+    },
+    {
+      "title": "Undersök en integration som inte fungerar",
+      "description": "Följ en misslyckad förfrågan eller avvikelse i data genom systemen och identifiera vad som behöver ändras."
+    },
+    {
+      "title": "Automatisera ett återkommande steg",
+      "description": "Ersätt en avgränsad manuell överföring eller notifiering med en koppling som teamet kan förstå och underhålla."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Förstå flödet innan verktygen kopplas ihop",
+      "paragraphs": [
+        "Vi börjar med var informationen kommer ifrån, vart den ska och vilka regler den ska följa. Jag undersöker aktuellt API eller gränssnitt, tillgänglig åtkomst och vad som ska hända när underlaget är ofullständigt eller ett anrop misslyckas.",
+        "Uppdraget kan vara en ny koppling, en ändring i ett befintligt API eller en riktad felsökning. Det kan handla om moderna API:er eller ett befintligt gränssnitt som SOAP/XML. Valet beror på systemen som ska kopplas ihop."
+      ]
+    },
+    {
+      "title": "Synliga fel och en användbar överlämning",
+      "paragraphs": [
+        "En integration behöver ett bestämt beteende vid fel, inte bara när allt lyckas. Beroende på uppdraget kan det omfatta validering, felrapportering och hantering av återförsök utan oavsiktliga dubbla åtgärder. Vi bestämmer vilka felfall som ingår.",
+        "Överlämningen beskriver dataflödet, konfigurationen och vad som kontrollerats. Om en befintlig koppling eller automationsplattform räcker kan vi överväga den innan vi bygger egen kod. Jag tar mindre integrationsuppdrag och förbättringar med tydliga gränser."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "title": "Beskriv behovet",
+      "description": "Berätta vad som finns, vad du vill uppnå och om du har en tidsgräns. Ett problem som går att återskapa eller ett konkret exempel hjälper oss att börja."
+    },
+    {
+      "title": "Avgränsa uppdraget",
+      "description": "Vi bestämmer vad som ska levereras, vilken åtkomst som behövs och hur vi kontrollerar att arbetet är klart. Jag bekräftar tillgänglighet innan vi kommer överens om en tidsplan."
+    },
+    {
+      "title": "Utveckla eller granska",
+      "description": "Jag arbetar inom den överenskomna omfattningen och förklarar resultat och avvägningar. Om fler behov dyker upp diskuterar vi dem innan uppdraget utökas."
+    },
+    {
+      "title": "Lämna över",
+      "description": "Du får överenskomna ändringar eller granskningsresultat, med praktiska anteckningar om vad som kontrollerats och vad som behöver uppmärksamhet framöver."
+    }
+  ],
+  "questions": [
+    {
+      "question": "Kan du integrera med vårt CRM?",
+      "answer": "Beskriv plattformen, vilka uppgifter ni vill utbyta och vilken åtkomst som finns. Min erfarenhet omfattar ett KYC-flöde kopplat till Salesforce. Jag bedömer varje ny plattform för sig, eftersom API:er fungerar olika."
+    },
+    {
+      "question": "Vad händer om ett system saknar API?",
+      "answer": "Vi kan undersöka om det finns ett alternativ som stöds, till exempel export, import eller ett befintligt tjänstegränssnitt. Möjligheterna beror på systemets åtkomst och begränsningar."
+    },
+    {
+      "question": "Behöver integrationen AI?",
+      "answer": "Inte nödvändigtvis. Att flytta och validera strukturerad data kräver ofta vanlig programvara. AI kan övervägas för en specifik uppgift där resultatet går att kontrollera och undantag kan hanteras."
+    }
+  ],
+  "experience": "På Trustly var jag med och byggde ett KYC-flöde som kopplade ihop React-formulär, ett Express-API, Postgres och Salesforce. I ett konsultuppdrag hos Trafikverket omfattade mitt portalarbete en SOAP/XML-integration och lagrade procedurer i SQL Server.",
+  "contactIntro": "Beskriv systemen som ska kopplas ihop och ett exempel på informationen som ska flyttas. Utelämna inloggningsuppgifter och känslig data.",
+  "contactPlaceholder": "Vilka system gäller det? Vilken information ska flyttas, vad händer idag och vad ska hända om något misslyckas?"
+}

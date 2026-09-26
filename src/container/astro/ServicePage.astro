@@ -1,0 +1,53 @@
+---
+import type { WebHome, ServiceContent } from '../../content.config';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import ContactSection from '../../components/astro/ContactSection.astro';
+import { pagePath } from '../../lib/page-registry.js';
+import { homePath } from '../../lib/site';
+interface Props { content: WebHome; service: ServiceContent; }
+const { content: t, service: s } = Astro.props;
+const locale = s.locale;
+const sv = locale === 'sv';
+---
+<SiteLayout locale={locale} title={s.title} description={s.description} content={t} page={s.translationKey}>
+  <section id="top" class="landing-hero detail-hero" aria-labelledby="hero-title">
+    <div class="landing-wrap">
+      <a class="content-link detail-back" href={`${homePath(locale)}#services`}>← {sv ? 'Alla kompetensområden' : 'All capabilities'}</a>
+      <p class="landing-kicker">{sv ? 'Tjänster · Mindre uppdrag' : 'Services · Focused assignments'}</p>
+      <h1 id="hero-title">{s.headline}</h1>
+      <p class="landing-intro">{s.introduction}</p>
+      <p class="landing-location">{t.location}</p>
+      <div class="landing-actions"><a class="landing-button" href="#contact" data-analytics-event="contact_click" data-analytics-target="hero">{sv ? 'Beskriv ditt behov' : 'Describe what you need'} <span aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+  <section id="services" class="landing-section" aria-labelledby="examples-title">
+    <div class="landing-wrap">
+      <div class="landing-section-head" data-reveal><p class="landing-kicker">{sv ? 'Exempel på uppdrag' : 'Ways I can help'}</p><h2 id="examples-title">{sv ? 'Börja med ett konkret behov.' : 'Start with a concrete need.'}</h2></div>
+      <ul class="detail-examples" data-reveal>{s.examples.map((example) => <li><h3>{example.title}</h3><p>{example.description}</p></li>)}</ul>
+      <div class="detail-copy-grid">{s.sections.map((section) => <div data-reveal><h2>{section.title}</h2>{section.paragraphs.map((p) => <p>{p}</p>)}</div>)}</div>
+    </div>
+  </section>
+  <section class="landing-section" aria-labelledby="process-title">
+    <div class="landing-wrap">
+      <div class="landing-section-head" data-reveal><h2 id="process-title">{sv ? 'Från fråga till överlämning' : 'From first question to handover'}</h2></div>
+      <ol class="detail-steps" data-reveal>{s.steps.map((step) => <li><h3>{step.title}</h3><p>{step.description}</p></li>)}</ol>
+    </div>
+  </section>
+  <section id="experience" class="landing-section" aria-labelledby="experience-title">
+    <div class="landing-wrap">
+      <div class="landing-section-head" data-reveal>
+        <p class="landing-kicker">{t.experience.eyebrow}</p>
+        <h2 id="experience-title">{sv ? 'Erfarenhet bakom arbetssättet' : 'Experience behind the approach'}</h2>
+        <p>{s.experience}</p>
+      </div>
+      <p><a class="content-link" href={`${homePath(locale)}#experience`}>{sv ? 'Se utvalda projekt' : 'See selected work'} <span aria-hidden="true">→</span></a></p>
+      <p class="landing-experience-note">{t.experience.note}</p>
+    </div>
+  </section>
+  <section class="landing-section" aria-labelledby="questions-title">
+    <div class="landing-wrap"><div class="landing-section-head" data-reveal><h2 id="questions-title">{sv ? 'Frågor inför ett uppdrag' : 'Questions before we start'}</h2></div>
+      <div class="detail-questions">{s.questions.map((q) => <div data-reveal><h3>{q.question}</h3><p>{q.answer}</p></div>)}</div>
+    </div>
+  </section>
+  <ContactSection locale={locale} content={t} sourcePath={pagePath(s.translationKey, locale)} intro={s.contactIntro} placeholder={s.contactPlaceholder} />
+</SiteLayout>

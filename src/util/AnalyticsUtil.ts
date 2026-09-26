@@ -1,6 +1,7 @@
 import {
   ANALYTICS_ORIGIN,
   validBrowserEvent,
+  isAnalyticsPath,
 } from "../lib/analytics-events.js";
 
 const seen = new Set<string>();
@@ -9,7 +10,7 @@ let initialized = false;
 function trackInteraction(event: string, target: string) {
   if (
     location.origin !== ANALYTICS_ORIGIN ||
-    !["/", "/sv/"].includes(location.pathname)
+    !isAnalyticsPath(location.pathname, document.documentElement.lang)
   )
     return;
   const payload = {
@@ -51,7 +52,7 @@ function initAnalytics() {
   if (
     initialized ||
     location.origin !== ANALYTICS_ORIGIN ||
-    !["/", "/sv/"].includes(location.pathname)
+    !isAnalyticsPath(location.pathname, document.documentElement.lang)
   )
     return;
   initialized = true;

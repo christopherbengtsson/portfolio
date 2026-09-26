@@ -1,3 +1,4 @@
+import { isAnalyticsPath, pagePath } from '../src/lib/page-registry.js';
 import { pathToFileURL } from 'node:url';
 import { CAPABILITY_IDS, EVENT_TARGETS } from '../src/lib/analytics-events.js';
 
@@ -16,12 +17,12 @@ export function parseOptions(args) {
 export function buildQuery({ days, locale }) {
   // Validate even when called outside the CLI; only allowlisted values enter SQL.
   parseOptions(['--days', String(days), ...(locale === null ? [] : ['--locale', locale])]);
-  return `SELECT formatDateTime(timestamp, '%Y-%m-%d', 'Etc/UTC') AS day, blob2 AS event, blob3 AS locale, blob5 AS target,
+  return `SELECT formatDateTime(timestamp, '%Y-%m-%d', 'Etc/UTC') AS day, blob2 AS event, blob3 AS locale, blob4 AS path, blob5 AS target,
 SUM(_sample_interval) AS count
 FROM portfolio_interactions
 WHERE index1 = 'christopherbengtsson.dev' AND blob1 = '1'
 AND timestamp >= NOW() - INTERVAL '${days}' DAY${locale ? ` AND blob3 = '${locale}'` : ''}
-GROUP BY day, event, locale, target
+GROUP BY day, event, locale, path, target
 ORDER BY day ASC
 FORMAT JSON`;
 }
@@ -43,33 +44,43 @@ export async function queryAnalytics(options, env = process.env, fetcher = fetch
 export function renderReport(rows, { days, locale }) {
   const totals = new Map();
   const daily = new Map();
+  const homeTotals = new Map();
+  const pageTotals = new Map();
   for (const row of rows) {
     const targets = row.event === 'form_success' ? ['contact'] : EVENT_TARGETS[row.event];
     if (!targets?.includes(row.target) || !['en', 'sv'].includes(row.locale) || (locale && row.locale !== locale)) continue;
+    const path = row.path ?? pagePath('home', row.locale);
+    if (!isAnalyticsPath(path, row.locale)) continue;
     const count = Number(row.count);
     if (!Number.isFinite(count) || count < 0) throw new Error('Invalid count in analytics response.');
     const key = `${row.event}:${row.target}:${row.locale}`;
     totals.set(key, (totals.get(key) || 0) + count);
+    if (path === pagePath('home', row.locale)) homeTotals.set(key, (homeTotals.get(key) || 0) + count);
+    if (!pageTotals.has(path)) pageTotals.set(path, new Map());
+    const pageCounts = pageTotals.get(path);
+    pageCounts.set(row.event, (pageCounts.get(row.event) || 0) + count);
     const day = String(row.day).slice(0, 10);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) throw new Error('Invalid date in analytics response.');
     daily.set(day, (daily.get(day) || 0) + count);
   }
   const sum = (event, target, language = locale) => (language ? [language] : ['en', 'sv']).reduce((n, lang) => n + (totals.get(`${event}:${target}:${lang}`) || 0), 0);
+  const sumHome = (event, target, language = locale) => (language ? [language] : ['en', 'sv']).reduce((n, lang) => n + (homeTotals.get(`${event}:${target}:${lang}`) || 0), 0);
   const table = (title, headers, values) => [`## ${title}`, '', `| ${headers.join(' | ')} |`, `| ${headers.map(() => '---').join(' | ')} |`, ...values.map((value) => `| ${value.join(' | ')} |`), ''].join('\n');
   const sections = ['# Website interactions', '', `Last ${days} days (rolling window, UTC); language: ${locale || 'all'}.`, '',
     'Counts are sampling-weighted events, not unique visitors. Browser events are counted once per target per page load. Successful submission requests are recorded separately on the server; these totals are not a visitor funnel.', '',
     ...(totals.size ? [] : ['No events in this period.', '']),
     table('Daily activity', ['Date (UTC)', 'Events'], [...daily].sort(([a], [b]) => a.localeCompare(b))),
-    table('Section reach', ['Section', 'Events'], EVENT_TARGETS.section_view.map((id) => [id, sum('section_view', id)])),
+    table('Homepage section reach', ['Section', 'Events'], EVENT_TARGETS.section_view.map((id) => [id, sumHome('section_view', id)])),
     table('Capability interest', ['Capability', 'Expansions', 'EN', 'SV', 'Expansions / services reach'], CAPABILITY_IDS.map((id) => {
-      const count = sum('capability_expand', id);
-      const reached = sum('section_view', 'services');
-      return [id, count, sum('capability_expand', id, 'en'), sum('capability_expand', id, 'sv'), reached ? `${(100 * count / reached).toFixed(1)}%` : '—'];
+      const count = sumHome('capability_expand', id);
+      const reached = sumHome('section_view', 'services');
+      return [id, count, sumHome('capability_expand', id, 'en'), sumHome('capability_expand', id, 'sv'), reached ? `${(100 * count / reached).toFixed(1)}%` : '—'];
     })),
     table('Contact actions', ['Action', 'Events'], [
       ...EVENT_TARGETS.contact_click.map((id) => [`Contact click: ${id}`, sum('contact_click', id)]),
       ['Email click', sum('email_click', 'contact')], ['Form started', sum('form_start', 'contact')], ['Successful submission requests', sum('form_success', 'contact')],
     ]),
+    table('Contact activity by page', ['Page', 'Contact clicks', 'Email clicks', 'Form starts', 'Successful submission requests'], [...pageTotals].sort(([a], [b]) => a.localeCompare(b)).map(([path, counts]) => [path, ...['contact_click', 'email_click', 'form_start', 'form_success'].map((event) => counts.get(event) || 0)])),
     table('Profile clicks', ['Profile', 'Events'], EVENT_TARGETS.profile_click.map((id) => [id, sum('profile_click', id)])),
     'Expansion percentages compare aggregate events and can be affected by blocked requests, sampling, and period boundaries. Web Analytics traffic counts are available separately in Cloudflare.',
   ];

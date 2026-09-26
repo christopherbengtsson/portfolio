@@ -1,0 +1,42 @@
+---
+import type { WebHome } from '../../content.config';
+import { email, privacyPath, type Locale } from '../../lib/site';
+import { MAX_MESSAGE_LENGTH } from '../../lib/contact-limits.js';
+interface Props { locale: Locale; content: WebHome; sourcePath: string; intro?: string; placeholder?: string; }
+const { locale, content: t, sourcePath, intro, placeholder } = Astro.props;
+---
+  <section id="contact" class="landing-section" aria-labelledby="contact-title">
+    <div class="landing-wrap landing-contact-layout">
+      <div class="landing-contact-intro" data-reveal>
+        <div class="landing-section-head">
+          <p class="landing-kicker">{t.contact.eyebrow}</p>
+          <h2 id="contact-title">{t.contact.title}</h2>
+          <p>{intro ?? t.contact.intro}</p>
+        </div>
+        <a class="landing-email" href={`mailto:${email}`} data-analytics-event="email_click" data-analytics-target="contact">{email}</a>
+        <p id="contact-success" class="landing-success" role="status" tabindex="-1">
+          <svg class="landing-success-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />
+            <path d="m7.5 12 3 3 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" pathLength="1" />
+          </svg>
+          <span>{t.contact.success}</span>
+        </p>
+      </div>
+      <form class="landing-form" data-reveal method="post" action={`/api/contact?locale=${locale}`} accept-charset="UTF-8">
+        <input type="hidden" name="locale" value={locale} />
+        <input type="hidden" name="source_path" value={sourcePath} />
+        <div class="landing-form-row">
+          <div><label for={`landing-name-${locale}`}>{t.contact.name}</label><input id={`landing-name-${locale}`} name="name" autocomplete="name" maxlength="120" required /></div>
+          <div><label for={`landing-email-${locale}`}>{t.contact.email}</label><input id={`landing-email-${locale}`} name="email" type="email" autocomplete="email" maxlength="254" required /></div>
+        </div>
+        <div><label for={`landing-message-${locale}`}>{t.contact.message}</label><textarea id={`landing-message-${locale}`} name="message" rows="5" placeholder={placeholder ?? t.contact.placeholder} minlength="10" maxlength={MAX_MESSAGE_LENGTH} required></textarea></div>
+        <div class="honeypot" aria-hidden="true"><label for={`landing-company-${locale}`}>Company website</label><input id={`landing-company-${locale}`} name="company_site" tabindex="-1" autocomplete="off" /></div>
+        <button class="landing-button" type="submit">{t.contact.send} <span aria-hidden="true">→</span></button>
+        <p class="landing-form-privacy">{t.contact.privacyPrompt} <a href={privacyPath(locale)}>{t.privacy.title}</a>.</p>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    if (location.hash === '#contact-success') document.getElementById('contact-success')?.focus();
+  </script>

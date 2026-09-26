@@ -1,5 +1,6 @@
 ---
 import '../styles/site.css';
+import { getPage, pagePath as localizedPath } from '../lib/page-registry.js';
 import LampThemeToggle from '../components/astro/LampThemeToggle.astro';
 import type { WebHome } from '../content.config';
 import { absolute, email, homePath, otherLocale, origin, privacyPath, profiles, type Locale } from '../lib/site';
@@ -9,11 +10,13 @@ interface Props {
   title: string;
   description: string;
   content: WebHome;
-  page?: 'home' | 'privacy';
+  page?: string;
 }
 
 const { locale, title, description, content: t, page = 'home' } = Astro.props;
-const pagePath = page === 'privacy' ? privacyPath : homePath;
+const registeredPage = getPage(page);
+const pagePath = (language: Locale) => localizedPath(page, language);
+const hasContact = ['home', 'service'].includes(registeredPage.type);
 const canonical = absolute(pagePath(locale));
 const socialImage = absolute(`/og-${locale}.png`);
 const socialImageAlt = locale === 'sv'
@@ -32,6 +35,15 @@ const website = {
   '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${origin}/#website`,
   name: 'Christopher Bengtsson', url: origin, inLanguage: ['en', 'sv'],
   publisher: { '@id': `${origin}/#person` },
+};
+const webpage = {
+  '@context': 'https://schema.org', '@type': 'WebPage', '@id': `${canonical}#webpage`,
+  url: canonical, name: title, description, inLanguage: locale,
+  isPartOf: { '@id': `${origin}/#website` }, about: { '@id': `${origin}/#person` },
+};
+const service = {
+  '@context': 'https://schema.org', '@type': 'Service', '@id': `${canonical}#service`,
+  name: title.split(' | ')[0], description, url: canonical, provider: { '@id': `${origin}/#person` },
 };
 const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
 ---
@@ -55,7 +67,7 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {page === 'privacy' && <meta name="robots" content="noindex, follow" />}
+    {!registeredPage.indexable && <meta name="robots" content="noindex, follow" />}
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={locale} href={canonical} />
     <link rel="alternate" hreflang={otherLocale(locale)} href={absolute(pagePath(otherLocale(locale)))} />
@@ -77,6 +89,8 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
     <meta name="twitter:image:alt" content={socialImageAlt} />
     <script type="application/ld+json" set:html={json(person)} />
     <script type="application/ld+json" set:html={json(website)} />
+    <script type="application/ld+json" set:html={json(webpage)} />
+    {registeredPage.type === 'service' && <script type="application/ld+json" set:html={json(service)} />}
   </head>
   <body class="landing-body">
     <a class="skip-link" href="#main">{t.skip}</a>
@@ -88,7 +102,7 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
           <ul>
             <li><a href={`${sectionPrefix}#services`}>{locale === 'sv' ? 'Kompetens' : 'What I do'}</a></li>
             <li><a href={`${sectionPrefix}#experience`}>{locale === 'sv' ? 'Erfarenhet' : 'Experience'}</a></li>
-            <li><a href={`${sectionPrefix}#contact`} data-analytics-event="contact_click" data-analytics-target="header">{locale === 'sv' ? 'Kontakt' : 'Contact'}</a></li>
+            <li><a href={hasContact ? '#contact' : `${homePath(locale)}#contact`} data-analytics-event="contact_click" data-analytics-target="header">{locale === 'sv' ? 'Kontakt' : 'Contact'}</a></li>
           </ul>
         </nav>
         <nav aria-label={locale === 'sv' ? 'Språk' : 'Language'} class="landing-language">

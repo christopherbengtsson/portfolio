@@ -101,6 +101,7 @@ dd {
 .landing-body h1, .landing-body h2, .landing-body h3, .landing-body p { margin-block-start: 0; }
 .landing-body h1 { max-width: 56rem; margin: 1.5rem 0 0; font-size: 3rem; font-weight: 650; line-height: 1.06; letter-spacing: -.03em; text-wrap: balance; }
 .landing-body .landing-intro { max-width: 42rem; margin: 2rem 0 0; color: var(--land-muted); font-size: 1rem; line-height: 1.625; text-wrap: pretty; }
+.landing-body .landing-location { margin: 1.25rem 0 0; color: var(--land-muted); font-size: .875rem; }
 .landing-body .landing-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .75rem; margin-top: 2.5rem; }
 .landing-body .landing-button { display: inline-flex; align-items: center; gap: .5rem; width: fit-content; max-width: 100%; min-width: 2.75rem; min-height: 2.75rem; padding: .75rem 1.25rem; border: 0; border-radius: 0; background: var(--land-accent); color: var(--land-action-ink); font-size: 1rem; font-weight: 600; line-height: 1.5; letter-spacing: .06em; text-transform: uppercase; }
 .landing-body .landing-button-secondary { border: 1px solid var(--land-line); padding: calc(.75rem - 1px) calc(1.25rem - 1px); background: transparent; color: var(--land-muted); }
@@ -259,6 +260,7 @@ dd {
   .landing-body .landing-hero .landing-kicker,
   .landing-body .landing-hero h1 { animation: landing-arrive 700ms var(--land-ease) both; }
   .landing-body .landing-hero .landing-intro,
+  .landing-body .landing-hero .landing-location,
   .landing-body .landing-hero .landing-mobile-availability { animation: landing-arrive 700ms 60ms var(--land-ease) both; }
   .landing-body .landing-actions { animation: landing-arrive 700ms 120ms var(--land-ease) both; }
   .landing-body .landing-facts { animation: landing-arrive 800ms 180ms var(--land-ease) both; }
@@ -277,7 +279,8 @@ dd {
   .landing-body .landing-button > span,
   .landing-body .landing-form label { transform: none !important; }
 }
-@media (max-width: 1199px) {
+/* Keep the full availability text out of the header until both languages fit. */
+@media (max-width: 1359px) {
   .landing-body .landing-availability { display: none; }
   .landing-body .landing-mobile-availability { display: block; margin: 1.25rem 0 0; color: var(--land-muted); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
 }
@@ -307,4 +310,30 @@ dd {
   .landing-body .landing-capability-indicator { top: 1.5rem; right: 1.5rem; }
   .landing-body .landing-capability-content { padding: 0 1.5rem 1.5rem; }
   .landing-body .landing-jobs > li { gap: 1rem; }
+}
+
+/* Service pages share the site's typography, palette and spacing. */
+.landing-body .content-link { text-decoration: underline; text-underline-offset: .25em; text-decoration-thickness: 1px; }
+.landing-body .content-link:hover { color: var(--land-muted); }
+.landing-body .detail-hero { min-height: 0; padding-block: 3rem 5rem; }
+.landing-body .detail-back { display: inline-block; margin-bottom: 3rem; font-size: .875rem; }
+.landing-body .detail-examples { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2rem; list-style: none; margin: 3rem 0 4rem; padding: 0; }
+.landing-body .detail-examples li { border-top: 1px solid var(--land-line); padding-top: 1.5rem; }
+.landing-body .detail-examples h3, .landing-body .detail-steps h3, .landing-body .detail-questions h3 { font-size: 1.25rem; line-height: 1.4; letter-spacing: -.02em; }
+.landing-body .detail-examples p, .landing-body .detail-copy-grid p, .landing-body .detail-steps p, .landing-body .detail-questions p { color: var(--land-muted); line-height: 1.75; }
+.landing-body .detail-copy-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 4rem; }
+.landing-body .detail-copy-grid h2 { font-size: 1.75rem; line-height: 1.3; letter-spacing: -.025em; }
+.landing-body .detail-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem; padding-left: 1.25rem; margin-block: 3rem 0; }
+.landing-body .detail-steps li { padding-left: .5rem; }
+.landing-body .detail-steps li::marker { color: var(--land-muted); }
+.landing-body .detail-questions { max-width: 48rem; margin-top: 3rem; }
+.landing-body .detail-questions > div { padding-block: 1.5rem; border-top: 1px solid var(--land-line); }
+@media (max-width: 900px) {
+  .landing-body .detail-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .landing-body .detail-copy-grid { gap: 2rem; }
+}
+@media (max-width: 640px) {
+  .landing-body .detail-hero { padding-block: 2rem 3rem; }
+  .landing-body .detail-back { margin-bottom: 2rem; }
+  .landing-body .detail-examples, .landing-body .detail-copy-grid, .landing-body .detail-steps { grid-template-columns: 1fr; gap: 1.5rem; }
 }

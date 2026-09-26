@@ -1,0 +1,73 @@
+{
+  "locale": "en",
+  "translationKey": "api-integrations",
+  "title": "API integration consultant in Sweden | Christopher Bengtsson",
+  "description": "Connect applications and business data with a senior software engineer. Focused API integrations, workflow automation and integration fixes, delivered remotely.",
+  "headline": "Connect the systems your work depends on.",
+  "introduction": "When information has to move between an application, a database and another service, the connection needs to fit the workflow. I help build or improve a defined integration, from capturing and validating data to sending it where it is needed.",
+  "examples": [
+    {
+      "title": "Connect a form to a business system",
+      "description": "Bring information from an application into a CRM or another service, with an agreed mapping and validation rules."
+    },
+    {
+      "title": "Investigate a failing integration",
+      "description": "Follow a specific failed request or data mismatch across systems and identify what needs to change."
+    },
+    {
+      "title": "Automate a recurring step",
+      "description": "Replace a defined manual transfer or notification step with a connection your team can understand and maintain."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Understand the flow before connecting the tools",
+      "paragraphs": [
+        "We start with the source of the data, its destination and the rules it needs to follow. I check the relevant API or interface, the access available and what should happen when input is incomplete or a request fails.",
+        "The scope might be a new connection, a change to an existing API or a targeted investigation. It can involve modern APIs or an existing interface such as SOAP/XML. The choice depends on the systems involved."
+      ]
+    },
+    {
+      "title": "Make failures visible and the handover useful",
+      "paragraphs": [
+        "An integration needs a defined response to failures as well as a successful path. Depending on the assignment, that can include validation, error reporting and a way to handle retries without unintended duplicate actions. We agree which failure cases are in scope.",
+        "The handover explains the data flow, configuration and checks performed. If an existing connector or automation platform meets the need, we can consider it before commissioning custom code. I am available for smaller integrations and improvements with a clear boundary."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "title": "Describe the change",
+      "description": "Tell me what exists, what you want to achieve and any deadline. A reproducible problem or a concrete example helps us start."
+    },
+    {
+      "title": "Agree a scope",
+      "description": "We identify the deliverable, the access needed and how to check that the work is complete. I confirm availability before we agree a schedule."
+    },
+    {
+      "title": "Build or review",
+      "description": "I work within the agreed scope and explain findings or tradeoffs. If new work emerges, we discuss it before extending the assignment."
+    },
+    {
+      "title": "Hand over",
+      "description": "You receive the agreed changes or findings, with practical notes on what was checked and what needs attention next."
+    }
+  ],
+  "questions": [
+    {
+      "question": "Can you integrate with our CRM?",
+      "answer": "Share the platform, the data you want to exchange and the access available. My experience includes a KYC workflow connected to Salesforce; I assess each new platform rather than assume its APIs behave the same way."
+    },
+    {
+      "question": "What if one system has no API?",
+      "answer": "We can check whether there is a supported alternative such as an export, import or existing service interface. Feasibility depends on the access and constraints of that system."
+    },
+    {
+      "question": "Does the integration need AI?",
+      "answer": "Not necessarily. Moving and validating structured data often needs ordinary software. AI can be considered for a specific task where its output can be checked and exceptions handled."
+    }
+  ],
+  "experience": "At Trustly, I co-built a KYC workflow connecting React forms, an Express API, Postgres and Salesforce. In a consulting assignment for the Swedish Transport Administration, my portal work included a SOAP/XML integration and SQL Server stored procedures.",
+  "contactIntro": "Describe the systems you want to connect and one example of the information that should move between them. Please leave out credentials and sensitive data.",
+  "contactPlaceholder": "Which systems are involved? What information should move, what happens today, and what should happen when something fails?"
+}

@@ -1,0 +1,75 @@
+{
+  "locale": "en",
+  "translationKey": "code-review",
+  "title": "Independent code and architecture reviews | Christopher Bengtsson",
+  "description": "A focused code or architecture review from a senior software engineer. Prioritized findings and practical next steps for an existing app or proposed change.",
+  "headline": "Get a clear second opinion on your software.",
+  "introduction": "Before a launch or a technical change, you may need help understanding what deserves attention. I review a defined part of a codebase, an integration or an architecture proposal and explain the findings in practical terms.",
+  "examples": [
+    {
+      "title": "Review a proposed change",
+      "description": "Examine how a feature or integration fits the existing system, including dependencies and likely failure cases."
+    },
+    {
+      "title": "Assess an existing application",
+      "description": "Look at an agreed user flow or code area for correctness, maintainability and gaps in testing."
+    },
+    {
+      "title": "Review an AI-built first version",
+      "description": "Understand what is implemented, what remains incomplete and what needs attention in the agreed scope before the next step."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Give the review a question to answer",
+      "paragraphs": [
+        "A useful review starts with a decision: can we release this flow, how should these systems connect, or why is this area difficult to change? We agree which code, configuration and supporting material are included.",
+        "The review can cover interfaces, backend services, data handling and their boundaries. Access controls and credential handling can be part of an engineering review, but the engagement is not a certification or a comprehensive penetration test."
+      ]
+    },
+    {
+      "title": "Findings you can act on",
+      "paragraphs": [
+        "You receive a written summary with prioritized findings, references to the relevant code or behavior, and recommended next steps. I distinguish observed issues from questions that require further investigation and explain the limits of what was reviewed.",
+        "Illustrative finding — medium priority: when a CRM request fails, the form displays a success message even though the record was not saved. The user may believe the task is complete and lose the information they entered. This is a fictional example showing how a report can describe an issue.",
+        "Recommended change: show success only after confirmed acceptance, preserve the entered values when delivery fails and give the user a clear retry action. Verification: test an accepted request, a rejected request and a timeout, including whether retrying can create a duplicate. The report would reference the relevant code and distinguish reproduced behavior from untested assumptions.",
+        "Implementation can be scoped separately once the findings are understood."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "title": "Describe the change",
+      "description": "Tell me what exists, what you want to achieve and any deadline. A reproducible problem or a concrete example helps us start."
+    },
+    {
+      "title": "Agree a scope",
+      "description": "We identify the deliverable, the access needed and how to check that the work is complete. I confirm availability before we agree a schedule."
+    },
+    {
+      "title": "Build or review",
+      "description": "I work within the agreed scope and explain findings or tradeoffs. If new work emerges, we discuss it before extending the assignment."
+    },
+    {
+      "title": "Hand over",
+      "description": "You receive the agreed changes or findings, with practical notes on what was checked and what needs attention next."
+    }
+  ],
+  "questions": [
+    {
+      "question": "Can I commission a review without a technical background?",
+      "answer": "Yes. Describe the decision you need to make and what the software should do. I explain the findings in plain language while keeping technical references useful for whoever implements the changes."
+    },
+    {
+      "question": "Will you also fix the issues?",
+      "answer": "I can help with agreed fixes if the scope and availability fit. The review and any implementation are separate deliverables, so you can decide how to proceed."
+    },
+    {
+      "question": "Can you guarantee the application has no bugs?",
+      "answer": "No. A review covers the agreed material and checks. The report identifies what was examined, what was found and what remains outside the scope."
+    }
+  ],
+  "experience": "My background spans interfaces, services, data and integrations, including KYC/Salesforce work at Trustly and ownership of a change-request portal in a consulting assignment. That experience informs how I examine the boundaries between parts of a system.",
+  "contactIntro": "Tell me what decision you need help with, what exists today and which part of the software you want reviewed.",
+  "contactPlaceholder": "What are you considering launching or changing? Which code or workflow needs a second opinion, and what decision should the review help you make?"
+}

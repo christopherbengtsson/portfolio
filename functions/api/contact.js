@@ -1,3 +1,4 @@
+import { contactPath } from '../../src/lib/page-registry.js';
 import { writeAnalytics } from '../lib/analytics.js';
 import { MAX_CONTACT_BYTES, MAX_MESSAGE_LENGTH } from '../../src/lib/contact-limits.js';
 
@@ -28,9 +29,11 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => (
 
 function errorPage(locale, status, message, values) {
   const t = messages[locale];
-  const contact = locale === 'sv' ? '/sv/#contact' : '/#contact';
+  const sourcePath = contactPath(values?.sourcePath, locale);
+  const contact = `${sourcePath}#contact`;
   const form = values && `<form method="post" action="/api/contact?locale=${locale}" accept-charset="UTF-8">
     <input type="hidden" name="locale" value="${locale}">
+    <input type="hidden" name="source_path" value="${escapeHtml(sourcePath)}">
     <input type="hidden" name="submission_id" value="${values.submissionId}">
     <p><label for="name">${t.name} *</label> <input id="name" name="name" autocomplete="name" maxlength="120" value="${escapeHtml(values.name)}" required></p>
     <p><label for="email">${t.email} *</label> <input id="email" name="email" type="email" autocomplete="email" maxlength="254" value="${escapeHtml(values.replyTo)}" required></p>
@@ -90,8 +93,9 @@ export async function onRequestPost({ request, env }) {
   const message = field(form, 'message');
   const incomingSubmissionId = field(form, 'submission_id');
   const submissionId = submissionIdPattern.test(incomingSubmissionId) ? incomingSubmissionId : crypto.randomUUID();
-  const values = { name, replyTo, message, submissionId };
-  const success = locale === 'sv' ? '/sv/#contact-success' : '/#contact-success';
+  const sourcePath = contactPath(form.get('source_path'), locale);
+  const values = { name, replyTo, message, submissionId, sourcePath };
+  const success = `${sourcePath}#contact-success`;
 
   if (field(form, 'company_site')) {
     return new Response(null, { status: 303, headers: { Location: success, 'Cache-Control': 'no-store' } });
@@ -107,7 +111,7 @@ export async function onRequestPost({ request, env }) {
     return errorPage(locale, 503, messages[locale].delivery, values);
   }
 
-  const body = `Language: ${locale}\nName: ${name}\nEmail: ${replyTo}\n\nMessage:\n${message}`;
+  const body = `Language: ${locale}\nPage: ${sourcePath}\nName: ${name}\nEmail: ${replyTo}\n\nMessage:\n${message}`;
   const payload = JSON.stringify({
     from: env.RESEND_FROM_EMAIL,
     to: ['hello@christopherbengtsson.dev'],
@@ -130,6 +134,6 @@ export async function onRequestPost({ request, env }) {
   }
 
   if (!response.ok) return errorPage(locale, 503, messages[locale].delivery, values);
-  writeAnalytics(env, request, { event: 'form_success', locale, path: locale === 'sv' ? '/sv/' : '/', target: 'contact' });
+  writeAnalytics(env, request, { event: 'form_success', locale, path: sourcePath, target: 'contact' });
   return new Response(null, { status: 303, headers: { Location: success, 'Cache-Control': 'no-store' } });
 }

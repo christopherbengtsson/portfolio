@@ -194,3 +194,53 @@ test('missing delivery credentials preserves a Swedish inquiry for retry', async
   assert.doesNotMatch(html, /name="service"/);
   assert.match(html, /Jag vill diskutera löpande utveckling\.<\/textarea>/);
 });
+
+test('localized service inquiries preserve page context through delivery, retry and analytics', async () => {
+  const originalFetch = globalThis.fetch;
+  try {
+    for (const [locale, source_path] of [['en', '/services/app-improvements/'], ['sv', '/sv/tjanster/api-integrationer/']]) {
+      const payloads = [], keys = [], points = [];
+      let status = 503;
+      globalThis.fetch = async (_url, options) => {
+        payloads.push(JSON.parse(options.body));
+        keys.push(options.headers['Idempotency-Key']);
+        return new Response('{}', { status });
+      };
+      const config = { ...env, ANALYTICS_ENABLED: 'true', SITE_ANALYTICS: { writeDataPoint: (value) => points.push(value) } };
+      const fields = { ...valid, locale, source_path };
+      const failure = await onRequestPost({ request: requestFor(fields), env: config });
+      assert.equal(failure.status, 503);
+      const html = await failure.text();
+      assert.ok(html.includes(`name="source_path" value="${source_path}"`));
+      const submission_id = html.match(/name="submission_id" value="([^"]+)"/)[1];
+      assert.equal(points.length, 0);
+      status = 200;
+      const success = await onRequestPost({ request: requestFor({ ...fields, submission_id }), env: config });
+      assert.equal(success.headers.get('location'), `${source_path}#contact-success`);
+      assert.ok(payloads[1].text.includes(`Page: ${source_path}\n`));
+      assert.equal(keys[0], keys[1]);
+      assert.deepEqual(points[0].blobs, ['1', 'form_success', locale, source_path, 'contact']);
+      const invalid = await onRequestPost({ request: requestFor({ ...fields, email: 'invalid' }), env: config });
+      assert.equal(invalid.status, 400);
+      assert.ok((await invalid.text()).includes(`name="source_path" value="${source_path}"`));
+      const bot = await onRequestPost({ request: requestFor({ ...fields, company_site: 'spam' }), env: config });
+      assert.equal(bot.headers.get('location'), `${source_path}#contact-success`);
+      assert.equal(payloads.length, 2);
+      assert.equal(points.length, 1);
+    }
+  } finally { globalThis.fetch = originalFetch; }
+});
+
+test('contact source rejects unknown, cross-language, non-form and arbitrary URL destinations', async () => {
+  const originalFetch = globalThis.fetch;
+  let payload;
+  globalThis.fetch = async (_url, options) => { payload = JSON.parse(options.body); return new Response('{}'); };
+  try {
+    for (const source_path of ['https://example.org/', '//example.org/', '/sv/tjanster/kodgranskning/', '/privacy/', '/work/change-request-portal/', '/unknown/', '/services/code-review/?secret=yes', '/services/code-review/#contact', ' /services/code-review/']) {
+      const result = await onRequestPost({ request: requestFor({ ...valid, source_path }), env });
+      assert.equal(result.headers.get('location'), '/#contact-success');
+      assert.ok(payload.text.includes('Page: /\n'));
+      assert.ok(!payload.text.includes(source_path + '\n') || source_path === '/');
+    }
+  } finally { globalThis.fetch = originalFetch; }
+});

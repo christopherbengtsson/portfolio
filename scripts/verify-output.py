@@ -9,6 +9,8 @@ import zlib
 
 ROOT = Path(__file__).resolve().parents[1] / 'dist'
 ORIGIN = 'https://christopherbengtsson.dev'
+REGISTRY = json.loads((ROOT.parent / 'src/lib/page-registry.json').read_text())
+ROUTES = {path: page for page in REGISTRY if page['published'] for path in page['paths'].values()}
 SOCIAL_ALT = {
     'en': 'Dark CB monogram on a pale square, a thin gray line, and the text Christopher Bengtsson – Software engineering consultancy on a white background.',
     'sv': 'Mörkt CB-monogram på en ljus kvadrat, en tunn grå linje och texten Christopher Bengtsson – Konsult inom systemutveckling på vit bakgrund.',
@@ -126,7 +128,7 @@ for file in ROOT.rglob('*.html'):
     parsed.feed(source)
     pages[route] = parsed
 
-assert set(pages) == {'/', '/sv/', '/privacy/', '/sv/privacy/'}, f'Unexpected generated pages: {sorted(pages)}'
+assert set(pages) == set(ROUTES), f'Unexpected generated pages: {sorted(pages)}'
 assert pages['/'].tag('html')[0]['lang'] == 'en'
 assert pages['/sv/'].tag('html')[0]['lang'] == 'sv'
 
@@ -137,7 +139,10 @@ assert set(ROOT.rglob('*.js')) == referenced_js, 'Unexpected or unreferenced Jav
 
 for route, page in pages.items():
     locale = page.tag('html')[0]['lang']
-    is_privacy = route in ('/privacy/', '/sv/privacy/')
+    registered = ROUTES[route]
+    is_privacy = registered['type'] == 'privacy'
+    is_home = registered['type'] == 'home'
+    has_form = registered['type'] in ('home', 'service')
     assert locale == ('sv' if route.startswith('/sv/') else 'en')
     robots = [a.get('content') for a in page.tag('meta') if a.get('name') == 'robots']
     assert robots == (['noindex, follow'] if is_privacy else [])
@@ -151,8 +156,7 @@ for route, page in pages.items():
     canonical = [a['href'] for a in page.tag('link') if a.get('rel') == 'canonical']
     assert canonical == [ORIGIN + route]
     alternates = {a.get('hreflang'): a.get('href') for a in page.tag('link') if a.get('rel') == 'alternate'}
-    suffix = 'privacy/' if is_privacy else ''
-    assert alternates == {'en': ORIGIN + '/' + suffix, 'sv': ORIGIN + '/sv/' + suffix}
+    assert alternates == {language: ORIGIN + path for language, path in registered['paths'].items()}
     og = {a.get('property'): a.get('content') for a in page.tag('meta') if a.get('property', '').startswith('og:')}
     assert set(og) >= {'og:title', 'og:type', 'og:description', 'og:url', 'og:image', 'og:image:alt'}
     assert og['og:url'] == canonical[0] and og['og:image'] == f'{ORIGIN}/og-{locale}.png'
@@ -175,9 +179,12 @@ for route, page in pages.items():
         '/favicon.png': ('icon', 'image/png', '96x96'),
         '/apple-touch-icon.png': ('apple-touch-icon', None, '180x180'),
     }, f'{route}: missing or incorrect icon links'
-    assert {schema['@type'] for schema in page.schemas} == {'Person', 'WebSite'}
+    expected_schemas = {'Person', 'WebSite', 'WebPage'} | ({'Service'} if registered['type'] == 'service' else set())
+    assert {schema['@type'] for schema in page.schemas} == expected_schemas
+    webpage = next(schema for schema in page.schemas if schema['@type'] == 'WebPage')
+    assert webpage['url'] == ORIGIN + route and webpage['inLanguage'] == locale
     scripts = page.tag('script')
-    if not is_privacy:
+    if has_form:
         assert any(script.get('type') == 'module' and 'src' not in script for script in scripts)
     assert any(script.get('type') == 'module' and script.get('src', '').endswith('.js') for script in scripts)
     assert all(script.get('type') in (None, 'module', 'application/ld+json') for script in scripts)
@@ -185,12 +192,14 @@ for route, page in pages.items():
     stylesheets = [a['href'] for a in page.tag('link') if a.get('rel') == 'stylesheet']
     assert len(stylesheets) == 1 and (ROOT / stylesheets[0].lstrip('/')).exists()
     ids = {attributes.get('id') for _, attributes in page.tags}
-    if not is_privacy:
-        assert {'main', 'top', 'services', 'experience', 'contact', 'contact-success'} <= ids
+    if is_home:
+        assert {'main', 'top', 'services', 'experience'} <= ids
+    if has_form:
+        assert {'contact', 'contact-success'} <= ids
         assert 'privacy' not in ids
         assert any(a.get('id') == 'contact-success' and a.get('role') == 'status' for a in page.tag('p'))
     privacy_route = '/sv/privacy/' if locale == 'sv' else '/privacy/'
-    assert len([a for a in page.tag('a') if a.get('href') == privacy_route]) >= 2
+    assert len([a for a in page.tag('a') if a.get('href') == privacy_route]) >= (2 if has_form else 1)
     for link in page.tag('a'):
         href = link.get('href', '')
         if href.startswith('#'):
@@ -203,22 +212,24 @@ for route, page in pages.items():
                 target_ids = {attrs.get('id') for _, attrs in pages[target].tags}
                 assert fragment in target_ids, f'{route}: broken section link {href}'
     forms = page.tag('form')
-    if is_privacy:
+    if not has_form:
         assert not forms
-        assert 'privacy-title' in ids
+        if is_privacy:
+            assert 'privacy-title' in ids
         continue
     assert len(forms) == 1 and forms[0].get('action') == f'/api/contact?locale={locale}'
     assert forms[0].get('method') == 'post'
+    assert [a.get('value') for a in page.tag('input') if a.get('name') == 'source_path'] == [route]
     assert len([a for a in page.tag('input') if a.get('type') == 'radio']) == 0
     assert page.tag('label')
     assert len([a for a in page.tag('textarea') if a.get('name') == 'message']) == 1
     assert any(a.get('name') == 'company_site' for a in page.tag('input'))
 
-assert len({page.title for page in pages.values()}) == 4
+assert len({page.title for page in pages.values()}) == len(pages)
 ns = {'s': 'http://www.sitemaps.org/schemas/sitemap/0.9'}
 sitemap = ET.parse(ROOT / 'sitemap.xml').getroot()
 locs = {node.text for node in sitemap.findall('s:url/s:loc', ns)}
-assert locs == {ORIGIN + '/', ORIGIN + '/sv/'}, f'Unexpected sitemap URLs: {locs}'
+assert locs == {ORIGIN + path for path, page in ROUTES.items() if page['indexable']}, f'Unexpected sitemap URLs: {locs}'
 assert not list(ROOT.rglob('rss.xml')), 'Retired RSS feed remains'
 assert json.loads((ROOT / '_routes.json').read_text())['include'] == ['/api/contact', '/api/analytics']
 headers = (ROOT / '_headers').read_text()
@@ -226,7 +237,14 @@ assert re.search(r'/_astro/\*\s+! Cache-Control\s+Cache-Control: public, max-age
 assert 'OAI-SearchBot' in (ROOT / 'robots.txt').read_text()
 llms = (ROOT / 'llms.txt').read_text()
 assert f'{ORIGIN}/' in llms and f'{ORIGIN}/sv/' in llms
-assert not any(old in llms for old in ('/services/', '/stories/', '/about/', '/contact/', '/sv/tjanster/', '/sv/berattelser/', '/sv/om/', '/sv/kontakt/'))
+for path, registered in ROUTES.items():
+    if registered['indexable']:
+        assert ORIGIN + path in llms, f'Missing llms link {path}'
+assert not any(old in llms for old in ('/stories/', '/about/', '/contact/', '/sv/berattelser/', '/sv/om/', '/sv/kontakt/', '/work/', '/sv/projekt/'))
+for url in sitemap.findall('s:url', ns):
+    path = url.find('s:loc', ns).text.removeprefix(ORIGIN)
+    alternates = {node.attrib['hreflang']: node.attrib['href'] for node in url.findall('{http://www.w3.org/1999/xhtml}link')}
+    assert alternates == {language: ORIGIN + target for language, target in ROUTES[path]['paths'].items()}
 assert (ROOT / '404.html').exists()
 
-print('Validated two landing pages and two noindex privacy pages, section links, forms, sitemap, icon dimensions and ICO frames, and localized Open Graph/Twitter metadata.')
+print(f'Validated {len(pages)} pages, localized routes and schema, form source paths, internal links, sitemap, icons and sharing metadata.')

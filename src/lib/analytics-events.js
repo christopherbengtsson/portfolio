@@ -1,3 +1,5 @@
+import { isAnalyticsPath } from './page-registry.js';
+export { isAnalyticsPath };
 export const ANALYTICS_ORIGIN = 'https://christopherbengtsson.dev';
 export const CAPABILITY_IDS = ['build-extend', 'improve-maintain', 'reduce-manual-work', 'review-advise'];
 export const EVENT_TARGETS = {
@@ -15,6 +17,6 @@ export function validBrowserEvent(value) {
   if (Object.keys(value).sort().join(',') !== 'event,locale,path,target') return false;
   if (!Object.values(value).every((field) => typeof field === 'string')) return false;
   if (value.locale !== 'en' && value.locale !== 'sv') return false;
-  if (value.path !== (value.locale === 'sv' ? '/sv/' : '/')) return false;
+  if (!isAnalyticsPath(value.path, value.locale)) return false;
   return Object.hasOwn(EVENT_TARGETS, value.event) && EVENT_TARGETS[value.event].includes(value.target);
 }

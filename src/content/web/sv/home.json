@@ -1,24 +1,36 @@
 {
   "skip": "Hoppa till innehållet",
   "title": "Christopher Bengtsson — Systemutvecklare och konsult",
-  "description": "Konsult inom systemutveckling i Sverige, tillgänglig för uppdrag på deltid och på distans. Jag bygger funktioner, förbättrar system och automatiserar.",
-  "availability": "Tillgänglig för uppdrag på deltid",
+  "description": "Senior systemutvecklare i Sverige. Hjälp på distans med mindre uppdrag: funktioner, felsökning, integrationer, automatisering och kodgranskning.",
+  "availability": "Tillgänglig för mindre, tydligt avgränsade uppdrag",
   "themeToggleLabel": "Mörkt läge",
-  "eyebrow": "Senior fullstackutvecklare och konsult",
+  "eyebrow": "Senior systemutvecklare och konsult",
   "headline": "Jag utvecklar programvara, automatiserar uppgifter och förbättrar befintliga system.",
   "introduction": "Jag heter Christopher och är fullstackutvecklare med över nio års erfarenhet av att bygga gränssnitt, backendtjänster, databaser, molnlösningar och integrationer. Jag sätter mig in i din verksamhets mål och bygger lösningar med vidareutveckling och underhåll i åtanke.",
   "projectCta": "Berätta om ditt projekt",
   "servicesCta": "Se vad jag gör",
   "facts": [
-    ["Erfarenhet", "9+ år"],
-    ["Hela stacken", "Frontend · Backend · Data"],
-    ["Plats", "Sverige · På distans"],
-    ["Arbetssätt", "Verksamhetsmål · Praktiska lösningar"]
+    [
+      "Erfarenhet",
+      "9+ år"
+    ],
+    [
+      "Hela stacken",
+      "Frontend · Backend · Data"
+    ],
+    [
+      "Plats",
+      "Göteborg · Sverige · På distans"
+    ],
+    [
+      "Arbetssätt",
+      "Verksamhetsmål · Praktiska lösningar"
+    ]
   ],
   "services": {
     "eyebrow": "Kompetensområden",
     "title": "Vad jag gör",
-    "intro": "Oavsett om du bygger din första lilla app, utvecklar ett växande företag eller förbättrar ett etablerat system kan jag hjälpa till med ett avgränsat uppdrag eller arbeta löpande med ditt team. Här är några sätt.",
+    "intro": "Jag hjälper till med nya funktioner, befintliga applikationer, integrationer, automatisering och tekniska granskningar. Just nu tar jag mindre uppdrag med tydlig omfattning och överenskommen överlämning.",
     "contactCta": "Diskutera ditt projekt"
   },
   "capabilities": [
@@ -30,7 +42,9 @@
       "details": [
         "En ny funktion kräver ofta ändringar i både gränssnitt, backendtjänster och datahantering. Jag kan ta ansvar för det arbetet inom ett etablerat teams arkitektur och arbetssätt, eller hjälpa ett växande startupbolag att bygga de funktioner och integrationer som behövs för nästa steg. Tillsammans med dem som kan produkten tar jag reda på vad som behöver förändras och hur delarna hänger ihop.",
         "Om du börjar med en idé eller en första app byggd med AI kan jag hjälpa dig att avgränsa en första version och bygga det som saknas. Målet är programvara som hjälper verksamheten, med kod och praktisk dokumentation som gör det möjligt för dig eller ditt team att fortsätta utvecklingen."
-      ]
+      ],
+      "serviceId": "app-improvements",
+      "linkLabel": "Funktioner och förbättringar"
     },
     {
       "id": "improve-maintain",
@@ -40,7 +54,9 @@
       "details": [
         "När en app känns skör eller vanliga ändringar blir svåra åtgärdar jag problemen och lägger till tester för viktiga användarflöden. Det kan handla om att förbereda en första AI-byggd app för lansering, hålla koden hanterbar i ett växande startupbolag eller uppdatera ett etablerat system utan att ändra beteenden som andra team är beroende av.",
         "Beroende på projektet kan jag förbättra prestanda, granska behörigheter och se över hanteringen av API-nycklar och andra känsliga åtkomstuppgifter. Jag kan också konfigurera Dependabot så att uppdateringar av beroenden föreslås automatiskt och sedan granska och testa ändringarna innan de införs. Det ger en tydligare underhållsrutin och kod som är enklare att ändra."
-      ]
+      ],
+      "serviceId": "app-improvements",
+      "linkLabel": "Hjälp med en befintlig applikation"
     },
     {
       "id": "reduce-manual-work",
@@ -50,7 +66,9 @@
       "details": [
         "Att kopiera information mellan verktyg, sammanställa återkommande rapporter och följa upp överlämningar tar tid från annat arbete. Jag kan koppla ihop stegen så att informationen hamnar rätt utan upprepad manuell inmatning. Även en första app byggd med AI kan ha nytta av en enkel koppling till de verktyg du redan använder.",
         "För ett växande startupbolag kan det handla om kundregistrering eller rapportering som hänger med när verksamheten växer. I en större organisation kan det vara ett flöde som går genom flera team och system. Jag kontrollerar inkommande data, gör fel synliga och lägger in manuellt godkännande där det behövs. Teamet kan se vad som hänt och avgöra hur undantag ska hanteras."
-      ]
+      ],
+      "serviceId": "api-integrations",
+      "linkLabel": "API-integrationer och automatisering"
     },
     {
       "id": "review-advise",
@@ -60,7 +78,9 @@
       "details": [
         "Inför en lansering, en integration eller en större teknisk förändring behöver du förstå riskerna och alternativen. Jag kan granska ett etablerat teams föreslagna arkitektur utifrån systemen som redan finns, eller hjälpa ett startupbolag att väga tekniska förbättringar mot produktplanen. Granskningen utgår från de beslut du behöver fatta.",
         "För en första app byggd med AI kan jag förklara vad som behöver åtgärdas innan riktiga användare börjar förlita sig på den, även om du saknar teknisk bakgrund. Du får slutsatser på ett begripligt språk: vad jag skulle åtgärda nu, vad som kan vänta och varför. Det ger dig eller ditt team ett konkret underlag för att planera arbetet."
-      ]
+      ],
+      "serviceId": "code-review",
+      "linkLabel": "Kodgranskning och teknisk rådgivning"
     }
   ],
   "experience": {
@@ -88,27 +108,47 @@
       "project": "Kundkännedom och Salesforce-integration",
       "company": "Trustly · anställning",
       "description": "Tillsammans med en annan fullstackutvecklare byggde jag ett flöde för kundkännedom (KYC) som kopplade ihop React-formulär, ett Express-API, Postgres och Salesforce. Jag arbetade med validering, datalagring och integrationen mellan systemen.",
-      "tags": ["React", "Express", "Postgres", "Prisma", "Salesforce"]
+      "tags": [
+        "React",
+        "Express",
+        "Postgres",
+        "Prisma",
+        "Salesforce"
+      ]
     },
     {
       "period": "2020 – 2024",
       "project": "Frontendplattform och betalflöden",
       "company": "Trustly · anställning",
       "description": "Mitt team ansvarade för Trustlys mikrofrontendarkitektur, utvecklingsverktyg och UI-bibliotek. Jag var med och byggde Azura checkout och omarbetade gränssnittet och användarupplevelsen på PayPals top-up-sajt. Jag arbetade främst i React, men även med Spring Boot och Postgres, realtidsdata och Playwright-tester med tillgänglighetskontroller.",
-      "tags": ["React", "TypeScript", "Spring Boot", "Postgres", "Storybook", "Playwright"]
+      "tags": [
+        "React",
+        "TypeScript",
+        "Spring Boot",
+        "Postgres",
+        "Storybook",
+        "Playwright"
+      ]
     },
     {
       "period": "2017 – 2020",
       "project": "Portal för ändringsärenden",
       "company": "Headlight / Relight · konsult hos Trafikverket",
       "description": "Jag arbetade i flera projekt för Trafikverket. Som ensam utvecklare byggde jag portalen för ändringsärenden från grunden och ansvarade sedan för underhållet. Arbetet omfattade en SOAP/XML-integration, lagrade procedurer i SQL Server och löpande kontakt med verksamheten.",
-      "tags": ["JavaScript", "SCSS", "K2", "MS SQL Server", "SOAP", "C#/.NET"]
+      "tags": [
+        "JavaScript",
+        "SCSS",
+        "K2",
+        "MS SQL Server",
+        "SOAP",
+        "C#/.NET"
+      ]
     }
   ],
   "contact": {
     "eyebrow": "Kontakt",
     "title": "Berätta om ditt projekt",
-    "intro": "Berätta vad du vill bygga, förbättra eller automatisera. En kort beskrivning räcker för att komma igång.",
+    "intro": "Beskriv vad du vill ändra, vad som finns idag och om du har en tidsgräns. En kort beskrivning räcker för att börja prata om omfattning och tillgänglighet.",
     "name": "Namn",
     "email": "E-post",
     "message": "Om projektet",
@@ -124,10 +164,11 @@
     "purpose": "När du skickar en förfrågan använder jag ditt namn, din e-postadress och ditt meddelande för att läsa och besvara förfrågan och diskutera ett möjligt uppdrag. Skriv inte känsliga personuppgifter i meddelandet.",
     "basis": "Jag stödjer behandlingen på mitt berättigade intresse av att besvara relevanta förfrågningar och överväga möjliga uppdrag. Du kan invända mot behandlingen när som helst.",
     "providers": "Cloudflare är värd för webbplatsen och hanterar formuläret och vidarebefordran av e-post. Resend skickar din förfrågan via e-post och Microsoft hanterar min e-postlåda. Leverantörerna behandlar de uppgifter som behövs för att leverera meddelandet. Deras tjänster kan behandla uppgifter utanför EU/EES enligt tillämpliga skyddsåtgärder för överföring.",
-    "analytics": "Jag använder Cloudflare Web Analytics för att förstå besök och sidornas prestanda, och Cloudflare Analytics Engine för att mäta visningar av sektioner, öppnade kompetenskort, klick på kontakt- och profillänkar, påbörjade formulär och lyckade inskickningar. Egna händelser innehåller endast fördefinierade händelsenamn, språk, sidans sökväg och webbplatsens värdnamn samt en tidsstämpel. De innehåller inte formulärinnehåll, IP-adresser, webbläsarsträngar eller frågeparametrar, och denna mätning använder inga kakor eller beständiga besökaridentifierare. Cloudflare behandlar händelserna, som sparas i tre månader; rapporter i Web Analytics är tillgängliga i sex månader. Den sammanställda statistiken hjälper mig att förbättra webbplatsen och identifierar inte enskilda besökares väg genom den.",
+    "analytics": "Jag använder Cloudflare Web Analytics för att förstå besök och sidornas prestanda, och Cloudflare Analytics Engine för att mäta visningar av sektioner, öppnade kompetenskort, klick på kontakt- och profillänkar, påbörjade formulär och lyckade inskickningar. Egna händelser innehåller endast fördefinierade händelsenamn, språk, sidans sökväg och webbplatsens värdnamn samt en tidsstämpel. De innehåller inte formulärinnehåll, IP-adresser, webbläsarsträngar eller frågeparametrar, och denna mätning använder inga kakor eller beständiga besökaridentifierare. Cloudflare behandlar händelserna, som sparas i tre månader; rapporter i Web Analytics är tillgängliga i sex månader. Den sammanställda statistiken hjälper mig att förbättra webbplatsen och identifierar inte enskilda besökares väg genom den. Mätningen omfattar publicerade start- och tjänstesidor. Sidans adress visar var en kontaktåtgärd eller förfrågan registrerades, inte hur besökaren kom dit.",
     "retention": "Jag raderar obesvarade förfrågningar efter 12 månader. Om vi börjar arbeta tillsammans kan jag spara relevant korrespondens under samarbetet och så länge rättsliga skyldigheter kräver det.",
     "rights": "Du kan begära tillgång till, rättelse eller radering av dina uppgifter, begränsa behandlingen eller invända mot den. Kontakta mig på",
     "complaint": "Du kan också lämna ett klagomål till"
   },
-  "footer": "Konsult inom systemutveckling"
+  "footer": "Konsult inom systemutveckling",
+  "location": "Göteborg · Sverige · På distans"
 }

@@ -10,6 +10,8 @@ const capability = z.object({
   title: z.string(),
   description: z.string(),
   details: z.array(z.string()).min(1),
+  serviceId: z.string().optional(),
+  linkLabel: z.string().optional(),
 });
 const job = z.object({
   period: z.string(),
@@ -24,6 +26,7 @@ const webSchema = z.object({
   title: z.string(),
   description: z.string(),
   availability: z.string(),
+  location: z.string(),
   themeToggleLabel: z.string(),
   eyebrow: z.string(),
   headline: z.string(),
@@ -79,4 +82,28 @@ const web = defineCollection({
   schema: webSchema,
 });
 
-export const collections = { web };
+const pageContent = z.object({
+  locale: z.enum(['en', 'sv']),
+  translationKey: z.string(),
+  draft: z.boolean().default(false),
+  title: z.string().min(1),
+  description: z.string().min(1),
+  headline: z.string().min(1),
+  introduction: z.string().min(1),
+});
+const section = z.object({ title: z.string(), paragraphs: z.array(z.string()).min(1) });
+const serviceSchema = pageContent.extend({
+  examples: z.array(z.object({ title: z.string(), description: z.string() })).min(1),
+  sections: z.array(section).min(1),
+  steps: z.array(z.object({ title: z.string(), description: z.string() })).length(4),
+  questions: z.array(z.object({ question: z.string(), answer: z.string() })).min(1),
+  experience: z.string(),
+  contactIntro: z.string(),
+  contactPlaceholder: z.string(),
+});
+export type ServiceContent = z.infer<typeof serviceSchema>;
+const services = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/services' }),
+  schema: serviceSchema,
+});
+export const collections = { web, services };

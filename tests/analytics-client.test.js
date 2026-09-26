@@ -305,3 +305,22 @@ test("native disclosure fallback counts only an activation that actually opens",
   timers.shift()(); // canceled default action
   assert.deepEqual(expansions, ["build-extend"]);
 });
+
+test('service pages send their own path while unknown and mismatched routes stay silent', async () => {
+  for (const [locale, path] of [['en', '/services/code-review/'], ['sv', '/sv/tjanster/api-integrationer/']]) {
+    const { api, bodies, observers } = client({ locale, path });
+    api.AnalyticsUtil.initAnalytics();
+    api.AnalyticsUtil.trackInteraction('contact_click', 'hero');
+    api.AnalyticsUtil.trackInteraction('contact_click', 'hero');
+    assert.equal(observers.length, 1);
+    assert.equal(bodies.length, 1);
+    assert.deepEqual(JSON.parse(await bodies[0].text()), { event: 'contact_click', target: 'hero', locale, path });
+  }
+  for (const options of [{ path: '/unknown/' }, { path: '/work/change-request-portal/' }, { path: '/sv/projekt/kyc-salesforce-integration/', locale: 'sv' }, { path: '/sv/tjanster/api-integrationer/', locale: 'en' }, { path: '/sv/privacy/', locale: 'sv' }]) {
+    const { api, bodies, observers } = client(options);
+    api.AnalyticsUtil.initAnalytics();
+    api.AnalyticsUtil.trackInteraction('contact_click', 'hero');
+    assert.equal(observers.length, 0);
+    assert.equal(bodies.length, 0);
+  }
+});

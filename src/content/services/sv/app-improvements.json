@@ -1,0 +1,73 @@
+{
+  "locale": "sv",
+  "translationKey": "app-improvements",
+  "title": "Felsökning och förbättring av befintliga appar | Christopher Bengtsson",
+  "description": "Senior systemutvecklare för avgränsad felsökning, nya funktioner och förbättringar i befintliga applikationer. Mindre uppdrag på distans från Sverige.",
+  "headline": "Ta nästa steg med din applikation.",
+  "introduction": "Du kanske behöver färdigställa en funktion, undersöka en svår bugg eller göra en del av en applikation enklare att underhålla. Jag hjälper till med avgränsade ändringar i gränssnitt, backendtjänster och data, med utgångspunkt i det som redan finns.",
+  "examples": [
+    {
+      "title": "Lös ett konkret problem",
+      "description": "Följ ett fel som går att återskapa genom gränssnitt, API och databas. Genomför och verifiera sedan en riktad ändring."
+    },
+    {
+      "title": "Lägg till en användbar funktion",
+      "description": "Färdigställ ett användarflöde, utöka ett formulär eller koppla en befintlig vy till den data den behöver."
+    },
+    {
+      "title": "Gör ändringar lättare att lita på",
+      "description": "Lägg till tester för ett viktigt flöde, granska en beroendeuppdatering eller undersök ett uppmätt prestandaproblem."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Utgå från det befintliga systemet",
+      "paragraphs": [
+        "Innan jag ändrar kod undersöker jag vilket beteende du behöver, hur den berörda delen fungerar och vilka begränsningar som finns. Ett mindre uppdrag kan beröra flera delar av systemet. Omfattningen bör beskriva resultatet, inte bara en vy eller ett ramverk.",
+        "Jag har erfarenhet av gränssnitt i React och TypeScript, Node.js-tjänster, relationsdatabaser och integrationer. Det är exempel på mitt arbete, inte ett krav på att varje projekt ska använda samma teknik. Beskriv er miljö så kan jag bedöma hur jag kan hjälpa till."
+      ]
+    },
+    {
+      "title": "En avgränsad ändring med praktisk överlämning",
+      "paragraphs": [
+        "Vi kommer överens om vad som ska fungera när uppdraget är klart och hur det ska verifieras. Beroende på ändringen kan leveransen omfatta kod, relevanta tester och anteckningar om beteenden eller kvarvarande begränsningar.",
+        "Jag tar mindre uppdrag med tydlig omfattning. Löpande support, ett bredare ansvar för kodbasen och svarstider kräver en separat överenskommelse. En avgränsad förbättring innebär inte att du behöver lämna över hela applikationen."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "title": "Beskriv behovet",
+      "description": "Berätta vad som finns, vad du vill uppnå och om du har en tidsgräns. Ett problem som går att återskapa eller ett konkret exempel hjälper oss att börja."
+    },
+    {
+      "title": "Avgränsa uppdraget",
+      "description": "Vi bestämmer vad som ska levereras, vilken åtkomst som behövs och hur vi kontrollerar att arbetet är klart. Jag bekräftar tillgänglighet innan vi kommer överens om en tidsplan."
+    },
+    {
+      "title": "Utveckla eller granska",
+      "description": "Jag arbetar inom den överenskomna omfattningen och förklarar resultat och avvägningar. Om fler behov dyker upp diskuterar vi dem innan uppdraget utökas."
+    },
+    {
+      "title": "Lämna över",
+      "description": "Du får överenskomna ändringar eller granskningsresultat, med praktiska anteckningar om vad som kontrollerats och vad som behöver uppmärksamhet framöver."
+    }
+  ],
+  "questions": [
+    {
+      "question": "Kan du arbeta med vår befintliga utvecklare eller vårt team?",
+      "answer": "Ja. Jag kan genomföra en överenskommen ändring inom era rutiner för utveckling och granskning. Vi bestämmer vem som svarar på frågor, granskar arbetet och driftsätter det."
+    },
+    {
+      "question": "Kan du hjälpa till med en app som byggts med AI?",
+      "answer": "Ja. Jag kan undersöka koden och hjälpa till med ett avgränsat problem eller en saknad funktion. Jag bedömer teknik och omfattning innan jag föreslår ändringar. Verktyget som skapade appen är bara en del av sammanhanget."
+    },
+    {
+      "question": "Behöver vi en komplett kravspecifikation?",
+      "answer": "Nej. Börja med vad ni vill ska hända och vad som händer idag. Om orsaken eller omfattningen är oklar kan vi först komma överens om en avgränsad undersökning."
+    }
+  ],
+  "experience": "Jag har arbetat med React-appar och backendtjänster för en plattform för kliniska studier, frontendplattform och betalflöden på Trustly samt byggt och underhållit en portal för ändringsärenden som ensam utvecklare. Exemplen kommer från anställningar och konsultuppdrag.",
+  "contactIntro": "Berätta om en ändring du vill göra. Beskriv nuläge, önskat resultat och eventuell tidsgräns.",
+  "contactPlaceholder": "Vad behöver ändras? Vad händer idag? Vilken applikation eller teknik gäller det, och finns det en tidsgräns?"
+}

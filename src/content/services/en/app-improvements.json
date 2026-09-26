@@ -1,0 +1,73 @@
+{
+  "locale": "en",
+  "translationKey": "app-improvements",
+  "title": "Software fixes and application improvements | Christopher Bengtsson",
+  "description": "A senior software engineer for focused fixes, features and improvements to existing applications. Based in Sweden, working remotely on smaller assignments.",
+  "headline": "Make the next change to your application.",
+  "introduction": "You may need a feature completed, a difficult bug investigated or one part of an application made easier to maintain. I help with focused changes across interfaces, backend services and data, starting with the software you already have.",
+  "examples": [
+    {
+      "title": "Fix a specific problem",
+      "description": "Trace a reproducible issue across the interface, API and database, then make and verify a targeted change."
+    },
+    {
+      "title": "Add a useful feature",
+      "description": "Complete a defined user flow, extend a form or connect an existing screen to the data it needs."
+    },
+    {
+      "title": "Make changes easier to trust",
+      "description": "Add tests around an important flow, review a dependency update or investigate a measured performance problem."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Start with the existing system",
+      "paragraphs": [
+        "Before changing code, I look at the behavior you need, how the relevant part of the application works and the constraints around it. A small assignment can involve more than one layer of the system; the scope should describe the outcome, not just a screen or a framework.",
+        "My experience includes React and TypeScript interfaces, Node.js services, relational databases and integrations. Those are examples of the work I do, rather than a requirement that every project use the same stack. Share your setup and I can assess the fit."
+      ]
+    },
+    {
+      "title": "A defined change, with a practical handover",
+      "paragraphs": [
+        "We agree what should work when the assignment is complete and how to verify it. Depending on the change, the handover can include code, relevant tests and notes about behavior or remaining limitations.",
+        "I am available for smaller, clearly scoped projects. Ongoing support, wider codebase ownership and response times need a separate agreement; a focused improvement does not require you to hand over the whole application."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "title": "Describe the change",
+      "description": "Tell me what exists, what you want to achieve and any deadline. A reproducible problem or a concrete example helps us start."
+    },
+    {
+      "title": "Agree a scope",
+      "description": "We identify the deliverable, the access needed and how to check that the work is complete. I confirm availability before we agree a schedule."
+    },
+    {
+      "title": "Build or review",
+      "description": "I work within the agreed scope and explain findings or tradeoffs. If new work emerges, we discuss it before extending the assignment."
+    },
+    {
+      "title": "Hand over",
+      "description": "You receive the agreed changes or findings, with practical notes on what was checked and what needs attention next."
+    }
+  ],
+  "questions": [
+    {
+      "question": "Can you work with our existing developer or team?",
+      "answer": "Yes. I can take on an agreed change within your development and review process. We establish who can answer questions, review the work and release it."
+    },
+    {
+      "question": "Can you help with an application built using AI?",
+      "answer": "Yes. I can investigate the code and help with a defined issue or missing feature. I assess the actual stack and scope before recommending changes; the tool used to create the app is only part of the context."
+    },
+    {
+      "question": "Do we need a complete specification?",
+      "answer": "No. Start with the behavior you need and what happens today. If the cause or scope is unclear, we can first agree a bounded investigation."
+    }
+  ],
+  "experience": "My work has included React applications and backend services for a clinical trial platform, frontend platform and payment-flow development at Trustly, and building and maintaining a change-request portal as its sole developer. These are examples from employment and consulting assignments.",
+  "contactIntro": "Tell me about one change you want to make. Include the current behavior, the desired result and any deadline.",
+  "contactPlaceholder": "What needs to change? What happens today? Which application or technologies are involved, and is there a deadline?"
+}

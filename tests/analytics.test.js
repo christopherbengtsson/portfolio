@@ -106,3 +106,38 @@ test('report reports missing credentials and API failures without exposing secre
   await assert.rejects(queryAnalytics(options, env, async () => new Response('secret', { status: 403 })), /HTTP 403/);
   assert.deepEqual(await queryAnalytics(options, env, async () => Response.json({ data: [] })), []);
 });
+
+test('analytics accepts published localized pages and rejects arbitrary or mismatched paths', async () => {
+  const { points, env } = collector();
+  for (const [locale, path] of [['en', '/services/api-integrations/'], ['sv', '/sv/tjanster/kodgranskning/']]) {
+    const body = { event: 'contact_click', target: 'hero', locale, path };
+    assert.equal((await onRequest({ request: makeRequest(body), env })).status, 204);
+    assert.deepEqual(points.at(-1).blobs, ['1', 'contact_click', locale, path, 'hero']);
+  }
+  for (const path of ['/unknown/', '/privacy/', '/work/change-request-portal/', '/services/api-integrations/?query=secret', '/sv/tjanster/kodgranskning/']) {
+    assert.equal((await onRequest({ request: makeRequest({ ...event, path }), env })).status, 400);
+  }
+  assert.equal(points.length, 2);
+});
+
+test('report separates page contacts without adding service reach to homepage capability ratios', () => {
+  const base = { day: '2026-09-26', locale: 'en' };
+  const rows = [
+    { ...base, path: '/', event: 'section_view', target: 'services', count: 10 },
+    { ...base, path: '/', event: 'capability_expand', target: 'build-extend', count: 2 },
+    { ...base, path: '/services/api-integrations/', event: 'section_view', target: 'services', count: 90 },
+    { ...base, path: '/services/api-integrations/', event: 'contact_click', target: 'hero', count: 3 },
+    { ...base, path: '/services/api-integrations/', event: 'form_start', target: 'contact', count: 2 },
+    { ...base, path: '/services/api-integrations/', event: 'form_success', target: 'contact', count: 1 },
+    { ...base, path: '/sv/tjanster/kodgranskning/', locale: 'sv', event: 'form_success', target: 'contact', count: 4 },
+    { ...base, path: '/unknown/', event: 'form_success', target: 'contact', count: 100 },
+  ];
+  const report = renderReport(rows, { days: 30, locale: null });
+  assert.match(report, /build-extend \| 2 \| 2 \| 0 \| 20.0%/);
+  assert.match(report, /\/services\/api-integrations\/ \| 3 \| 0 \| 2 \| 1/);
+  assert.match(report, /\/sv\/tjanster\/kodgranskning\/ \| 0 \| 0 \| 0 \| 4/);
+  assert.doesNotMatch(report, /unknown/);
+  assert.doesNotMatch(renderReport(rows, { days: 30, locale: 'en' }), /\/sv\/tjanster/);
+  assert.match(buildQuery({ days: 30, locale: null }), /blob4 AS path/);
+  assert.match(buildQuery({ days: 30, locale: null }), /GROUP BY day, event, locale, path, target/);
+});

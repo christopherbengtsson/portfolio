@@ -1,0 +1,75 @@
+{
+  "locale": "sv",
+  "translationKey": "code-review",
+  "title": "Oberoende kodgranskning och arkitekturgranskning | Christopher Bengtsson",
+  "description": "Avgränsad kod- eller arkitekturgranskning av en senior systemutvecklare. Prioriterade resultat och praktiska nästa steg för en applikation eller teknisk förändring.",
+  "headline": "Få en tydlig andra bedömning av din programvara.",
+  "introduction": "Inför en lansering eller teknisk förändring kan du behöva hjälp att förstå vad som bör prioriteras. Jag granskar en avgränsad del av en kodbas, en integration eller ett arkitekturförslag och förklarar resultatet i praktiska termer.",
+  "examples": [
+    {
+      "title": "Granska en föreslagen ändring",
+      "description": "Undersök hur en funktion eller integration passar det befintliga systemet, inklusive beroenden och möjliga felfall."
+    },
+    {
+      "title": "Bedöm en befintlig applikation",
+      "description": "Granska ett överenskommet användarflöde eller kodområde med fokus på funktion, underhållbarhet och luckor i testningen."
+    },
+    {
+      "title": "Granska en första version byggd med AI",
+      "description": "Förstå vad som är implementerat, vad som återstår och vad som behöver uppmärksamhet inom den överenskomna omfattningen."
+    }
+  ],
+  "sections": [
+    {
+      "title": "Låt granskningen besvara en fråga",
+      "paragraphs": [
+        "En användbar granskning börjar med ett beslut: kan vi lansera det här flödet, hur ska systemen kopplas ihop eller varför är den här delen svår att ändra? Vi bestämmer vilken kod, konfiguration och vilket underlag som ingår.",
+        "Granskningen kan omfatta gränssnitt, backendtjänster, datahantering och samspelet mellan dem. Åtkomstkontroll och hantering av inloggningsuppgifter kan ingå i en teknisk granskning, men uppdraget är inte en certifiering eller ett heltäckande penetrationstest."
+      ]
+    },
+    {
+      "title": "Resultat som går att arbeta vidare med",
+      "paragraphs": [
+        "Du får en skriftlig sammanfattning med prioriterade iakttagelser, hänvisningar till relevant kod eller beteende och rekommenderade nästa steg. Jag skiljer på konstaterade problem och frågor som behöver undersökas vidare och förklarar granskningens begränsningar.",
+        "Illustrativ iakttagelse — medelhög prioritet: när ett anrop till ett CRM misslyckas visar formuläret ändå ett bekräftelsemeddelande, trots att posten inte sparats. Användaren kan tro att uppgiften är klar och förlora den information som matats in. Detta är ett fiktivt exempel på hur en rapport kan beskriva ett problem.",
+        "Föreslagen ändring: visa bekräftelsen först när mottagandet har bekräftats, behåll inmatade värden vid fel och ge användaren en tydlig möjlighet att försöka igen. Verifiering: testa ett accepterat anrop, ett avvisat anrop och en timeout, inklusive om ett nytt försök kan skapa en dubblett. Rapporten skulle hänvisa till relevant kod och skilja återskapade beteenden från antaganden som inte testats.",
+        "Genomförandet av ändringarna kan avgränsas separat när granskningsresultatet är känt."
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "title": "Beskriv behovet",
+      "description": "Berätta vad som finns, vad du vill uppnå och om du har en tidsgräns. Ett problem som går att återskapa eller ett konkret exempel hjälper oss att börja."
+    },
+    {
+      "title": "Avgränsa uppdraget",
+      "description": "Vi bestämmer vad som ska levereras, vilken åtkomst som behövs och hur vi kontrollerar att arbetet är klart. Jag bekräftar tillgänglighet innan vi kommer överens om en tidsplan."
+    },
+    {
+      "title": "Utveckla eller granska",
+      "description": "Jag arbetar inom den överenskomna omfattningen och förklarar resultat och avvägningar. Om fler behov dyker upp diskuterar vi dem innan uppdraget utökas."
+    },
+    {
+      "title": "Lämna över",
+      "description": "Du får överenskomna ändringar eller granskningsresultat, med praktiska anteckningar om vad som kontrollerats och vad som behöver uppmärksamhet framöver."
+    }
+  ],
+  "questions": [
+    {
+      "question": "Kan jag beställa en granskning utan teknisk bakgrund?",
+      "answer": "Ja. Beskriv vilket beslut du behöver fatta och vad programvaran ska göra. Jag förklarar resultatet på ett begripligt språk och behåller tekniska hänvisningar som den som genomför ändringarna kan använda."
+    },
+    {
+      "question": "Kan du också åtgärda problemen?",
+      "answer": "Jag kan hjälpa till med överenskomna åtgärder om omfattning och tillgänglighet passar. Granskningen och genomförandet är separata leveranser, så att du kan välja hur du vill gå vidare."
+    },
+    {
+      "question": "Kan du garantera att applikationen är felfri?",
+      "answer": "Nej. En granskning omfattar överenskommet underlag och kontroller. Rapporten beskriver vad som undersökts, vad som hittats och vad som ligger utanför omfattningen."
+    }
+  ],
+  "experience": "Min bakgrund omfattar gränssnitt, tjänster, data och integrationer, bland annat KYC/Salesforce-arbete på Trustly och ansvar för en portal för ändringsärenden i ett konsultuppdrag. Den erfarenheten ligger till grund för hur jag granskar samspelet mellan systemets delar.",
+  "contactIntro": "Berätta vilket beslut du behöver hjälp med, vad som finns idag och vilken del av programvaran du vill få granskad.",
+  "contactPlaceholder": "Vad funderar du på att lansera eller ändra? Vilken kod eller vilket flöde behöver en andra bedömning, och vilket beslut ska granskningen hjälpa dig att fatta?"
+}

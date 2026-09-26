@@ -1,0 +1,23 @@
+---
+import { getCollection, getEntry, type CollectionEntry } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+import ServicePage from '../container/astro/ServicePage.astro';
+import { PAGES, LOCALES } from '../lib/page-registry.js';
+
+interface Props { entry: CollectionEntry<'services'>; }
+
+export const getStaticPaths = (async () => {
+  const services = await getCollection('services');
+  return PAGES.filter((page) => page.published && page.type === 'service').flatMap((page) => LOCALES.map((locale) => {
+    const candidates = services.filter((entry: CollectionEntry<'services'>) => entry.data.translationKey === page.id && entry.data.locale === locale && !entry.data.draft);
+    if (candidates.length !== 1) throw new Error(`Expected one published translation for ${page.id}:${locale}`);
+    return { params: { path: page.paths[locale].slice(1, -1) }, props: { entry: candidates[0] } };
+  }));
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+const locale = entry.data.locale;
+const home = await getEntry('web', `${locale}/home`);
+if (!home) throw new Error(`Missing homepage content for ${locale}`);
+---
+<ServicePage content={home.data} service={entry.data} />

@@ -1,12 +1,14 @@
 # Christopher Bengtsson
 
-> Full-stack software engineer building new features, improving existing systems and automating repetitive tasks. English and Swedish landing pages are available.
+> Senior software engineer and consultant based in Sweden, available for smaller, clearly scoped remote projects. Services include application improvements, integrations, automation and code reviews.
 
 - [English homepage](https://christopherbengtsson.dev/)
 - [Svensk startsida](https://christopherbengtsson.dev/sv/)
-- [What I do](https://christopherbengtsson.dev/#services)
-- [Vad jag gör](https://christopherbengtsson.dev/sv/#services)
-- [Contact](https://christopherbengtsson.dev/#contact)
-- [Kontakt](https://christopherbengtsson.dev/sv/#contact)
+- [Make the next change to your application.](https://christopherbengtsson.dev/services/app-improvements/)
+- [Ta nästa steg med din applikation.](https://christopherbengtsson.dev/sv/tjanster/forbattra-befintlig-app/)
+- [Connect the systems your work depends on.](https://christopherbengtsson.dev/services/api-integrations/)
+- [Koppla ihop systemen som arbetet bygger på.](https://christopherbengtsson.dev/sv/tjanster/api-integrationer/)
+- [Get a clear second opinion on your software.](https://christopherbengtsson.dev/services/code-review/)
+- [Få en tydlig andra bedömning av din programvara.](https://christopherbengtsson.dev/sv/tjanster/kodgranskning/)
 
-Employment and client work described on this site are background experience, not endorsements of independent services.
+Employment and consulting assignments described on this site are background experience, not endorsements of independent services.
