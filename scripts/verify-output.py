@@ -220,7 +220,7 @@ sitemap = ET.parse(ROOT / 'sitemap.xml').getroot()
 locs = {node.text for node in sitemap.findall('s:url/s:loc', ns)}
 assert locs == {ORIGIN + '/', ORIGIN + '/sv/'}, f'Unexpected sitemap URLs: {locs}'
 assert not list(ROOT.rglob('rss.xml')), 'Retired RSS feed remains'
-assert json.loads((ROOT / '_routes.json').read_text())['include'] == ['/api/contact']
+assert json.loads((ROOT / '_routes.json').read_text())['include'] == ['/api/contact', '/api/analytics']
 headers = (ROOT / '_headers').read_text()
 assert re.search(r'/_astro/\*\s+! Cache-Control\s+Cache-Control: public, max-age=31536000, immutable', headers)
 assert 'OAI-SearchBot' in (ROOT / 'robots.txt').read_text()

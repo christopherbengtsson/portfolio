@@ -35,6 +35,7 @@
   },
   "capabilities": [
     {
+      "id": "build-extend",
       "number": "01",
       "title": "Build and extend",
       "description": "I build features, internal tools and integrations, connecting interfaces, backend services and data into a working whole.",
@@ -44,6 +45,7 @@
       ]
     },
     {
+      "id": "improve-maintain",
       "number": "02",
       "title": "Improve and maintain",
       "description": "I fix problems in existing apps and systems, add useful tests and set up a review process for dependency updates.",
@@ -53,6 +55,7 @@
       ]
     },
     {
+      "id": "reduce-manual-work",
       "number": "03",
       "title": "Reduce manual work",
       "description": "I connect tools and services to automate repetitive tasks, with error handling built in. I use AI where it adds value.",
@@ -62,6 +65,7 @@
       ]
     },
     {
+      "id": "review-advise",
       "number": "04",
       "title": "Review and advise",
       "description": "I review code, architecture and technical plans, then give you prioritized findings and clear next steps.",
@@ -152,6 +156,7 @@
     "purpose": "When you send an inquiry, I use your name, email address and message to read it, respond and discuss a possible project. Please do not include sensitive personal information in the message.",
     "basis": "I rely on my legitimate interest in responding to relevant inquiries and considering potential work. You can object to this processing at any time.",
     "providers": "Cloudflare hosts the site and handles the form and email forwarding. Resend sends the inquiry email, and Microsoft handles my destination mailbox. These providers process the data needed to deliver the message. Their services may process data outside the EU/EEA under their applicable data-transfer safeguards.",
+    "analytics": "I use Cloudflare Web Analytics to understand visits and page performance, and Cloudflare Analytics Engine to measure section views, capability expansions, contact and profile clicks, form starts and successful submission requests. Custom events contain only predefined event labels, language, page path and site hostname, with a timestamp. They do not contain form contents, IP addresses, user-agent strings or query strings, and this tracking does not set cookies or persistent visitor identifiers. Cloudflare processes the events, which are retained for three months; Web Analytics reports are available for six months. These aggregate measurements help me improve the site and do not identify individual visitor journeys.",
     "retention": "I delete unanswered inquiries after 12 months. If we begin working together, I may keep relevant correspondence for the relationship and any applicable legal obligations.",
     "rights": "You may ask to access, correct or erase your data, restrict processing, or object to it. Contact me at",
     "complaint": "You can also complain to the"

@@ -40,7 +40,7 @@ The homepages are `/` and `/sv/`. Privacy pages are `/privacy/` and `/sv/privacy
 
 ## Deployment
 
-Cloudflare Pages builds the `main` branch with `pnpm build` and serves `dist/`. The project uses Node 24.12.0 and pnpm 10.12.4 in Pages. `public/_routes.json` sends only `/api/contact` to the Pages Function; the remaining routes are static.
+Cloudflare Pages builds the `main` branch with `pnpm build` and serves `dist/`. The project uses Node 24.12.0 and pnpm 10.12.4 in Pages. `public/_routes.json` sends `/api/contact` and `/api/analytics` to Pages Functions; the remaining routes are static.
 
 The contact Function requires these Pages environment variables:
 
@@ -50,6 +50,10 @@ The contact Function requires these Pages environment variables:
 | `RESEND_FROM_EMAIL` | Verified sender address for the Resend domain |
 
 The Function sends inquiries to `hello@christopherbengtsson.dev` with the visitor's address as `Reply-To`. The deployed domain also needs working mail routing and an abuse rate limit for `/api/contact`. Keep credentials and local `.dev.vars` files out of Git.
+
+## Analytics
+
+Cloudflare Web Analytics covers traffic; Analytics Engine records interactions. Run `pnpm analytics:report` for a local report. See [analytics setup and reference](docs/analytics.md).
 
 ## Brand assets
 

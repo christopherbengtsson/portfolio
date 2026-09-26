@@ -14,7 +14,7 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
       <p class="landing-intro">{t.introduction}</p>
       <p class="landing-mobile-availability">{t.availability}</p>
       <div class="landing-actions">
-        <a class="landing-button" href="#contact">{t.projectCta} <span aria-hidden="true">→</span></a>
+        <a class="landing-button" href="#contact" data-analytics-event="contact_click" data-analytics-target="hero">{t.projectCta} <span aria-hidden="true">→</span></a>
         <a class="landing-button landing-button-secondary" href="#services">{t.servicesCta}</a>
       </div>
       <dl class="landing-facts">
@@ -32,7 +32,7 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
       </div>
       <ol class="landing-capabilities" data-reveal>
         {t.capabilities.map((capability) => <li>
-          <details class="landing-capability" name="capabilities">
+          <details class="landing-capability" name="capabilities" data-capability-id={capability.id}>
             <summary aria-labelledby={`capability-${capability.number}`} aria-describedby={`capability-description-${capability.number}`}>
               <span class="landing-capability-number" aria-hidden="true">{capability.number}</span>
               <span class="landing-capability-indicator" aria-hidden="true"></span>
@@ -47,7 +47,7 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
           </details>
         </li>)}
       </ol>
-      <a class="landing-button landing-capabilities-cta" href="#contact">{t.services.contactCta} <span aria-hidden="true">→</span></a>
+      <a class="landing-button landing-capabilities-cta" href="#contact" data-analytics-event="contact_click" data-analytics-target="services">{t.services.contactCta} <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
@@ -81,7 +81,7 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
           <h2 id="contact-title">{t.contact.title}</h2>
           <p>{t.contact.intro}</p>
         </div>
-        <a class="landing-email" href={`mailto:${email}`}>{email}</a>
+        <a class="landing-email" href={`mailto:${email}`} data-analytics-event="email_click" data-analytics-target="contact">{email}</a>
         <p id="contact-success" class="landing-success" role="status" tabindex="-1">
           <svg class="landing-success-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none">
             <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.5" />

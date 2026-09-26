@@ -1,3 +1,4 @@
+import { writeAnalytics } from '../lib/analytics.js';
 import { MAX_CONTACT_BYTES, MAX_MESSAGE_LENGTH } from '../../src/lib/contact-limits.js';
 
 const messages = {
@@ -129,5 +130,6 @@ export async function onRequestPost({ request, env }) {
   }
 
   if (!response.ok) return errorPage(locale, 503, messages[locale].delivery, values);
+  writeAnalytics(env, request, { event: 'form_success', locale, path: locale === 'sv' ? '/sv/' : '/', target: 'contact' });
   return new Response(null, { status: 303, headers: { Location: success, 'Cache-Control': 'no-store' } });
 }

@@ -1,9 +1,9 @@
-import { initCapabilityMotion } from './CapabilityMotionUtil';
+import { CapabilityMotionUtil } from "./CapabilityMotionUtil";
 
 /** Progressive motion: content stays readable before initialization and without JS. */
 function initSiteInteractions() {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-  initCapabilityMotion(reduced);
+  CapabilityMotionUtil.initCapabilityMotion(reduced);
   const running = new Map<HTMLElement, Animation>();
   const targets = document.querySelectorAll<HTMLElement>("[data-reveal]");
   let observer: IntersectionObserver | undefined;

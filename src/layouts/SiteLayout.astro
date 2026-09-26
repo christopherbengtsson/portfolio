@@ -88,7 +88,7 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
           <ul>
             <li><a href={`${sectionPrefix}#services`}>{locale === 'sv' ? 'Kompetens' : 'What I do'}</a></li>
             <li><a href={`${sectionPrefix}#experience`}>{locale === 'sv' ? 'Erfarenhet' : 'Experience'}</a></li>
-            <li><a href={`${sectionPrefix}#contact`}>{locale === 'sv' ? 'Kontakt' : 'Contact'}</a></li>
+            <li><a href={`${sectionPrefix}#contact`} data-analytics-event="contact_click" data-analytics-target="header">{locale === 'sv' ? 'Kontakt' : 'Contact'}</a></li>
           </ul>
         </nav>
         <nav aria-label={locale === 'sv' ? 'Språk' : 'Language'} class="landing-language">
@@ -109,7 +109,7 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
         <p>Christopher Bengtsson · {t.footer}</p>
         <nav aria-label={locale === 'sv' ? 'Profiler och integritet' : 'Profiles and privacy'}>
           <ul>
-            {profiles.map((profile) => <li><a href={profile.url} rel="me">{profile.name}</a></li>)}
+            {profiles.map((profile) => <li><a href={profile.url} rel="me" data-analytics-event="profile_click" data-analytics-target={profile.name.toLowerCase()}>{profile.name}</a></li>)}
             <li><a href={privacyPath(locale)}>{t.privacy.title}</a></li>
           </ul>
         </nav>
@@ -120,6 +120,9 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
       import { createThemePalette, type Theme } from '../lib/theme-palette';
       import { SiteAnimationUtil } from '../util/SiteAnimationUtil';
 
+      import { AnalyticsUtil } from '../util/AnalyticsUtil';
+
+      AnalyticsUtil.initAnalytics();
       SiteAnimationUtil.initSiteInteractions();
 
       const root = document.documentElement;

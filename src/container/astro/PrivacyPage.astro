@@ -15,6 +15,7 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
       <p>{t.privacy.basis}</p>
       <p>{t.privacy.providers}</p>
       <p>{t.privacy.retention}</p>
+      <p>{t.privacy.analytics}</p>
       <p>{t.privacy.rights} <a href={`mailto:${email}`}>{email}</a>.</p>
       <p>{t.privacy.complaint} <a href="https://www.imy.se/">{locale === 'sv' ? 'Integritetsskyddsmyndigheten (IMY)' : 'Swedish Authority for Privacy Protection (IMY)'}</a>.</p>
     </div>

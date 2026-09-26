@@ -9,6 +9,7 @@
     "check": "astro check",
     "generate:identity": "node scripts/generate-identity.mjs",
     "test": "node --test tests/*.test.js",
+    "analytics:report": "node --env-file-if-exists=.dev.vars scripts/analytics-report.mjs",
     "check:rate-limit": "node scripts/check-contact-rate-limit.mjs",
     "preview": "astro preview"
   },

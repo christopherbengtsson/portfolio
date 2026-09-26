@@ -23,6 +23,7 @@
   },
   "capabilities": [
     {
+      "id": "build-extend",
       "number": "01",
       "title": "Bygga och vidareutveckla",
       "description": "Jag bygger funktioner, interna verktyg och integrationer och kopplar ihop gränssnitt, backendtjänster och data till en fungerande helhet.",
@@ -32,6 +33,7 @@
       ]
     },
     {
+      "id": "improve-maintain",
       "number": "02",
       "title": "Förbättra och underhålla",
       "description": "Jag åtgärdar problem i befintliga appar och system, lägger till tester och ordnar en rutin för att granska uppdateringar av kodens beroenden.",
@@ -41,6 +43,7 @@
       ]
     },
     {
+      "id": "reduce-manual-work",
       "number": "03",
       "title": "Minska manuellt arbete",
       "description": "Jag kopplar ihop verktyg och tjänster för att automatisera återkommande uppgifter, med inbyggd felhantering. Jag använder AI där det tillför värde.",
@@ -50,6 +53,7 @@
       ]
     },
     {
+      "id": "review-advise",
       "number": "04",
       "title": "Granska och ge råd",
       "description": "Jag granskar kod, arkitektur och tekniska planer och ger dig prioriterade slutsatser och tydliga nästa steg.",
@@ -120,6 +124,7 @@
     "purpose": "När du skickar en förfrågan använder jag ditt namn, din e-postadress och ditt meddelande för att läsa och besvara förfrågan och diskutera ett möjligt uppdrag. Skriv inte känsliga personuppgifter i meddelandet.",
     "basis": "Jag stödjer behandlingen på mitt berättigade intresse av att besvara relevanta förfrågningar och överväga möjliga uppdrag. Du kan invända mot behandlingen när som helst.",
     "providers": "Cloudflare är värd för webbplatsen och hanterar formuläret och vidarebefordran av e-post. Resend skickar din förfrågan via e-post och Microsoft hanterar min e-postlåda. Leverantörerna behandlar de uppgifter som behövs för att leverera meddelandet. Deras tjänster kan behandla uppgifter utanför EU/EES enligt tillämpliga skyddsåtgärder för överföring.",
+    "analytics": "Jag använder Cloudflare Web Analytics för att förstå besök och sidornas prestanda, och Cloudflare Analytics Engine för att mäta visningar av sektioner, öppnade kompetenskort, klick på kontakt- och profillänkar, påbörjade formulär och lyckade inskickningar. Egna händelser innehåller endast fördefinierade händelsenamn, språk, sidans sökväg och webbplatsens värdnamn samt en tidsstämpel. De innehåller inte formulärinnehåll, IP-adresser, webbläsarsträngar eller frågeparametrar, och denna mätning använder inga kakor eller beständiga besökaridentifierare. Cloudflare behandlar händelserna, som sparas i tre månader; rapporter i Web Analytics är tillgängliga i sex månader. Den sammanställda statistiken hjälper mig att förbättra webbplatsen och identifierar inte enskilda besökares väg genom den.",
     "retention": "Jag raderar obesvarade förfrågningar efter 12 månader. Om vi börjar arbeta tillsammans kan jag spara relevant korrespondens under samarbetet och så länge rättsliga skyldigheter kräver det.",
     "rights": "Du kan begära tillgång till, rättelse eller radering av dina uppgifter, begränsa behandlingen eller invända mot den. Kontakta mig på",
     "complaint": "Du kan också lämna ett klagomål till"
