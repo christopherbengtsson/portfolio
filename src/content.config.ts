@@ -31,6 +31,7 @@ const webSchema = z.object({
   eyebrow: z.string(),
   headline: z.string(),
   introduction: z.string(),
+  supportingLine: z.string().min(1),
   projectCta: z.string(),
   servicesCta: z.string(),
   facts: z.array(pair),
@@ -98,6 +99,7 @@ const serviceSchema = pageContent.extend({
   steps: z.array(z.object({ title: z.string(), description: z.string() })).length(4),
   questions: z.array(z.object({ question: z.string(), answer: z.string() })).min(1),
   experience: z.string(),
+  contactCta: z.string().min(1),
   contactIntro: z.string(),
   contactPlaceholder: z.string(),
 });

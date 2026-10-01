@@ -7,6 +7,7 @@
   "eyebrow": "Senior software engineer & consultant",
   "headline": "I build software, automate tasks and improve existing systems.",
   "introduction": "I'm Christopher, a full-stack developer with over nine years of experience building interfaces, backend services, databases, cloud solutions and integrations. I take time to understand your business goals and build solutions with future development and maintenance in mind.",
+  "supportingLine": "Available remotely for smaller projects: automate one workflow, connect two systems, or improve a defined part of your application.",
   "projectCta": "Tell me about your project",
   "servicesCta": "See what I do",
   "facts": [
@@ -61,14 +62,14 @@
     {
       "id": "reduce-manual-work",
       "number": "03",
-      "title": "Reduce manual work",
-      "description": "I connect tools and services to automate repetitive tasks, with error handling built in. I use AI where it adds value.",
+      "title": "Automate a manual workflow",
+      "description": "Reduce repeated data entry or manual handovers. We agree one workflow, the rules it follows, and how exceptions should be handled. I assess where AI could help.",
       "details": [
-        "Copying information between tools, preparing recurring reports and chasing handovers can take time away from useful work. I can connect the steps so data reaches the right place without repeated manual entry. Even a first app built with AI can benefit from a straightforward connection to the tools you already use.",
-        "For a growing startup, this might mean customer onboarding or reporting that keeps up with demand. In a larger organization, it might be a workflow spanning several teams and systems. I check incoming data, make failures visible and include human approval where needed. Your team can see what happened and decide how to handle exceptions."
+        "Copying information between tools, following up requests and passing work between teams can leave a process dependent on repeated manual steps. I help operations and product teams identify one workflow to improve, including where information enters, which rules apply and where a person needs to make a decision.",
+        "We agree the inputs, the expected result and how to handle exceptions before implementation. The work can include an integration, a notification or an approval step, depending on the systems involved. You receive the agreed changes, checks and practical handover notes. If feasibility is unclear, we can start with a separately agreed investigation."
       ],
       "serviceId": "api-integrations",
-      "linkLabel": "API integrations and automation"
+      "linkLabel": "Explore workflow automation"
     },
     {
       "id": "review-advise",
@@ -107,7 +108,7 @@
       "period": "2020 – 2024",
       "project": "Customer verification and Salesforce integration",
       "company": "Trustly · employment",
-      "description": "Together with another full-stack developer, I built a know-your-customer (KYC) workflow connecting React forms, an Express API, Postgres and Salesforce. My work covered validation, data storage and integration between the systems.",
+      "description": "At Trustly, I co-built a customer verification (KYC) workflow with another full-stack developer. React forms submitted data to an Express service for validation and storage in Postgres through Prisma, before passing it to Salesforce. My work covered validation, data storage and integration between the systems.",
       "tags": [
         "React",
         "Express",
@@ -134,12 +135,12 @@
       "period": "2017 – 2020",
       "project": "Change-request portal",
       "company": "Headlight / Relight · consulting for the Swedish Transport Administration",
-      "description": "I worked on several projects for the Swedish Transport Administration. As the sole developer of its change-request portal, I built it from scratch and continued to maintain it. The work involved a SOAP/XML integration, SQL Server stored procedures and regular contact with business stakeholders.",
+      "description": "Through Headlight/Relight, I built and maintained a change-request portal for Trafikverket, the Swedish Transport Administration, as its sole developer. The work primarily used K2’s process engine and SmartForms, alongside SQL Server stored procedures and a SOAP/XML connection to another system. I stayed in regular contact with business stakeholders.",
       "tags": [
+        "K2 / SmartForms",
+        "MS SQL Server",
         "JavaScript",
         "SCSS",
-        "K2",
-        "MS SQL Server",
         "SOAP",
         "C#/.NET"
       ]
@@ -170,5 +171,5 @@
     "complaint": "You can also complain to the"
   },
   "footer": "Software development consulting",
-  "location": "Gothenburg · Sweden · Remote"
+  "location": "Based in Sweden · Remote delivery internationally"
 }

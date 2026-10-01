@@ -70,6 +70,7 @@
     }
   ],
   "experience": "My background spans interfaces, services, data and integrations, including KYC/Salesforce work at Trustly and ownership of a change-request portal in a consulting assignment. That experience informs how I examine the boundaries between parts of a system.",
+  "contactCta": "Describe what you want reviewed",
   "contactIntro": "Tell me what decision you need help with, what exists today and which part of the software you want reviewed.",
   "contactPlaceholder": "What are you considering launching or changing? Which code or workflow needs a second opinion, and what decision should the review help you make?"
 }

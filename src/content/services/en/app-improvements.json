@@ -68,6 +68,7 @@
     }
   ],
   "experience": "My work has included React applications and backend services for a clinical trial platform, frontend platform and payment-flow development at Trustly, and building and maintaining a change-request portal as its sole developer. These are examples from employment and consulting assignments.",
+  "contactCta": "Describe what you need",
   "contactIntro": "Tell me about one change you want to make. Include the current behavior, the desired result and any deadline.",
   "contactPlaceholder": "What needs to change? What happens today? Which application or technologies are involved, and is there a deadline?"
 }

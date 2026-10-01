@@ -7,6 +7,7 @@
   "eyebrow": "Senior systemutvecklare och konsult",
   "headline": "Jag utvecklar programvara, automatiserar uppgifter och förbättrar befintliga system.",
   "introduction": "Jag heter Christopher och är fullstackutvecklare med över nio års erfarenhet av att bygga gränssnitt, backendtjänster, databaser, molnlösningar och integrationer. Jag sätter mig in i din verksamhets mål och bygger lösningar med vidareutveckling och underhåll i åtanke.",
+  "supportingLine": "Jag tar mindre uppdrag på distans: automatisera ett arbetsflöde, koppla ihop två system eller förbättra en avgränsad del av din applikation.",
   "projectCta": "Berätta om ditt projekt",
   "servicesCta": "Se vad jag gör",
   "facts": [
@@ -61,14 +62,14 @@
     {
       "id": "reduce-manual-work",
       "number": "03",
-      "title": "Minska manuellt arbete",
-      "description": "Jag kopplar ihop verktyg och tjänster för att automatisera återkommande uppgifter, med inbyggd felhantering. Jag använder AI där det tillför värde.",
+      "title": "Automatisera ett manuellt arbetsflöde",
+      "description": "Minska dubbelregistrering eller manuella överlämningar. Vi avgränsar ett arbetsflöde och bestämmer vilka regler som gäller och hur avvikelser ska hanteras. Jag bedömer också var AI kan vara till nytta.",
       "details": [
-        "Att kopiera information mellan verktyg, sammanställa återkommande rapporter och följa upp överlämningar tar tid från annat arbete. Jag kan koppla ihop stegen så att informationen hamnar rätt utan upprepad manuell inmatning. Även en första app byggd med AI kan ha nytta av en enkel koppling till de verktyg du redan använder.",
-        "För ett växande startupbolag kan det handla om kundregistrering eller rapportering som hänger med när verksamheten växer. I en större organisation kan det vara ett flöde som går genom flera team och system. Jag kontrollerar inkommande data, gör fel synliga och lägger in manuellt godkännande där det behövs. Teamet kan se vad som hänt och avgöra hur undantag ska hanteras."
+        "Att kopiera information mellan verktyg, följa upp ärenden och lämna över arbete mellan team kan göra ett flöde beroende av återkommande manuella steg. Jag hjälper verksamhets- och produktteam att avgränsa ett arbetsflöde som behöver förbättras: var informationen kommer in, vilka regler som gäller och när en person behöver fatta ett beslut.",
+        "Vi bestämmer indata, önskat resultat och hur avvikelser ska hanteras innan utvecklingen börjar. Arbetet kan omfatta en integration, en notifiering eller ett godkännandesteg, beroende på systemen som används. Du får överenskomna ändringar, kontroller och praktisk dokumentation för överlämningen. Om förutsättningarna är oklara kan vi börja med en separat överenskommen utredning."
       ],
       "serviceId": "api-integrations",
-      "linkLabel": "API-integrationer och automatisering"
+      "linkLabel": "Se hur jag kan automatisera arbetsflöden"
     },
     {
       "id": "review-advise",
@@ -107,7 +108,7 @@
       "period": "2020 – 2024",
       "project": "Kundkännedom och Salesforce-integration",
       "company": "Trustly · anställning",
-      "description": "Tillsammans med en annan fullstackutvecklare byggde jag ett flöde för kundkännedom (KYC) som kopplade ihop React-formulär, ett Express-API, Postgres och Salesforce. Jag arbetade med validering, datalagring och integrationen mellan systemen.",
+      "description": "På Trustly byggde jag tillsammans med en annan fullstackutvecklare ett flöde för kundkännedom (KYC). React-formulär skickade data till en Express-tjänst för validering och lagring i Postgres via Prisma, innan uppgifterna fördes vidare till Salesforce. Jag arbetade med validering, datalagring och integrationen mellan systemen.",
       "tags": [
         "React",
         "Express",
@@ -134,12 +135,12 @@
       "period": "2017 – 2020",
       "project": "Portal för ändringsärenden",
       "company": "Headlight / Relight · konsult hos Trafikverket",
-      "description": "Jag arbetade i flera projekt för Trafikverket. Som ensam utvecklare byggde jag portalen för ändringsärenden från grunden och ansvarade sedan för underhållet. Arbetet omfattade en SOAP/XML-integration, lagrade procedurer i SQL Server och löpande kontakt med verksamheten.",
+      "description": "Via Headlight/Relight utvecklade och förvaltade jag som ensam utvecklare en portal för ändringsärenden hos Trafikverket. Arbetet byggde främst på K2:s processmotor och SmartForms, tillsammans med lagrade procedurer i SQL Server och en SOAP/XML-koppling till ett annat system. Jag hade löpande kontakt med verksamheten.",
       "tags": [
+        "K2 / SmartForms",
+        "MS SQL Server",
         "JavaScript",
         "SCSS",
-        "K2",
-        "MS SQL Server",
         "SOAP",
         "C#/.NET"
       ]
@@ -170,5 +171,5 @@
     "complaint": "Du kan också lämna ett klagomål till"
   },
   "footer": "Konsult inom systemutveckling",
-  "location": "Göteborg · Sverige · På distans"
+  "location": "Baserad i Sverige · Uppdrag på distans i Sverige och internationellt"
 }

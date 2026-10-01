@@ -1,10 +1,10 @@
 {
   "locale": "en",
   "translationKey": "api-integrations",
-  "title": "API integration consultant in Sweden | Christopher Bengtsson",
+  "title": "API integration services | Christopher Bengtsson",
   "description": "Connect applications and business data with a senior software engineer. Focused API integrations, workflow automation and integration fixes, delivered remotely.",
-  "headline": "Connect the systems your work depends on.",
-  "introduction": "When information has to move between an application, a database and another service, the connection needs to fit the workflow. I help build or improve a defined integration, from capturing and validating data to sending it where it is needed.",
+  "headline": "API integrations for a clearly defined business need",
+  "introduction": "I help operations and product teams connect applications and business data. Start with one connection to build, one failing flow to investigate, or one manual step to automate.",
   "examples": [
     {
       "title": "Connect a form to a business system",
@@ -21,17 +21,20 @@
   ],
   "sections": [
     {
-      "title": "Understand the flow before connecting the tools",
+      "title": "Start with one manual workflow",
       "paragraphs": [
-        "We start with the source of the data, its destination and the rules it needs to follow. I check the relevant API or interface, the access available and what should happen when input is incomplete or a request fails.",
-        "The scope might be a new connection, a change to an existing API or a targeted investigation. It can involve modern APIs or an existing interface such as SOAP/XML. The choice depends on the systems involved."
+        "I map the current steps, inputs and decision points. We agree one workflow to automate, where human approval is needed and how exceptions should be handled.",
+        "I can also assess where AI could help with text or documents. We agree how to check its output and when human review is needed.",
+        "The first assignment can be a repeated data transfer, notification or approval step. If an existing connector or automation platform meets the need, we can consider it before I build custom code.",
+        "You receive the agreed implementation and checks, with handover notes describing the flow, configuration and remaining limitations."
       ]
     },
     {
-      "title": "Make failures visible and the handover useful",
+      "title": "Connect two systems—or fix the connection",
       "paragraphs": [
-        "An integration needs a defined response to failures as well as a successful path. Depending on the assignment, that can include validation, error reporting and a way to handle retries without unintended duplicate actions. We agree which failure cases are in scope.",
-        "The handover explains the data flow, configuration and checks performed. If an existing connector or automation platform meets the need, we can consider it before commissioning custom code. I am available for smaller integrations and improvements with a clear boundary."
+        "I assess the source and destination, the available API or supported interface, and the access needed. The connection can use a modern API or an existing interface such as SOAP/XML.",
+        "For one agreed data flow, I define field mapping and validation. We agree which failure cases to cover, including error reporting and, where needed, retries that avoid duplicate actions.",
+        "You receive the implemented connection or investigation findings, with checks and practical handover notes. If implementation cannot yet be estimated, we can start with a separately agreed, paid investigation and proposed scope. Each assignment is quoted individually."
       ]
     }
   ],
@@ -60,14 +63,15 @@
     },
     {
       "question": "What if one system has no API?",
-      "answer": "We can check whether there is a supported alternative such as an export, import or existing service interface. Feasibility depends on the access and constraints of that system."
+      "answer": "I can check whether there is a supported alternative such as an export, import or existing service interface. Feasibility depends on the access and constraints of that system."
     },
     {
       "question": "Does the integration need AI?",
       "answer": "Not necessarily. Moving and validating structured data often needs ordinary software. AI can be considered for a specific task where its output can be checked and exceptions handled."
     }
   ],
-  "experience": "At Trustly, I co-built a KYC workflow connecting React forms, an Express API, Postgres and Salesforce. In a consulting assignment for the Swedish Transport Administration, my portal work included a SOAP/XML integration and SQL Server stored procedures.",
-  "contactIntro": "Describe the systems you want to connect and one example of the information that should move between them. Please leave out credentials and sensitive data.",
-  "contactPlaceholder": "Which systems are involved? What information should move, what happens today, and what should happen when something fails?"
+  "experience": "At Trustly, I co-built a KYC workflow with another full-stack developer: React forms, validation in an Express service, Postgres storage through Prisma and a connection to Salesforce. Through Headlight/Relight, I also built and maintained a change-request portal for Trafikverket, primarily using K2’s process engine and SmartForms. That assignment supports my workflow automation experience.",
+  "contactCta": "Describe the workflow or integration",
+  "contactIntro": "Describe the workflow or integration you want to improve and one example of the desired result. Please leave out credentials and sensitive data.",
+  "contactPlaceholder": "Which tools are involved? What happens today, and what should change? Include any deadline and, if known, a budget range."
 }

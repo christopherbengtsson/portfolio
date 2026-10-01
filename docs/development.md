@@ -23,6 +23,8 @@ To add a service, add its stable ID and both paths to `src/lib/page-registry.ts`
 
 The shared contact form appears on home and service pages. Its allowlisted `source_path` preserves the originating form page through validation, retries and success redirects, and adds page context to the inquiry email. Service experience sections link to the selected work on the localized homepage.
 
+Homepage content includes a `supportingLine` for the small-project offer beneath the hero actions, keeping the primary CTA ahead of the additional copy on mobile. Each localized service entry supplies its own `contactCta` for the hero link to the contact form; this changes the label, not its analytics event or target. The initial acquisition changes and later validation gates are recorded in [the client enquiry plan](CLIENT-ENQUIRY-PLAN-2026-10-01.md).
+
 ## TypeScript and checks
 
 Application code, shared logic, Pages Functions, and tests use TypeScript. Small configuration and utility scripts remain `.mjs`. Node 24.21.0 runs tests and shared TypeScript imports directly, so modules executed by Node use explicit `.ts` import extensions, `import type`, and erasable TypeScript syntax.

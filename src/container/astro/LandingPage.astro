@@ -18,6 +18,7 @@ const { locale, content: t } = Astro.props as { locale: Locale; content: WebHome
         <a class="landing-button" href="#contact" data-analytics-event="contact_click" data-analytics-target="hero">{t.projectCta} <span aria-hidden="true">→</span></a>
         <a class="landing-button landing-button-secondary" href="#services">{t.servicesCta}</a>
       </div>
+      <p class="landing-location">{t.supportingLine}</p>
       <dl class="landing-facts">
         {t.facts.map(([label, value]) => <div><dt>{label}</dt><dd>{value}</dd></div>)}
       </dl>

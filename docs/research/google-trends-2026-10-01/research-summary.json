@@ -1,0 +1,199 @@
+{
+  "cache_type": "google-trends",
+  "analyzed_at": "2026-10-01T11:34:16.773886+00:00",
+  "report_date": "2026-10-01",
+  "domain": "christopherbengtsson.dev",
+  "url": "https://christopherbengtsson.dev/",
+  "goals": [
+    "Qualified client inquiries for remote, smaller, clearly scoped software projects"
+  ],
+  "user_constraints": [
+    "Remote work without geographic restriction",
+    "Swedish and English copy"
+  ],
+  "data_sources": [
+    "Google Trends live Explore UI",
+    "Google Trends CSV downloads",
+    "Live website",
+    "Local service content and analytics documentation"
+  ],
+  "method": {
+    "search_type": "Web Search",
+    "main_queries": [
+      "\"API integration\"",
+      "\"workflow automation\"",
+      "\"code review\""
+    ],
+    "main_category": "Computers & Electronics (5)",
+    "periods": [
+      "past 5 years",
+      "past 12 months",
+      "past 90 days"
+    ],
+    "country_checks": [
+      "Worldwide",
+      "Sweden",
+      "United Kingdom",
+      "United States"
+    ],
+    "geographic_comparison": "Single worldwide regional-interest export for workflow automation; every listed country shares one geographic scale",
+    "normalization": "0–100 relative interest; independently normalized requests cannot be compared as absolute volumes",
+    "partial_week_excluded": "2026-09-27",
+    "language_note": "Search terms are language-specific; no Google language filter was applied."
+  },
+  "main_ui_average_indices": {
+    "worldwide_5y": [
+      8,
+      8,
+      5
+    ],
+    "worldwide_12m": [
+      13,
+      29,
+      9
+    ],
+    "worldwide_90d": [
+      6,
+      30,
+      5
+    ],
+    "UK_12m": [
+      5,
+      9,
+      1
+    ],
+    "US_12m": [
+      17,
+      39,
+      13
+    ],
+    "Sweden_English_12m": [
+      0,
+      3,
+      1
+    ]
+  },
+  "matched_summer_weekly_means": {
+    "2025": {
+      "weeks": 12,
+      "first_week": "2025-07-06",
+      "last_week": "2025-09-21",
+      "means": [
+        10.75,
+        8.917,
+        6.833
+      ]
+    },
+    "2026": {
+      "weeks": 12,
+      "first_week": "2026-07-05",
+      "last_week": "2026-09-20",
+      "means": [
+        10.417,
+        52.75,
+        8.833
+      ]
+    }
+  },
+  "relative_workflow_automation_country_indices": {
+    "Storbritannien": "21",
+    "USA": "20",
+    "Kanada": "14",
+    "Irland": "14",
+    "Australien": "9",
+    "Tyskland": "9",
+    "Nederländerna": "8",
+    "Sverige": "4"
+  },
+  "exploratory_buyer_average_indices": {
+    "queries": [
+      "\"API integration services\"",
+      "\"automation consultant\"",
+      "\"code review services\""
+    ],
+    "category": "All categories",
+    "worldwide_5y": [
+      2,
+      11,
+      0
+    ],
+    "worldwide_12m": [
+      6,
+      35,
+      0
+    ],
+    "worldwide_90d": [
+      1,
+      23,
+      0
+    ],
+    "caution": "Automation consultant also includes industrial automation. Short buyer phrases are sparse and noisy."
+  },
+  "swedish_service_average_indices": {
+    "queries": [
+      "systemintegration",
+      "automatisering",
+      "kodgranskning"
+    ],
+    "Sweden_12m_all_categories": [
+      2,
+      4,
+      0
+    ],
+    "Sweden_12m_computers_electronics": [
+      0,
+      2,
+      0
+    ],
+    "caution": "Sparse, mostly zero observations; automatisering also returns iPhone-related searches. No reliable language preference or demand forecast."
+  },
+  "emerging_buyer_average_indices": {
+    "queries": [
+      "\"AI automation consultant\"",
+      "\"n8n consultant\"",
+      "\"Lovable developer\""
+    ],
+    "worldwide_12m_all_categories": [
+      38,
+      0,
+      1
+    ],
+    "worldwide_12m_computers_electronics": null,
+    "caution": "Insufficient data in technology category. Category-sensitive signal; treat as a test, not proven customer demand."
+  },
+  "key_findings": [
+    "Workflow automation leads the filtered global service comparison in 12-month and 90-day windows, and leads in US and UK country checks.",
+    "Matched summer weeks show roughly 5.9x workflow automation relative search interest versus 2025; API integration is approximately flat.",
+    "English workflow automation regional interest indices: UK 21, US 20, Canada 14, Germany 9, Netherlands 8, Sweden 4. These are search shares, not market size or clients.",
+    "Broad Swedish role terms attract education/job searches. Swedish service terms and English buyer phrases in Sweden are sparse.",
+    "Existing site has separate bilingual integration, app improvement and code review pages; older cached assertion that these were missing is superseded.",
+    "User clarified that Trafikverket work was primarily in K2; this supports process/workflow automation positioning."
+  ],
+  "issues": [
+    "Related-query results include clearly irrelevant terms; excluded those from decisions.",
+    "No private Search Console, keyword volume, competition, conversion or revenue data were used."
+  ],
+  "recommendations": [
+    "First test English workflow automation service positioning plus a Swedish counterpart.",
+    "Strengthen existing bilingual API integration pages using the KYC/Salesforce work at Trustly.",
+    "Test an AI-built app review/fix offer as a bounded experiment, without claiming platform expertise not demonstrated.",
+    "Measure qualified inquiries, agreed scopes and won projects; establish a baseline before growth targets."
+  ],
+  "tool_limitations": [
+    "Google Trends sampling, low-volume suppression, noise and rolling dates limit reproducibility.",
+    "No defensible client count, budget, rankability or seasonality estimate from Trends.",
+    "The custom Analytics Engine events do not attribute organic sources or individual visitor journeys."
+  ],
+  "evidence_files": [
+    "docs/research/google-trends-2026-10-01/global-services-12-months.csv",
+    "docs/research/google-trends-2026-10-01/global-services-5-years.csv",
+    "docs/research/google-trends-2026-10-01/workflow-automation-by-country-12-months.csv"
+  ],
+  "experience_clarification": {
+    "date": "2026-10-01",
+    "source": "Direct user clarification",
+    "Trafikverket": "Work was primarily in K2, a process/workflow automation framework.",
+    "positioning": "Use K2 work as evidence for process and workflow automation; use Trustly KYC/Salesforce work for the integration offer.",
+    "correction": "Earlier SOAP/XML emphasis overstated the role of custom integration work in the Trafikverket assignment."
+  }
+}

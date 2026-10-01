@@ -68,6 +68,7 @@
     }
   ],
   "experience": "Jag har arbetat med React-appar och backendtjänster för en plattform för kliniska studier, frontendplattform och betalflöden på Trustly samt byggt och underhållit en portal för ändringsärenden som ensam utvecklare. Exemplen kommer från anställningar och konsultuppdrag.",
+  "contactCta": "Beskriv ditt behov",
   "contactIntro": "Berätta om en ändring du vill göra. Beskriv nuläge, önskat resultat och eventuell tidsgräns.",
   "contactPlaceholder": "Vad behöver ändras? Vad händer idag? Vilken applikation eller teknik gäller det, och finns det en tidsgräns?"
 }
