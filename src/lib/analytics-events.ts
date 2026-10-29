@@ -10,6 +10,7 @@ export const EVENT_TARGETS = {
   email_click: ['contact'],
   form_start: ['contact'],
   profile_click: ['linkedin', 'github'],
+  theme_toggle: ['light', 'dark'],
 } as const;
 
 export type BrowserEvent = {

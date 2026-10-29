@@ -38,6 +38,38 @@ test('bounds streamed body size even without a Content-Length header', async () 
   assert.deepEqual(points, []);
 });
 
+test('theme ingestion accepts only light and dark selections on published localized routes', async () => {
+  const { points, env } = collector();
+  for (const [locale, path] of [['en', '/'], ['sv', '/sv/tjanster/kodgranskning/']]) {
+    for (const target of ['light', 'dark']) {
+      const body = { event: 'theme_toggle', target, locale, path };
+      assert.equal((await onRequest({ request: makeRequest(body), env })).status, 204);
+      assert.deepEqual(points.at(-1)?.blobs, ['1', 'theme_toggle', locale, path, target]);
+    }
+  }
+  for (const target of ['system', 'unknown', 'contact']) {
+    assert.equal((await onRequest({ request: makeRequest({ ...event, event: 'theme_toggle', target }), env })).status, 400);
+  }
+  assert.equal(points.length, 4);
+});
+
+test('report includes theme selections across pages with language filtering', () => {
+  const base = { day: '2026-10-29', event: 'theme_toggle' };
+  const rows = [
+    { ...base, target: 'dark', locale: 'en', path: '/', count: '3' },
+    { ...base, target: 'dark', locale: 'en', path: '/services/code-review/', count: '2' },
+    { ...base, target: 'dark', locale: 'sv', path: '/sv/', count: '4' },
+    { ...base, target: 'light', locale: 'sv', path: '/sv/tjanster/kodgranskning/', count: '1' },
+    { ...base, target: 'system', locale: 'en', path: '/', count: '100' },
+  ];
+  const report = renderReport(rows, { days: 30, locale: null });
+  assert.match(report, /Theme toggle usage/);
+  assert.match(report, /dark \| 9 \| 5 \| 4/);
+  assert.match(report, /light \| 1 \| 0 \| 1/);
+  assert.match(renderReport(rows, { days: 7, locale: 'en' }), /dark \| 5 \| 5 \| 0/);
+  assert.match(renderReport([], { days: 7, locale: null }), /light \| 0 \| 0 \| 0/);
+});
+
 test('rejects other origins, non-JSON, and unsupported methods', async () => {
   const { points, env } = collector();
   for (const headers of [{ Origin: 'https://elsewhere.example' }, { Origin: '' }, { 'Sec-Fetch-Site': 'cross-site' }] as Record<string, string>[]) {

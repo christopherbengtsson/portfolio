@@ -6,9 +6,9 @@ import { URL } from "node:url";
 import ts from "typescript";
 import * as events from "../src/lib/analytics-events.ts";
 
-function loadModule<T>(path: string, globals: Record<string, unknown>, imports: Record<string, unknown>): T {
+function loadModule<T>(path: string, globals: Record<string, unknown>, imports: Record<string, unknown>, source = readFileSync(new URL(path, import.meta.url), "utf8")): T {
   const code = ts.transpileModule(
-    readFileSync(new URL(path, import.meta.url), "utf8"),
+    source,
     {
       compilerOptions: {
         module: ts.ModuleKind.CommonJS,
@@ -128,6 +128,70 @@ function client({
   );
   return { api, form, document, headings, observers, bodies, fallback };
 }
+
+test('theme selections use fixed targets and count once per selected theme per page load', async () => {
+  for (const [locale, path] of [['en', '/'], ['sv', '/sv/tjanster/kodgranskning/']]) {
+    const { api, bodies } = client({ locale, path });
+    for (const theme of ['dark', 'light', 'dark', 'light', 'unknown']) {
+      api.AnalyticsUtil.trackInteraction('theme_toggle', theme);
+    }
+    const payloads = await Promise.all(bodies.map(async (body) => JSON.parse(await body.text())));
+    assert.deepEqual(payloads, ['dark', 'light'].map((target) => ({ event: 'theme_toggle', target, locale, path })));
+  }
+  for (const options of [{ origin: 'http://localhost:4321' }, { origin: 'https://preview.pages.dev' }, { path: '/privacy/' }]) {
+    const { api, bodies } = client(options);
+    api.AnalyticsUtil.trackInteraction('theme_toggle', 'dark');
+    assert.equal(bodies.length, 0);
+  }
+});
+
+test('theme tracking runs on lamp commits, never initial, system or cross-tab theme updates', async () => {
+  const layout = readFileSync(new URL('../src/layouts/SiteLayout.astro', import.meta.url), 'utf8');
+  const script = layout.match(/    <script>\n([\s\S]*?)    <\/script>/)?.[1];
+  assert.ok(script);
+  for (const storageBlocked of [false, true]) {
+    const { api, bodies } = client();
+    const root = { dataset: { theme: 'light' } };
+    const button = { hidden: true, setAttribute() {} };
+    const media = Object.assign(new EventTarget(), { matches: false });
+    const window = new EventTarget();
+    const lamp = { commit(_theme: string): void { throw new Error('Lamp not initialized'); } };
+    loadModule('../src/layouts/SiteLayout.astro', {
+      document: { documentElement: root, querySelector: () => button },
+      window,
+      matchMedia: () => media,
+      localStorage: {
+        getItem() {
+          if (storageBlocked) throw new Error('Storage blocked');
+          return 'dark';
+        },
+        setItem() { if (storageBlocked) throw new Error('Storage blocked'); },
+      },
+    }, {
+      '../util/LampMotionUtil': {
+        LampMotionUtil: { initLampMotion(_button: unknown, _getTheme: unknown, commit: (theme: string) => void) {
+          lamp.commit = commit;
+          return { sync() {} };
+        } },
+      },
+      '../lib/theme-palette': { createThemePalette: () => ({ apply(theme: string) { root.dataset.theme = theme; } }) },
+      '../util/SiteAnimationUtil': { SiteAnimationUtil: { initSiteInteractions() {} } },
+      '../util/AnalyticsUtil': api,
+    }, script);
+    assert.equal(root.dataset.theme, storageBlocked ? 'light' : 'dark');
+    assert.equal(button.hidden, false);
+    const storage = new Event('storage');
+    Object.defineProperties(storage, { key: { value: 'theme' }, newValue: { value: null } });
+    window.dispatchEvent(storage);
+    media.matches = true;
+    media.dispatchEvent(new Event('change'));
+    assert.equal(root.dataset.theme, 'dark');
+    assert.equal(bodies.length, 0);
+    lamp.commit('light');
+    assert.equal(root.dataset.theme, 'light');
+    assert.deepEqual(JSON.parse(await bodies[0].text()), { event: 'theme_toggle', target: 'light', locale: 'en', path: '/' });
+  }
+});
 
 test("client deduplicates each target in memory and separates languages", async () => {
   for (const locale of ["en", "sv"]) {

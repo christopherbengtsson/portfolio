@@ -97,6 +97,8 @@ export function renderReport(rows, { days, locale }) {
     ]),
     table('Contact activity by page', ['Page', 'Contact clicks', 'Email clicks', 'Form starts', 'Successful submission requests'], [...pageTotals].sort(([a], [b]) => a.localeCompare(b)).map(([path, counts]) => [path, ...['contact_click', 'email_click', 'form_start', 'form_success'].map((event) => counts.get(event) || 0)])),
     table('Profile clicks', ['Profile', 'Events'], EVENT_TARGETS.profile_click.map((id) => [id, sum('profile_click', id)])),
+    table('Theme toggle usage', ['Selected theme', 'Events', 'EN', 'SV'], EVENT_TARGETS.theme_toggle.map((id) => [id, sum('theme_toggle', id), sum('theme_toggle', id, 'en'), sum('theme_toggle', id, 'sv')])),
+    'Theme toggle events count explicit selections once per selected theme per page load. Saved preferences and automatic system or cross-tab updates do not count. These counts do not measure unique users or the share of visits that used the toggle.', '',
     'Expansion percentages compare aggregate events and can be affected by blocked requests, sampling, and period boundaries. Web Analytics traffic counts are available separately in Cloudflare.',
   ];
   return sections.join('\n');

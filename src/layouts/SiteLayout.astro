@@ -162,6 +162,7 @@ const json = (value: object) => JSON.stringify(value).replace(/</g, '\\u003c');
           explicit = next;
           try { localStorage.setItem('theme', next); } catch { /* Keep the in-page choice. */ }
           render(next, true);
+          AnalyticsUtil.trackInteraction('theme_toggle', next);
         });
 
         render(explicit ?? (media.matches ? 'dark' : 'light'));
